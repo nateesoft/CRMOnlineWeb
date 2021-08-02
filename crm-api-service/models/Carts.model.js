@@ -51,7 +51,9 @@ module.exports = (db) => {
     logger.debug("findStatusApprove")
     return new Promise(async (resolve, reject) => {
       try {
-        const sql = `select * from ${table_name} where shopping_step='approve' and member_code=? order by cart_no desc;`
+        const sql = `select * from ${table_name} 
+        where shopping_step='approve' 
+        and member_code=? order by cart_no desc;`
         logger.debug(sql)
         const result = await pool.query(sql, [member_code])
         resolve({ status: "Success", data: JSON.stringify(result) })
@@ -66,7 +68,9 @@ module.exports = (db) => {
     logger.debug("findStatusApprove")
     return new Promise(async (resolve, reject) => {
       try {
-        const sql = `select * from ${table_name} where shopping_step!='approve' and member_code=? order by cart_no desc;`
+        const sql = `select * from ${table_name} 
+        where shopping_step!='approve' and member_code=? 
+        order by cart_no desc;`
         logger.debug(sql)
         const result = await pool.query(sql, [member_code])
         resolve({ status: "Success", data: JSON.stringify(result) })
@@ -96,10 +100,11 @@ module.exports = (db) => {
     logger.debug(`searchData: ${key} ${value}`)
     return new Promise(async (resolve, reject) => {
       try {
-        let sql = `select * from ${table_name}`
+        let sql = `select * from ${table_name} `
         if (key !== "") {
-          sql = `${sql} where ${key} like '%${value}%'`
+          sql = `${sql} where ${key} like '%${value}%' `
         }
+        sql = `${sql} order by cart_create_date desc`
         logger.debug(sql)
         const result = await pool.query(sql)
         resolve({ status: "Success", data: JSON.stringify(result) })

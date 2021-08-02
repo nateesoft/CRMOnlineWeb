@@ -41,18 +41,6 @@ export default defineMessages({
     id: `${scope}.headerTableItems`,
     defaultMessage: 'Table List Items',
   },
-  col1ShouldNotEmpty: {
-    id: `${scope}.col1ShouldNotEmpty`,
-    defaultMessage: 'Column1 should not empty',
-  },
-  col2ShouldNotEmpty: {
-    id: `${scope}.col2ShouldNotEmpty`,
-    defaultMessage: 'Column2 should not empty',
-  },
-  col3ShouldNotEmpty: {
-    id: `${scope}.col3ShouldNotEmpty`,
-    defaultMessage: 'Column3 should not empty',
-  },
   col1: {
     id: `${scope}.col1`,
     defaultMessage: 'Cart No',
@@ -63,19 +51,19 @@ export default defineMessages({
   },
   col3: {
     id: `${scope}.col3`,
-    defaultMessage: 'Member',
+    defaultMessage: 'รหัสสมาชิก',
   },
   col4: {
     id: `${scope}.col4`,
-    defaultMessage: 'Item',
+    defaultMessage: 'จำนวนรายการ',
   },
   col5: {
     id: `${scope}.col5`,
-    defaultMessage: 'Amount',
+    defaultMessage: 'ราคา (Amount)',
   },
   col6: {
     id: `${scope}.col6`,
-    defaultMessage: 'Point',
+    defaultMessage: 'คะแนน',
   },
   col7: {
     id: `${scope}.col7`,
@@ -83,7 +71,11 @@ export default defineMessages({
   },
   col8: {
     id: `${scope}.col8`,
-    defaultMessage: 'Active',
+    defaultMessage: 'สถานะรายการ',
+  },
+  col9: {
+    id: `${scope}.col9`,
+    defaultMessage: 'ค่าขนส่งสินค้า',
   },
   btnSave: {
     id: `${scope}.btnSave`,

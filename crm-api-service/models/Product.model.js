@@ -11,12 +11,12 @@ module.exports = (db) => {
     logger.debug(`findById: ${id}`)
     return new Promise(async (resolve, reject) => {
       try {
-        const sql = `select * from ${table_name} where uuid_index=?;`;
-        logger.debug(sql);
+        const sql = `select * from ${table_name} where uuid_index=?;`
+        logger.debug(sql)
         const result = await pool.query(sql, [id])
         resolve({ status: "Success", data: JSON.stringify(result) })
       } catch (err) {
-        logger.error(err);
+        logger.error(err)
         reject({ status: "Error", msg: err.message })
       }
     })
@@ -24,18 +24,18 @@ module.exports = (db) => {
 
   module.findByCode = (code) => {
     logger.debug(`findByCode: ${code}`)
-    if(!code) {
+    if (!code) {
       logger.warn(`code to find is empty!`)
-      return reject({ status: 'Warning', msg: 'code to find is empty!' })
+      return reject({ status: "Warning", msg: "code to find is empty!" })
     }
     return new Promise(async (resolve, reject) => {
       try {
-        const sql = `select * from ${table_name} where code=?;`;
-        logger.debug(sql);
+        const sql = `select * from ${table_name} where code=?;`
+        logger.debug(sql)
         const result = await pool.query(sql, [code])
         resolve({ status: "Success", data: JSON.stringify(result) })
       } catch (err) {
-        logger.error(err);
+        logger.error(err)
         reject({ status: "Error", msg: err.message })
       }
     })
@@ -47,12 +47,12 @@ module.exports = (db) => {
       try {
         const sql = `select *,
         (select in_stock from ${tb_stock_product} sp where sp.product_code=p.code) in_stock 
-        from ${table_name} p;`;
-        logger.debug(sql);
+        from ${table_name} p;`
+        logger.debug(sql)
         const result = await pool.query(sql)
         resolve({ status: "Success", data: JSON.stringify(result) })
       } catch (err) {
-        logger.error(err);
+        logger.error(err)
         reject({ status: "Error", msg: err.message })
       }
     })
@@ -65,12 +65,13 @@ module.exports = (db) => {
         const sql = `select *,
         (select in_stock from ${tb_stock_product} sp where sp.product_code=p.code) in_stock 
         from ${table_name} p 
-        where 1=1 and name like '%${data}%';`;
-        logger.debug(sql);
+        where 1=1 and (name like '%${data}%' 
+        or product_group_code like '%${data}%');`
+        logger.debug(sql)
         const result = await pool.query(sql)
         resolve({ status: "Success", data: JSON.stringify(result) })
       } catch (err) {
-        logger.error(err);
+        logger.error(err)
         reject({ status: "Error", msg: err.message })
       }
     })
@@ -80,12 +81,12 @@ module.exports = (db) => {
     logger.debug(`create: ${params}`)
     return new Promise(async (resolve, reject) => {
       try {
-        const sql = `INSERT INTO ${table_name} SET ?;`;
-        logger.debug(sql);
+        const sql = `INSERT INTO ${table_name} SET ?;`
+        logger.debug(sql)
         const result = await pool.query(sql, params)
         resolve({ status: "Success", data: JSON.stringify(result) })
       } catch (err) {
-        logger.error(err);
+        logger.error(err)
         reject({ status: "Error", msg: err.message })
       }
     })
@@ -95,14 +96,16 @@ module.exports = (db) => {
     logger.debug(`createList: ${headers}`)
     return new Promise(async (resolve, reject) => {
       try {
-        let values = objectArray.map( obj => headers.map( key => obj[key]));
-        let sql = `INSERT INTO ${table_name} (${headers.join(',')}) VALUES ? ON DUPLICATE KEY UPDATE uuid_index=VALUES(uuid_index)`;
-        logger.debug(sql);
-        const result = await pool.query(sql, [values]);
+        let values = objectArray.map((obj) => headers.map((key) => obj[key]))
+        let sql = `INSERT INTO ${table_name} (${headers.join(
+          ","
+        )}) VALUES ? ON DUPLICATE KEY UPDATE uuid_index=VALUES(uuid_index)`
+        logger.debug(sql)
+        const result = await pool.query(sql, [values])
         resolve({ status: "Success", data: JSON.stringify(result) })
       } catch (err) {
-        logger.error(err);
-        reject({ status: 'Error', msg: err.message })
+        logger.error(err)
+        reject({ status: "Error", msg: err.message })
       }
     })
   }
@@ -126,8 +129,8 @@ module.exports = (db) => {
         min_stock=?,
         unit_code_stock=?,
         qty_over_stock=? 
-        WHERE uuid_index=? ;`;
-        logger.debug(sql);
+        WHERE uuid_index=? ;`
+        logger.debug(sql)
         const result = await pool.query(sql, [
           data.code,
           data.name,
@@ -143,11 +146,11 @@ module.exports = (db) => {
           data.min_stock,
           data.unit_code_stock,
           data.qty_over_stock,
-          data.uuid_index,
+          data.uuid_index
         ])
         resolve({ status: "Success", data: JSON.stringify(result) })
       } catch (err) {
-        logger.error(err);
+        logger.error(err)
         reject({ status: "Error", msg: err.message })
       }
     })
@@ -157,11 +160,11 @@ module.exports = (db) => {
     logger.debug(`delete: ${id}`)
     return new Promise(async (resolve, reject) => {
       try {
-        const sql = `DELETE FROM ${table_name} WHERE uuid_index = ?;`;
+        const sql = `DELETE FROM ${table_name} WHERE uuid_index = ?;`
         const result = await pool.query(sql, [id])
         resolve({ status: "Success", data: JSON.stringify(result) })
       } catch (err) {
-        logger.error(err);
+        logger.error(err)
         reject({ status: "Error", msg: err.message })
       }
     })

@@ -143,7 +143,7 @@
   "app.containers.ProfileShipping.btnBack": "ย้อนกลับ",
   "app.containers.ProfileShipping.btnResetForm": "ล้างข้อมูล",
   "app.containers.Shopping.productListTopic": "รายการสินค้าทั้งหมด",
-  "app.containers.Shopping.search": "Search",
+  "app.containers.Shopping.search": "Search product/ group",
   "app.containers.Shopping.notfoundProduct": "ไม่พบข้อมูลสินค้า",
   "app.containers.ProfileEdit.headerEditForm": "แก้ไขข้อมูล",
   "app.containers.ProfileEdit.prefix": "คำนำหน้า",

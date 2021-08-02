@@ -58,7 +58,8 @@ const SubMenu = props => {
     return null;
   }
 
-  const getLayoutCss = title === 'Shopping' ? classes.layoutRelative : classes.layoutFixed;
+  // const getLayoutCss = title === 'Shopping' ? classes.layoutRelative : classes.layoutFixed;
+  const getLayoutCss = title === classes.layoutFixed;
 
   return (
     <BottomNavigation

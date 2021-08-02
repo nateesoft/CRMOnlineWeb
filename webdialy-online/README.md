@@ -12,3 +12,7 @@
 # replace line at 6 into "describe('${component_name} components', () => {"
 # replace line at 8 string_replace "ContentNotFound" to "${component_name}"
 4. replace all line in string_replace "ContentNotFound" to "${compoent_name}"
+
+Start web apps
+http://softcrmpkh.dyndns.org:3000/web-daily-online/?data=d2ViZGFpbHlfMDAx
+http://localhost:3000/?data=d2ViZGFpbHlfMDAx

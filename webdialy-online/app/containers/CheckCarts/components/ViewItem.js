@@ -73,6 +73,7 @@ const ViewItem = props => {
     shopping_step: shoppingStep,
     cart_active: cartActive,
     slip_path: slipPath,
+    total_transport_amt: totalTransportAmt,
   } = props.initialValues;
 
   const loc = window.location.href.split('/');
@@ -142,6 +143,12 @@ const ViewItem = props => {
         </Grid>
         <Grid item xs={8} className={classes.likeText}>
           {cartActive}
+        </Grid>
+        <Grid item xs={4}>
+          <FormattedMessage {...messages.col9} />
+        </Grid>
+        <Grid item xs={8} className={classes.likeText}>
+          {totalTransportAmt}
         </Grid>
       </Grid>
       <Grid container spacing={3}>

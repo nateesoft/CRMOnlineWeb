@@ -67,7 +67,7 @@ module.exports = (db) => {
           where sp.product_code=p.code) in_stock 
           from ${table_name} p 
           inner join ${tb_product_group} pg on p.product_group_code = pg.code 
-          where p.name like '%ก%' or pg.name like '%ก%'`;
+          where p.name like '%${data}%' or pg.name like '%${data}%'`;
         logger.debug(sql)
         const result = await pool.query(sql)
         resolve({ status: "Success", data: JSON.stringify(result) })

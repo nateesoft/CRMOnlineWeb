@@ -135,6 +135,7 @@ const shoppingReducer = (state = initialState, action) =>
         draft.response.message = 'Update cart error!';
         break;
       case constants.SEARCH_PRODUCT:
+        draft.productList = [];
         draft.search.data = action.payload;
         break;
       case constants.SEARCH_PRODUCT_SUCCESS:
@@ -143,6 +144,7 @@ const shoppingReducer = (state = initialState, action) =>
         draft.response.message = 'Search product success';
         break;
       case constants.SEARCH_PRODUCT_ERROR:
+        draft.productList = [];
         draft.response.status = 'Search_Product_Error';
         draft.response.message = 'Search product error!';
         break;

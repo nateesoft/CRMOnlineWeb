@@ -1,6 +1,6 @@
 /*
  *
- * MsProduct reducer
+ * MsProductGroup reducer
  *
  */
 import produce from 'immer';
@@ -14,18 +14,11 @@ export const initialState = {
     uuid_index: '',
     code: '',
     name: '',
-    unit_sale: '',
-    group_code: '',
   },
-  productImportHeaders: [],
-  productImports: [],
   page: 'LIST',
-  img_upload: null,
   status: null,
   message: null,
   currentId: '',
-  product_group: [],
-  stock_list: [],
   response: {
     status: null,
     message: null,
@@ -33,7 +26,7 @@ export const initialState = {
 };
 
 /* eslint-disable default-case, no-param-reassign */
-const msProductReducer = (state = initialState, action) =>
+const msProductGroupReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
       case loginConstants.CHECK_LOGOUT:
@@ -73,7 +66,7 @@ const msProductReducer = (state = initialState, action) =>
         break;
       case constants.CREATE_ITEM:
         draft.data = action.payload;
-        draft.data.uuid_index = v4();
+        draft.data = { ...draft.data, uuid_index: v4() };
         break;
       case constants.CREATE_ITEM_SUCCESS:
         draft.response.status = 'Success';
@@ -105,46 +98,10 @@ const msProductReducer = (state = initialState, action) =>
         draft.response.status = 'Error';
         draft.response.message = 'Delete data error!';
         break;
-      case constants.UPLOAD_IMG:
-        draft.img_upload = action.payload;
-        break;
-      case constants.UPLOAD_IMG_SUCCESS:
-        draft.response.status = 'Upload_Success';
-        draft.response.message = 'Upload file image success';
-        break;
-      case constants.UPLOAD_IMG_ERROR:
-        draft.response.status = 'Upload_Error';
-        draft.response.message = 'Upload file image error!';
-        break;
-      case constants.LOAD_DATA_FROM_FILE:
-        draft.productImports = action.payload;
-        break;
-      case constants.SAVE_DATA_IMPORT:
-        break;
-      case constants.SAVE_DATA_IMPORT_SUCCESS:
-        draft.profile = action.payload;
-        break;
-      case constants.SAVE_DATA_IMPORT_ERROR:
-        break;
       case constants.SET_HEADERS:
         draft.productImportHeaders = action.payload;
-        break;
-      case constants.LOAD_PRODUCT_GROUP_LIST:
-        break;
-      case constants.LOAD_PRODUCT_GROUP_LIST_SUCCESS:
-        draft.product_group = action.payload;
-        break;
-      case constants.LOAD_PRODUCT_GROUP_LIST_ERROR:
-        break;
-      case constants.LOAD_STOCK_LIST:
-        break;
-      case constants.LOAD_STOCK_LIST_SUCCESS:
-        draft.stock_list = action.payload;
-        break;
-      case constants.LOAD_STOCK_LIST_ERROR:
-        draft.stock_list = [];
         break;
     }
   });
 
-export default msProductReducer;
+export default msProductGroupReducer;

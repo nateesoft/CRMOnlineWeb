@@ -37,4 +37,12 @@ export const SAVE_DATA_IMPORT = 'app/MsProduct/SAVE_DATA_IMPORT';
 export const SAVE_DATA_IMPORT_SUCCESS = 'app/MsProduct/SAVE_DATA_IMPORT_SUCCESS';
 export const SAVE_DATA_IMPORT_ERROR = 'app/MsProduct/SAVE_DATA_IMPORT_ERROR';
 
+export const LOAD_PRODUCT_GROUP_LIST = 'app/MsProduct/LOAD_PRODUCT_GROUP_LIST';
+export const LOAD_PRODUCT_GROUP_LIST_SUCCESS = 'app/MsProduct/LOAD_PRODUCT_GROUP_LIST_SUCCESS';
+export const LOAD_PRODUCT_GROUP_LIST_ERROR = 'app/MsProduct/LOAD_PRODUCT_GROUP_LIST_ERROR';
+
+export const LOAD_STOCK_LIST = 'app/MsProduct/LOAD_STOCK_LIST';
+export const LOAD_STOCK_LIST_SUCCESS = 'app/MsProduct/LOAD_STOCK_LIST_SUCCESS';
+export const LOAD_STOCK_LIST_ERROR = 'app/MsProduct/LOAD_STOCK_LIST_ERROR';
+
 export const SET_HEADERS = 'app/MsProduct/SET_HEADERS';

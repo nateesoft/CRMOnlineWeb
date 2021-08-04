@@ -6,6 +6,7 @@ module.exports = (db) => {
   const module = {}
   const table_name = getDB(db, "product")
   const tb_stock_product = getDB(db, "stock_product")
+  const tb_product_group = getDB(db, "product_group")
 
   module.findById = (id) => {
     logger.debug(`findById: ${id}`)
@@ -62,11 +63,11 @@ module.exports = (db) => {
     logger.debug(`search:${data}`)
     return new Promise(async (resolve, reject) => {
       try {
-        const sql = `select *,
-        (select in_stock from ${tb_stock_product} sp where sp.product_code=p.code) in_stock 
-        from ${table_name} p 
-        where 1=1 and (name like '%${data}%' 
-        or product_group_code like '%${data}%');`
+        const sql = `select p.*, (select in_stock from ${tb_stock_product} sp 
+          where sp.product_code=p.code) in_stock 
+          from ${table_name} p 
+          inner join ${tb_product_group} pg on p.product_group_code = pg.code 
+          where p.name like '%ก%' or pg.name like '%ก%'`;
         logger.debug(sql)
         const result = await pool.query(sql)
         resolve({ status: "Success", data: JSON.stringify(result) })

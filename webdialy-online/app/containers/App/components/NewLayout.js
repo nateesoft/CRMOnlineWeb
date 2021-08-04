@@ -16,6 +16,7 @@ import Members from 'containers/Members/Loadable';
 import MsCompany from 'containers/MsCompany/Loadable';
 import MsBranch from 'containers/MsBranch/Loadable';
 import MsProduct from 'containers/MsProduct/Loadable';
+import MsProductGroup from 'containers/MsProductGroup/Loadable';
 import MsStock from 'containers/MsStock/Loadable';
 import MsPromotion from 'containers/MsPromotion/Loadable';
 import MsRole from 'containers/MsRole/Loadable';
@@ -55,6 +56,7 @@ export default function NewLayout() {
       <PrivateRoute path={path.PATH_MS_COMPANY} component={MsCompany} />
       <PrivateRoute path={path.PATH_MS_BRANCH} component={MsBranch} />
       <PrivateRoute path={path.PATH_MS_PRODUCT} component={MsProduct} />
+      <PrivateRoute path={path.PATH_MS_PRODUCT_GROUP} component={MsProductGroup} />
       <PrivateRoute path={path.PATH_MS_STOCK} component={MsStock} />
       <PrivateRoute path={path.PATH_MS_ROLE} component={MsRole} />
       <PrivateRoute path={path.PATH_MS_PROMOTION} component={MsPromotion} />

@@ -278,6 +278,7 @@
   "app.components.MainLayout.menuCompany": "ข้อมูลบริษัท",
   "app.components.MainLayout.menuBranch": "ข้อมูลสาขา",
   "app.components.MainLayout.menuProduct": "ข้อมูลสินค้า",
+  "app.components.MainLayout.menuProductGroup": "ข้อมูลกลุ่มสินค้า",
   "app.components.MainLayout.menuStock": "ข้อมูลคลังสินค้า",
   "app.components.MainLayout.menuPromotion": "ข้อมูลโปรโมชั่น",
   "app.containers.TrackCarts.approve": "อนุมัติ",
@@ -298,5 +299,17 @@
   "app.containers.Members.btnBack": "ย้อนกลับ",
   "app.containers.Members.headerEditItem": "แก้ไขข้อมูลสมาชิก",
   "app.containers.Members.btnSave": "บันทึกข้อมูล",
-  "app.containers.Members.btnReset": "ล้างข้อมูล"
+  "app.containers.Members.btnReset": "ล้างข้อมูล",
+  "app.containers.MsProductGroup.groupCode": "รหัสกลุ่มสินค้า",
+  "app.containers.MsProductGroup.groupName": "ชื่อกลุ่มสินค้า",
+  "app.containers.NotFoundPage.status": "สถานะ",
+  "app.containers.NotFoundPage.detail": "รายละเอียด",
+  "app.containers.NotFoundPage.buttonHome": "กลับหน้าหลัก",
+  "app.containers.MsProductGroup.newItemHeader": "เพิ่มกลุ่มสินค้า",
+  "app.containers.MsProductGroup.headerEditItem": "แก้ไขกลุ่มสินค้า",
+  "app.containers.MsProductGroup.btnSave": "บันทึกข้อมูล",
+  "app.containers.MsProductGroup.btnReset": "ล้างข้อมูล",
+  "app.containers.MsProductGroup.btnBack": "ย้อนกลับ",
+  "app.containers.MsProductGroup.codeShouldNotEmpty": "กรุณาระบุรหัสกลุ่มสินค้า",
+  "app.containers.MsProductGroup.nameShouldNotEmpty": "กรุณาระบุชื่อกลุ่มสินค้า"
 }

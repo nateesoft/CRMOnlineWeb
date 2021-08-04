@@ -61,3 +61,13 @@ export const makeSelectProductImportHeader = () =>
     selectMsProductDomain,
     substate => substate.productImportHeaders,
   );
+export const makeSelectProductGroupList = () =>
+  createSelector(
+    selectMsProductDomain,
+    substate => substate.product_group,
+  );
+export const makeSelectStockList = () =>
+  createSelector(
+    selectMsProductDomain,
+    substate => substate.stock_list,
+  );

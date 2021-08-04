@@ -1,6 +1,6 @@
 /*
  *
- * MsProduct actions
+ * MsProductGroup actions
  *
  */
 
@@ -168,40 +168,6 @@ export function saveDataImportError(payload) {
 export function setHeaders(payload) {
   return {
     type: constants.SET_HEADERS,
-    payload,
-  };
-}
-export function loadProductGroupList() {
-  return {
-    type: constants.LOAD_PRODUCT_GROUP_LIST,
-  };
-}
-export function loadProductGroupListSuccess(payload) {
-  return {
-    type: constants.LOAD_PRODUCT_GROUP_LIST_SUCCESS,
-    payload,
-  };
-}
-export function loadProductGroupListError(payload) {
-  return {
-    type: constants.LOAD_PRODUCT_GROUP_LIST_ERROR,
-    payload,
-  };
-}
-export function loadStockList() {
-  return {
-    type: constants.LOAD_STOCK_LIST,
-  };
-}
-export function loadStockListSuccess(payload) {
-  return {
-    type: constants.LOAD_STOCK_LIST_SUCCESS,
-    payload,
-  };
-}
-export function loadStockListError(payload) {
-  return {
-    type: constants.LOAD_STOCK_LIST_ERROR,
     payload,
   };
 }

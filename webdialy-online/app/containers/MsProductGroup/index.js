@@ -1,6 +1,6 @@
 /**
  *
- * MsProduct
+ * MsProductGroup
  *
  */
 
@@ -29,18 +29,17 @@ const useStyles = makeStyles(() => ({
 }));
 
 export function MsProduct(props) {
-  useInjectReducer({ key: 'msProduct', reducer });
-  useInjectSaga({ key: 'msProduct', saga });
+  useInjectReducer({ key: 'msProductGroup', reducer });
+  useInjectSaga({ key: 'msProductGroup', saga });
 
   const classes = useStyles();
 
   useEffect(() => {
     props.onInitLoad();
-    props.loadProductGroupList();
   }, []);
 
   return (
-    <MainLayoutApp title="Product" {...props}>
+    <MainLayoutApp title="ProductGroup" {...props}>
       <Grid container spacing={1} className={classes.root}>
         <MainComponents {...props} />
       </Grid>
@@ -55,7 +54,6 @@ MsProduct.propTypes = {
   onCreateItem: PropTypes.func,
   onUpdateItem: PropTypes.func,
   onDeleteItem: PropTypes.func,
-  loadProductGroupList: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -65,9 +63,6 @@ const mapStateToProps = createStructuredSelector({
   response: selectors.makeSelectResponse(),
   leftMenu: appSelectors.makeSelectLeftMenu(),
   profile: mainSelectors.makeSelectProfile(),
-  productImports: selectors.makeSelectProductImport(),
-  groupList: selectors.makeSelectProductGroupList(),
-  stockList: selectors.makeSelectStockList(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -78,11 +73,7 @@ function mapDispatchToProps(dispatch) {
     onDeleteItem: id => dispatch(actions.deleteItem(id)),
     onChangePage: pageAt => dispatch(actions.changePage(pageAt)),
     onLoadEdit: item => dispatch(actions.loadEdit(item)),
-    onUploadImage: file => dispatch(actions.uploadImage(file)),
-    onLoadDataFromFile: data => dispatch(actions.loadDataFromFile(data)),
-    onSaveDataImport: () => dispatch(actions.saveDataImport()),
     onSetHeaders: headers => dispatch(actions.setHeaders(headers)),
-    loadProductGroupList: () => dispatch(actions.loadProductGroupList()),
   };
 }
 

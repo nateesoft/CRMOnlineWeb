@@ -279,6 +279,7 @@
   "app.components.MainLayout.menuCompany": "Company",
   "app.components.MainLayout.menuBranch": "Branch",
   "app.components.MainLayout.menuProduct": "Product",
+  "app.components.MainLayout.menuProductGroup": "Product Group",
   "app.components.MainLayout.menuStock": "Stock",
   "app.components.MainLayout.menuPromotion": "Promotion",
   "app.containers.TrackCarts.approve": "Approve",
@@ -298,5 +299,17 @@
   "app.containers.Members.btnBack": "Back",
   "app.containers.Members.headerEditItem": "Edit Member",
   "app.containers.Members.btnSave": "Update Data",
-  "app.containers.Members.btnReset": "Reset Data"
+  "app.containers.Members.btnReset": "Reset Data",
+  "app.containers.MsProductGroup.groupCode": "Group Code",
+  "app.containers.MsProductGroup.groupName": "Group Name",
+  "app.containers.NotFoundPage.status": "สถานะ",
+  "app.containers.NotFoundPage.detail": "รายละเอียด",
+  "app.containers.NotFoundPage.buttonHome": "กลับหน้าหลัก",
+  "app.containers.MsProductGroup.newItemHeader": "New product group",
+  "app.containers.MsProductGroup.headerEditItem": "Edit data",
+  "app.containers.MsProductGroup.btnSave": "Save",
+  "app.containers.MsProductGroup.btnReset": "Reset",
+  "app.containers.MsProductGroup.btnBack": "Back",
+  "app.containers.MsProductGroup.codeShouldNotEmpty": "กรุณาระบุรหัสกลุ่มสินค้า",
+  "app.containers.MsProductGroup.nameShouldNotEmpty": "กรุณาระบุชื่อกลุ่มสินค้า"
 }

@@ -138,6 +138,42 @@ export function* uploadFile() {
   }
 }
 
+export function* loadProductGroupList() {
+  try {
+    const requestURL = `${appConstants.publicPath}/api/product_group`;
+    const database = getCookie('database');
+    const response = yield call(request, requestURL, {
+      database,
+      method: 'GET',
+    });
+    if (response.data) {
+      yield put(actions.loadProductGroupListSuccess(response.data));
+    } else {
+      yield put(actions.loadProductGroupListError('Not found data'));
+    }
+  } catch (err) {
+    yield put(actions.loadProductGroupListError(err));
+  }
+}
+
+export function* loadStockList() {
+  try {
+    const requestURL = `${appConstants.publicPath}/api/stock`;
+    const database = getCookie('database');
+    const response = yield call(request, requestURL, {
+      database,
+      method: 'GET',
+    });
+    if (response.data) {
+      yield put(actions.loadStockListSuccess(response.data));
+    } else {
+      yield put(actions.loadStockListError('Not found data'));
+    }
+  } catch (err) {
+    yield put(actions.loadStockListError(err));
+  }
+}
+
 export default function* msProductSaga() {
   yield takeEvery(constants.INIT_LOAD, initLoad);
   yield takeEvery(constants.CREATE_ITEM, saveData);
@@ -145,4 +181,6 @@ export default function* msProductSaga() {
   yield takeEvery(constants.DELETE_ITEM, deleteData);
   yield takeEvery(constants.UPLOAD_IMG, uploadFile);
   yield takeEvery(constants.SAVE_DATA_IMPORT, saveDataImport);
+  yield takeEvery(constants.INIT_LOAD, loadProductGroupList);
+  yield takeEvery(constants.INIT_LOAD, loadStockList);
 }

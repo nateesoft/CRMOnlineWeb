@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Button, Grid, Paper, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, change } from 'redux-form';
 import { connect } from 'react-redux';
 import SweetAlert from 'sweetalert2-react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper } from '@material-ui/core';
 import RenderField from 'components/RenderField';
 import LabelTopic from 'components/LabelTopic';
 import messages from './messages';
@@ -37,13 +35,19 @@ const useStyles = makeStyles(theme => ({
     margin: '10px',
     background: '#aaa',
   },
+  formControl: {
+    minWidth: '100%',
+  },
 }));
 
 const EditItem = props => {
   const classes = useStyles();
-  const { handleSubmit, pristine, reset, submitting, response } = props;
+  const { handleSubmit, pristine, reset, submitting, response, groupList, stockList } = props;
   const [file, setFile] = useState(null);
-  const { img_path: imgPath } = props.initialValues;
+  const { img_path: imgPath, product_group_code, stock_code } = props.initialValues;
+
+  const [productGroupCode, setProductGroupCode] = useState(product_group_code);
+  const [stockCode, setStockCode] = useState(stock_code);
 
   const loc = window.location.href.split('/');
   const apiServiceEndpoint = `${loc[0]}//${loc[2]}`.replace('3000', '5000');
@@ -67,6 +71,16 @@ const EditItem = props => {
 
   const onUploadImageFile = () => {
     props.onUploadImage(file);
+  };
+
+  const handleProductGroup = group => {
+    change('product_group_code:', group);
+    setProductGroupCode(group);
+  };
+
+  const handleStockCode = code => {
+    change('stock_code:', code);
+    setStockCode(code);
   };
 
   return (
@@ -120,15 +134,25 @@ const EditItem = props => {
               required
             />
           </Grid>
-          <Grid item xs={6} md={2}>
-            <Field
-              name="product_group_code"
-              component={RenderField}
-              type="text"
-              margin="normal"
-              label={<FormattedMessage {...messages.groupCode} />}
-              required
-            />
+          <Grid item xs={6} md={2} style={{ marginTop: 16 }}>
+            <FormControl variant="filled" className={classes.formControl}>
+              <InputLabel htmlFor="product_group_code">
+                <FormattedMessage {...messages.groupCode} />
+              </InputLabel>
+              <Select
+                id="product_group_code"
+                value={productGroupCode}
+                onChange={e => handleProductGroup(e.target.value)}
+              >
+                <MenuItem value="">
+                  <em>--- เลือกรายการ ---</em>
+                </MenuItem>
+                {groupList &&
+                  groupList.map((item, index) => (
+                    <MenuItem value={item.code}>{item.name}</MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={6} md={3}>
             <Field
@@ -140,15 +164,25 @@ const EditItem = props => {
               required
             />
           </Grid>
-          <Grid item xs={6} md={3}>
-            <Field
-              name="stock_code"
-              component={RenderField}
-              type="text"
-              margin="normal"
-              label={<FormattedMessage {...messages.stkCode} />}
-              required
-            />
+          <Grid item xs={6} md={3} style={{ marginTop: 16 }}>
+            <FormControl variant="filled" className={classes.formControl}>
+              <InputLabel htmlFor="stock_code">
+                <FormattedMessage {...messages.stkCode} />
+              </InputLabel>
+              <Select
+                id="stock_code"
+                value={stockCode}
+                onChange={e => handleStockCode(e.target.value)}
+              >
+                <MenuItem value="">
+                  <em>--- เลือกรายการ ---</em>
+                </MenuItem>
+                {stockList &&
+                  stockList.map((item, index) => (
+                    <MenuItem value={item.code}>{item.name}</MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={6} md={2}>
             <Field
@@ -286,6 +320,8 @@ EditItem.propTypes = {
   onInitLoad: PropTypes.func,
   onChangePage: PropTypes.func,
   onUploadImage: PropTypes.func,
+  groupList: PropTypes.array,
+  stockList: PropTypes.array,
 };
 
 const validate = formValues => {

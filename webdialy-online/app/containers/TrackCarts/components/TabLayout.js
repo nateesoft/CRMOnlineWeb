@@ -64,7 +64,15 @@ export default function TabLayout(props) {
   return (
     <React.Fragment>
       <AppBar position="static" color="default">
-        <Tabs value={value} onChange={handleChange} indicatorColor="primary" textColor="primary">
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          indicatorColor="primary"
+          textColor="primary"
+          variant="scrollable"
+          scrollButtons="auto"
+          aria-label="scrollable auto tabs example"
+        >
           <Tab label="รายการสินค้าในตะกร้า" {...a11yProps(0)} />
           <Tab label="รออนุมัติ" {...a11yProps(1)} />
           <Tab label="ไม่ผ่านการอนุมัติ" {...a11yProps(2)} />

@@ -2,16 +2,12 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Divider from '@material-ui/core/Divider';
 import { createStructuredSelector } from 'reselect';
-import { Field, reduxForm, change } from 'redux-form';
+import { change, Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
-import { Button } from '@material-ui/core';
-import MapMarker from 'containers/GoogleMap/components/MapMarker';
 import RenderField from 'components/RenderField';
 import InputSelectOptions from 'components/InputSelectOptions';
 import * as selectors from '../selectors';
@@ -38,17 +34,7 @@ const useStyles = makeStyles(theme => ({
 
 const AddressForm = props => {
   const classes = useStyles();
-  const {
-    handleSubmit,
-    pristine,
-    reset,
-    submitting,
-    dispatch,
-    initialValues,
-    response,
-    branchList,
-  } = props;
-  const { map_latitude: mapLatitude, map_longitude: mapLongitude } = initialValues;
+  const { handleSubmit, response, branchList, initialValues } = props;
 
   useEffect(() => {
     props.initLoadMemberShipping();
@@ -62,9 +48,13 @@ const AddressForm = props => {
     });
   };
 
-  const handlePlace = (latitude, longitude) => {
-    dispatch(change('addressForm', 'map_latitude', latitude));
-    dispatch(change('addressForm', 'map_longitude', longitude));
+  const updateBranchShipping = e => {
+    props.onUpdateAddressForm({
+      ...initialValues,
+      branch_shipping: e.target.value,
+      address_type: 'Shipping',
+      member_prefix: '',
+    });
   };
 
   return (
@@ -78,6 +68,7 @@ const AddressForm = props => {
             <Field
               name="branch_shipping"
               component={InputSelectOptions}
+              onChange={updateBranchShipping}
               type="text"
               margin="normal"
               label=""
@@ -105,7 +96,7 @@ const AddressForm = props => {
               type="text"
               margin="normal"
               label={<FormattedMessage {...messages.memberName} />}
-              required
+              disabled
             />
           </Grid>
           <Grid item xs={12} sm={8}>
@@ -115,7 +106,7 @@ const AddressForm = props => {
               type="text"
               margin="normal"
               label={<FormattedMessage {...messages.memberLastname} />}
-              required
+              disabled
             />
           </Grid>
           <Grid item xs={12}>
@@ -125,7 +116,7 @@ const AddressForm = props => {
               type="text"
               margin="normal"
               label={<FormattedMessage {...messages.address1} />}
-              required
+              disabled
             />
           </Grid>
           <Grid item xs={12}>
@@ -135,6 +126,7 @@ const AddressForm = props => {
               type="text"
               margin="normal"
               label={<FormattedMessage {...messages.address2} />}
+              disabled
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -144,7 +136,7 @@ const AddressForm = props => {
               type="text"
               margin="normal"
               label={<FormattedMessage {...messages.subDistrict} />}
-              required
+              disabled
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -154,7 +146,7 @@ const AddressForm = props => {
               type="text"
               margin="normal"
               label={<FormattedMessage {...messages.district} />}
-              required
+              disabled
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -164,7 +156,7 @@ const AddressForm = props => {
               type="text"
               margin="normal"
               label={<FormattedMessage {...messages.province} />}
-              required
+              disabled
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -174,63 +166,12 @@ const AddressForm = props => {
               type="text"
               margin="normal"
               label={<FormattedMessage {...messages.postcode} />}
-              required
+              disabled
             />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Field
-              name="map_latitude"
-              component={RenderField}
-              type="text"
-              margin="normal"
-              label={<FormattedMessage {...messages.latitude} />}
-              required
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Field
-              name="map_longitude"
-              component={RenderField}
-              type="text"
-              margin="normal"
-              label={<FormattedMessage {...messages.longitude} />}
-              required
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <FormControlLabel
-              control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-              label={<FormattedMessage {...messages.useForShpping} />}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              disabled={pristine || submitting}
-              className={classes.buttonRightSpace}
-            >
-              <FormattedMessage {...messages.btnFormUpdateButton} />
-            </Button>
-            <Button variant="contained" disabled={pristine || submitting} onClick={reset}>
-              <FormattedMessage {...messages.btnFormResetButton} />
-            </Button>
           </Grid>
           {response && response.status === 'Success_Update_Address' && (
             <Grid item>
               <span className={classes.greenText}>{response.message}</span>
-            </Grid>
-          )}
-          {mapLatitude && mapLongitude && (
-            <Grid item xs={12}>
-              <div align="center" className={classes.divButtom}>
-                <MapMarker
-                  lat={parseFloat(mapLatitude)}
-                  lng={parseFloat(mapLongitude)}
-                  onExit={handlePlace}
-                />
-              </div>
             </Grid>
           )}
         </Grid>

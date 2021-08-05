@@ -131,7 +131,7 @@ const EditForm = props => {
       </Typography>
       <form className={classes.form} onSubmit={handleSubmit(onValidated)}>
         <Grid container spacing={1}>
-          <Grid item xs={12} lg={3}>
+          <Grid item xs={2} lg={3}>
             <div className={classes.divPrefix}>
               <Field
                 name="prefix"
@@ -147,7 +147,7 @@ const EditForm = props => {
               </Field>
             </div>
           </Grid>
-          <Grid item xs={12} lg={3}>
+          <Grid item xs={4} lg={3}>
             <Field
               name="first_name"
               component={RenderField}
@@ -157,7 +157,7 @@ const EditForm = props => {
               required
             />
           </Grid>
-          <Grid item xs={12} lg={6}>
+          <Grid item xs={6} lg={6}>
             <Field
               name="last_name"
               component={RenderField}
@@ -236,7 +236,7 @@ const EditForm = props => {
           </Grid>
         </Grid>
         <Grid container spacing={1}>
-          <Grid item xs={12} md={3}>
+          <Grid item xs={4} md={3}>
             <Button
               type="submit"
               fullWidth
@@ -247,12 +247,12 @@ const EditForm = props => {
               <FormattedMessage {...messages.btnSaveProfile} />
             </Button>
           </Grid>
-          <Grid item xs={12} md={3}>
+          <Grid item xs={4} md={3}>
             <Button fullWidth variant="contained" disabled={pristine || submitting} onClick={reset}>
               <FormattedMessage {...messages.btnResetForm} />
             </Button>
           </Grid>
-          <Grid item xs={12} md={3}>
+          <Grid item xs={4} md={3}>
             <ButtonLink to={`${appConstants.publicPath}/profile`}>
               <Button fullWidth variant="contained" onClick={reset}>
                 <FormattedMessage {...messages.btnBack} />

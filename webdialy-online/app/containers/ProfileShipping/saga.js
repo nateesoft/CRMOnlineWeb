@@ -1,5 +1,7 @@
 import { put, select, takeEvery, call } from 'redux-saga/effects';
 import { getCookie } from 'react-use-cookie';
+import { v4 } from 'uuid';
+
 import request from 'utils/request';
 import * as appConstants from 'containers/App/constants';
 import * as mainSelectors from 'containers/MainLayoutApp/selectors';
@@ -21,7 +23,13 @@ export function* initLoad() {
         if (response.data.length > 0) {
           yield put(actions.initLoadSuccess(response.data[0]));
         } else {
-          yield put(actions.initLoadSuccess({}));
+          yield put(
+            actions.initLoadSuccess({
+              member_code: memberCode,
+              create: true,
+              uuid_index: v4(),
+            }),
+          );
         }
       } else {
         yield put(actions.initLoadError(response.msg));

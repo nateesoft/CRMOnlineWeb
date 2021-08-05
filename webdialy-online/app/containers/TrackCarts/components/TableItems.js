@@ -99,6 +99,7 @@ export default function TableItems(props) {
     profile: PropTypes.object,
     onSearch: PropTypes.func,
     tabFilter: PropTypes.string,
+    title: PropTypes.string,
   };
 
   const handleRefreshPage = () => {
@@ -126,7 +127,7 @@ export default function TableItems(props) {
     <React.Fragment>
       <TableContainer component={Paper} className={classes.container}>
         <Typography color="textSecondary" variant="h6">
-          <FormattedMessage {...messages.headerTableItems} />
+          {props.title}
         </Typography>
         <div className={classes.wrapButtonAction}>
           <Button
@@ -164,21 +165,30 @@ export default function TableItems(props) {
                 <TableCell align="center">
                   <FormattedMessage {...messages.member} />
                 </TableCell>
-                <TableCell align="center">
-                  <FormattedMessage {...messages.items} />
-                </TableCell>
-                <TableCell align="center">
-                  <FormattedMessage {...messages.amount} />
-                </TableCell>
-                <TableCell align="center">
-                  <FormattedMessage {...messages.point} />
-                </TableCell>
-                <TableCell align="center">
-                  <FormattedMessage {...messages.step} />
-                </TableCell>
-                <TableCell align="center">
-                  <FormattedMessage {...messages.active} />
-                </TableCell>
+                {tabFilter !== 'not_approve' && (
+                  <React.Fragment>
+                    <TableCell align="center">
+                      <FormattedMessage {...messages.items} />
+                    </TableCell>
+                    <TableCell align="center">
+                      <FormattedMessage {...messages.amount} />
+                    </TableCell>
+                    <TableCell align="center">
+                      <FormattedMessage {...messages.point} />
+                    </TableCell>
+                    <TableCell align="center">
+                      <FormattedMessage {...messages.step} />
+                    </TableCell>
+                    <TableCell align="center">
+                      <FormattedMessage {...messages.active} />
+                    </TableCell>
+                  </React.Fragment>
+                )}
+                {tabFilter === 'not_approve' && (
+                  <TableCell align="center">
+                    <FormattedMessage {...messages.reason_not_approve} />
+                  </TableCell>
+                )}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -209,42 +219,51 @@ export default function TableItems(props) {
                       </TableCell>
                       <TableCell align="center">{item.cart_create_date}</TableCell>
                       <TableCell align="center">{item.member_code}</TableCell>
-                      <TableCell align="center">{item.total_item}</TableCell>
-                      <TableCell align="center">{item.total_amount}</TableCell>
-                      <TableCell align="center">{item.total_point}</TableCell>
-                      <TableCell align="center">
-                        <FormattedMessage id={`${scope}.${item.shopping_step}`} />
-                      </TableCell>
-                      <TableCell align="center">{item.cart_active}</TableCell>
-                      {item.shopping_step === 'approve' && (
-                        <TableCell align="center">
-                          <Button
-                            variant="outlined"
-                            color="primary"
-                            onClick={() => handleClickOpen(item.cart_no)}
-                          >
-                            Show QRCode
-                          </Button>
-                        </TableCell>
-                      )}
-                      {showCommand && (
-                        <TableCell align="center">
-                          <Grid container spacing={1} justify="center">
-                            <Grid item>
-                              <Button variant="outlined" onClick={() => onViewItem(item)}>
-                                View
-                              </Button>
-                            </Grid>
-                            <Grid item>
+                      {tabFilter !== 'not_approve' && (
+                        <React.Fragment>
+                          <TableCell align="center">{item.total_item}</TableCell>
+                          <TableCell align="center">{item.total_amount}</TableCell>
+                          <TableCell align="center">{item.total_point}</TableCell>
+                          <TableCell align="center">
+                            <FormattedMessage id={`${scope}.${item.shopping_step}`} />
+                          </TableCell>
+                          <TableCell align="center">{item.cart_active}</TableCell>
+                          {item.shopping_step === 'approve' && (
+                            <TableCell align="center">
                               <Button
-                                variant="contained"
-                                color="secondary"
-                                onClick={() => handleDelete(item.uuid_index)}
+                                variant="outlined"
+                                color="primary"
+                                onClick={() => handleClickOpen(item.cart_no)}
                               >
-                                Delete
+                                Show QRCode
                               </Button>
-                            </Grid>
-                          </Grid>
+                            </TableCell>
+                          )}
+                          {showCommand && (
+                            <TableCell align="center">
+                              <Grid container spacing={1} justify="center">
+                                <Grid item>
+                                  <Button variant="outlined" onClick={() => onViewItem(item)}>
+                                    View
+                                  </Button>
+                                </Grid>
+                                <Grid item>
+                                  <Button
+                                    variant="contained"
+                                    color="secondary"
+                                    onClick={() => handleDelete(item.uuid_index)}
+                                  >
+                                    Delete
+                                  </Button>
+                                </Grid>
+                              </Grid>
+                            </TableCell>
+                          )}
+                        </React.Fragment>
+                      )}
+                      {tabFilter === 'not_approve' && (
+                        <TableCell align="center" style={{ color: 'red' }}>
+                          {item.emp_reason}
                         </TableCell>
                       )}
                     </TableRow>

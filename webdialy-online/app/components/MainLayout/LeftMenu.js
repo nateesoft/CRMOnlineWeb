@@ -49,7 +49,16 @@ export default function LeftMenu(props) {
 
   useEffect(() => {
     if (
-      ['Database', 'Promotion', 'Roles', 'Branch', 'Company', 'Product', 'Stock'].includes(title)
+      [
+        'Database',
+        'Promotion',
+        'Roles',
+        'Branch',
+        'Company',
+        'Product',
+        'Stock',
+        'ProductGroup',
+      ].includes(title)
     ) {
       setOpen(true);
     }

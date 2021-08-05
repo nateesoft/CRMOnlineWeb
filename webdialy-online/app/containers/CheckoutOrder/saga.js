@@ -69,7 +69,7 @@ export function* loadBranchShipping() {
   }
 }
 
-export function* uploadFile() {
+export function* uploadImage() {
   try {
     const file = yield select(selectors.makeSelectFileUpload());
     const formdata = new FormData();
@@ -308,8 +308,9 @@ export default function* checkoutSaga() {
   yield takeEvery(constants.LOAD_CART, loadCartList);
   yield takeEvery(constants.LOAD_MEMBER_SHIPPING, loadMemberShipping);
   yield takeEvery(constants.LOAD_MEMBER_SHIPPING, loadBranchShipping);
-  yield takeEvery(constants.UPLOAD_IMG, uploadFile);
-  yield takeEvery(constants.CHECK_SLIP, validateSlipUpload);
+  yield takeEvery(constants.UPLOAD_IMG, uploadImage);
+  yield takeEvery(constants.UPLOAD_IMG, validateSlipUpload);
+  yield takeEvery(constants.UPLOAD_IMG, onUpdateSlipPath);
   yield takeEvery(constants.DELETE_ITEM_CART, onDeleteItemCart);
   yield takeEvery(constants.DELETE_ITEM_CART, loadCartList);
   yield takeEvery(constants.UPDATE_ITEM_CART, onUpdateItemCart);
@@ -318,7 +319,6 @@ export default function* checkoutSaga() {
   yield takeEvery(constants.UPDATE_ADDRESS_FORM, onUpdateCartsBranchShipping);
   yield takeEvery(constants.SET_PAYMENT_DATA, onUpdatePaymentForm);
   yield takeEvery(constants.UPDATE_SHOPPING_STEP, onUpdateShoppingStep);
-  yield takeEvery(constants.UPDATE_SLIP_PATH, onUpdateSlipPath);
   yield takeEvery(constants.UPDATE_ADDRESS_FORM, loadBranchLocation);
   yield takeEvery(constants.UPDATE_TRANSPORT_AMT, updateTransportAmt);
   yield takeEvery(constants.UPDATE_TRANSPORT_AMT, loadCartList);

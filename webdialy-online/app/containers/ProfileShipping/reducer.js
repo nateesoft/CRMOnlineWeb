@@ -43,15 +43,7 @@ const profileShippingReducer = (state = initialState, action) =>
         draft.member_code = action.payload;
         break;
       case constants.INIT_LOAD_SUCCESS:
-        if (Object.keys(action.payload).length === 0) {
-          draft.shipping = {
-            ...action.payload,
-            create: true,
-            uuid_index: v4(),
-          };
-        } else {
-          draft.shipping = action.payload;
-        }
+        draft.shipping = action.payload;
         break;
       case constants.INIT_LOAD_ERROR:
         break;
@@ -63,10 +55,6 @@ const profileShippingReducer = (state = initialState, action) =>
         break;
       case constants.EDIT_SHIPPING_ERROR:
         draft.error = action.payload;
-        break;
-      case constants.CHANGE_MAPS_VALUE:
-        draft.shipping.map_latitude = action.payload.map_latitude || 13.752434;
-        draft.shipping.map_longitude = action.payload.map_longitude || 100.494122;
         break;
     }
   });

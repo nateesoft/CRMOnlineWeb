@@ -67,8 +67,9 @@ export default function TabLayout(props) {
         <Tabs value={value} onChange={handleChange} indicatorColor="primary" textColor="primary">
           <Tab label="รายการสินค้าในตะกร้า" {...a11yProps(0)} />
           <Tab label="รออนุมัติ" {...a11yProps(1)} />
-          <Tab label="ระหว่างจัดส่ง" {...a11yProps(2)} />
-          <Tab label="จัดส่งสำเร็จ" {...a11yProps(3)} />
+          <Tab label="ไม่ผ่านการอนุมัติ" {...a11yProps(2)} />
+          <Tab label="ระหว่างจัดส่ง" {...a11yProps(3)} />
+          <Tab label="จัดส่งสำเร็จ" {...a11yProps(4)} />
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -77,16 +78,19 @@ export default function TabLayout(props) {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0}>
-          <TableItems tabFilter="order" {...props} />
+          <TableItems tabFilter="order" title="รายการสินค้าในตะกร้า" {...props} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <TableItems tabFilter="wait_confirm" {...props} />
+          <TableItems tabFilter="wait_confirm" title="รายการรออนุมัติ" {...props} />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <TableItems tabFilter="approve" {...props} />
+          <TableItems tabFilter="not_approve" title="รายการที่ไม่ผ่านการอนุมัติ" {...props} />
         </TabPanel>
         <TabPanel value={value} index={3}>
-          <TableItems tabFilter="finish" {...props} />
+          <TableItems tabFilter="approve" title="รายการที่อยู่ระหว่างจัดส่ง" {...props} />
+        </TabPanel>
+        <TabPanel value={value} index={4}>
+          <TableItems tabFilter="finish" title="รายการที่จัดส่งเรียบร้อยแล้ว" {...props} />
         </TabPanel>
       </SwipeableViews>
     </React.Fragment>

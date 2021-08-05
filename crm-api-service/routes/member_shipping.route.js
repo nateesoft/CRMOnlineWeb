@@ -52,7 +52,6 @@ module.exports = args => {
       const response = await Task(req.headers.database).deleteByMemberCode(
         member_code
       )
-      console.log(response);
       if (response.status === "Success") {
         const response2 = await Task(req.headers.database).create(req.body)
         res

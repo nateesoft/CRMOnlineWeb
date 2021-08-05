@@ -81,6 +81,8 @@ const checkoutReducer = (state = initialState, action) =>
         break;
       case constants.UPLOAD_IMG:
         draft.img_upload = action.payload;
+        draft.slipFileName = action.payload.name;
+        draft.slipPath = action.payload.name;
         break;
       case constants.UPLOAD_IMG_SUCCESS:
         draft.response.status = 'Upload_Success';

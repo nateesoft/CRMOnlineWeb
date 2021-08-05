@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, change } from 'redux-form';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
@@ -110,7 +110,7 @@ const EditForm = props => {
     errorUpdate,
     updateStatus,
     clearData,
-    onChangeMapsValue,
+    dispatch,
   } = props;
 
   const [latitude, setLatitude] = useState(13.752434);
@@ -130,12 +130,8 @@ const EditForm = props => {
   };
 
   const handlePlace = (lat, lng) => {
-    onChangeMapsValue({
-      map_latitude: lat,
-      map_longitude: lng,
-    });
-    setLatitude(lat);
-    setLongitude(lng);
+    dispatch(change('addressForm', 'map_latitude', lat));
+    dispatch(change('addressForm', 'map_longitude', lng));
   };
 
   return (
@@ -153,7 +149,7 @@ const EditForm = props => {
       </Typography>
       <form className={classes.form} onSubmit={handleSubmit(onValidated)}>
         <Grid container spacing={1}>
-          <Grid item xs={12} lg={4}>
+          <Grid item xs={3} lg={4}>
             <div className={classes.divAddressType}>
               <Field
                 id="address_type"
@@ -166,7 +162,7 @@ const EditForm = props => {
               </Field>
             </div>
           </Grid>
-          <Grid item xs={5} lg={5}>
+          <Grid item xs={3} lg={5}>
             <div className={classes.divMemberPrefix}>
               <Field
                 id="member_prefix"
@@ -183,17 +179,17 @@ const EditForm = props => {
               </Field>
             </div>
           </Grid>
-          <Grid item xs={7} lg={4}>
+          <Grid item xs={6} lg={4} style={{ marginTop: -2 }}>
             <Field
               name="member_code"
               component={RenderField}
               type="text"
               margin="normal"
               label={<FormattedMessage {...messages.code} />}
-              required
+              disabled
             />
           </Grid>
-          <Grid item xs={12} lg={4}>
+          <Grid item xs={4} lg={4}>
             <Field
               name="member_name"
               component={RenderField}
@@ -203,7 +199,7 @@ const EditForm = props => {
               required
             />
           </Grid>
-          <Grid item xs={12} lg={4}>
+          <Grid item xs={8} lg={4}>
             <Field
               name="member_lastname"
               component={RenderField}
@@ -307,16 +303,9 @@ const EditForm = props => {
               />
             )}
           </Grid>
-          <Grid item xs={12}>
-            {loadMap && (
-              <div align="center" className={classes.divPosition}>
-                Position: {latitude}, {longitude}
-              </div>
-            )}
-          </Grid>
         </Grid>
         <Grid container spacing={1}>
-          <Grid item xs={12} md={3}>
+          <Grid item xs={4} md={3}>
             <Button
               type="submit"
               fullWidth
@@ -327,12 +316,12 @@ const EditForm = props => {
               <FormattedMessage {...messages.btnSaveProfile} />
             </Button>
           </Grid>
-          <Grid item xs={12} md={3}>
+          <Grid item xs={4} md={3}>
             <Button fullWidth variant="contained" disabled={pristine || submitting} onClick={reset}>
               <FormattedMessage {...messages.btnResetForm} />
             </Button>
           </Grid>
-          <Grid item xs={12} md={3}>
+          <Grid item xs={4} md={3}>
             <ButtonLink to={`${appConstants.publicPath}/profile`}>
               <Button fullWidth variant="contained" onClick={reset}>
                 <FormattedMessage {...messages.btnBack} />

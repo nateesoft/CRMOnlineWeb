@@ -57,7 +57,6 @@ function mapDispatchToProps(dispatch) {
   return {
     initLoad: memberCode => dispatch(actions.initLoad(memberCode)),
     onEditShipping: address => dispatch(actions.editShipping(address)),
-    onChangeMapsValue: mapsData => dispatch(actions.changeMapsValue(mapsData)),
     clearData: () => dispatch(actions.initState()),
   };
 }

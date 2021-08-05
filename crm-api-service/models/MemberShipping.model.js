@@ -27,7 +27,8 @@ module.exports = (db) => {
     logger.debug(`findByMemberCodeOrEmail: ${member_code}`)
     return new Promise(async (resolve, reject) => {
       try {
-        const sql = `select * from ${table_name} ms inner join ${tableMember} m on ms.member_code =m.code 
+        const sql = `select * from ${table_name} ms 
+        inner join ${tableMember} m on ms.member_code =m.code 
         where m.code=? or m.email =?;`;
         logger.debug(sql);
         const result = await pool.query(sql, [member_code, member_code])

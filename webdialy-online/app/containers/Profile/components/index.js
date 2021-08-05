@@ -174,7 +174,11 @@ export default function ProfileContent(props) {
                   <FormattedMessage {...messages.lineOfficial} />
                 </Label>{' '}
                 <LabelContent>
-                  <a href={`http://line.me/ti/p/${company.line_official_id}`} target="_blank">
+                  <a
+                    href={`http://line.me/ti/p/${company.line_official_id}`}
+                    target="_blank"
+                    style={{ textDecoration: 'none' }}
+                  >
                     <Button variant="outlined" className={classes.buttonAddLine}>
                       Add Line
                     </Button>

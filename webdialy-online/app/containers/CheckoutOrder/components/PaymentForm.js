@@ -37,22 +37,22 @@ const PaymentForm = props => {
   const { map_latitude: branchLatitude, map_longitude: branchLongitude } = props.branch;
   const { map_latitude: customerLatitude, map_longitude: customerLongitude } = props.shipping;
 
-  const validateSlipUpload = () => {
-    if (file) {
-      props.checkSlipImage(file.name);
-      props.onUpdateSlipPath(file.name);
-    }
-  };
+  const onChangeHandler = event =>
+    new Promise((resolve, reject) => {
+      const sourceFile = event.target.files[0];
+      // const fileName = event.target.files[0].name;
 
-  const onChangeHandler = event => {
-    props.setShowImg(false);
-    props.setFile(event.target.files[0]);
-  };
+      props.setShowImg(false);
+      props.setFile(sourceFile);
 
-  const onUploadImageFile = () => {
-    props.onUploadImage(file);
-    props.setShowImg(true);
-  };
+      props.onUploadImage(sourceFile);
+      props.setShowImg(true);
+
+      // props.checkSlipImage(fileName);
+      // props.onUpdateSlipPath(fileName);
+
+      resolve(true);
+    });
 
   const loc = window.location.href.split('/');
   const apiServiceHost = `${loc[0]}//${loc[2]}`.replace('3000', '5000');
@@ -109,15 +109,7 @@ const PaymentForm = props => {
       <Paper elevation={3} style={{ padding: '10px' }}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            อัพโหลดไฟล์ Slip (1) <input type="file" name="file" onChange={onChangeHandler} />
-          </Grid>
-          <Grid item xs={12}>
-            <Button onClick={() => onUploadImageFile()} className={classes.buttonRight}>
-              Upload Slip (2)
-            </Button>
-            <Button onClick={() => validateSlipUpload()} className={classes.buttonValidate}>
-              Validate Slip (3)
-            </Button>
+            อัพโหลดไฟล์ Slip / Validate <input type="file" name="file" onChange={onChangeHandler} />
           </Grid>
           <Grid item xs={12}>
             {props.showImg && (

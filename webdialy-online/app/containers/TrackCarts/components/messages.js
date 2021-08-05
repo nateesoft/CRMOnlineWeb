@@ -77,4 +77,8 @@ export default defineMessages({
     id: `${scope}.wait_confirm`,
     defaultMessage: 'wait_confirm',
   },
+  reason_not_approve: {
+    id: `${scope}.reason_not_approve`,
+    defaultMessage: 'เหตุผลที่ไม่ผ่านการอนุมัติ',
+  },
 });

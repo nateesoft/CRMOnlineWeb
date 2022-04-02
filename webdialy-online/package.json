@@ -103,7 +103,7 @@
     "lodash": "4.17.21",
     "material-table": "^1.68.1",
     "md5": "^2.3.0",
-    "minimist": "1.2.3",
+    "minimist": "1.2.6",
     "moment": "^2.27.0",
     "node-fetch": "^2.6.1",
     "passport": "^0.4.1",

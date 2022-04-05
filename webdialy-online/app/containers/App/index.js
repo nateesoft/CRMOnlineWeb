@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import { BrowserRouter, Switch } from 'react-router-dom';
+
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import * as loginSelectors from 'containers/Login/selectors';
@@ -23,10 +25,12 @@ export function App(props) {
   }, []);
 
   return (
-    <React.Fragment>
-      <NewLayout {...props} />
-      <GlobalStyle />
-    </React.Fragment>
+    <BrowserRouter>
+      <Switch>
+        <NewLayout {...props} />
+        <GlobalStyle />
+      </Switch>
+    </BrowserRouter>
   );
 }
 

@@ -13,3 +13,4 @@ logs/*
 __snapshots__
 
 .env*
+yarn.lock

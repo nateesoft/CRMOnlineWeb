@@ -13,6 +13,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import useCookie, { getCookie } from 'react-use-cookie';
 import { Redirect } from 'react-router-dom';
+
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import * as appConstants from 'containers/App/constants';
@@ -30,15 +31,17 @@ const Login = props => {
   const token = getCookie('token') || '';
 
   useEffect(() => {
-    const data = new URLSearchParams(props.location.search).get('data') || '';
-    if (data) {
-      setDatabase(data);
-      props.initDatabase(data);
+    if (database) {
+      setDatabase(database);
+      props.initDatabase(database);
     }
   }, []);
 
   if (token && database) {
     return <Redirect to={`${appConstants.publicPath}/dashboard`} />;
+  }
+  if (!database) {
+    return <Redirect to={`${appConstants.publicPath}/`} />;
   }
 
   return (

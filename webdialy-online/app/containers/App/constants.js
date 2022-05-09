@@ -38,6 +38,7 @@ export const PATH_CHECK_CARTS = `${publicPath}/check_carts`;
 export const PATH_MEMBER_ORDERS_CONFIRM = `${publicPath}/order_confirm/:cart_no/:database`;
 export const PATH_USE_PROMOTION = `${publicPath}/use_promotion`;
 export const PATH_ACCESS_DENIED = `${publicPath}/access_denied`;
+export const PATH_CLIENT_REGISTER = `${publicPath}/client-register`;
 
 export const INIT_LOAD = 'app/App/INIT_LOAD';
 export const INIT_LOAD_SUCCESS = 'app/App/INIT_LOAD_SUCCESS';

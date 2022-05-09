@@ -105,7 +105,7 @@
     "md5": "^2.3.0",
     "minimist": "1.2.6",
     "moment": "^2.27.0",
-    "node-fetch": "^3.1.1",
+    "node-fetch": "^2.6.1",
     "passport": "^0.4.1",
     "passport-cookie": "^1.0.8",
     "passport-url": "^1.0.4",

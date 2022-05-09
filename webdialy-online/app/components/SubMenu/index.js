@@ -43,11 +43,12 @@ const useStyles = makeStyles({
 });
 
 const SubMenu = props => {
+  const { profile, title, history } = props;
   const classes = useStyles();
   const [value, setValue] = useState(0);
-  const handleClick = p => history.push(p);
-
-  const { profile, title } = props;
+  const handleClick = p => {
+    history.push(p);
+  };
 
   if (profile && profile.member_role) {
     if (profile.member_role !== 'member') {

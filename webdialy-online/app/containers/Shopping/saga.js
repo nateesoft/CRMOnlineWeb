@@ -86,17 +86,21 @@ export function* searchProduct() {
 export function* loadCartToShopping() {
   try {
     const cartNo = yield select(selectors.makeSelectCartsNo());
-    const database = getCookie('database');
-    const requestURL = `${appConstants.publicPath}/api/carts/load-cart-to-shopping`;
-    const response = yield call(request, requestURL, {
-      database,
-      method: 'POST',
-      body: JSON.stringify({ cart_no: cartNo }),
-    });
-    if (response.data) {
-      yield put(actions.loadCartSuccess(response.data[0]));
-    } else {
+    if (cartNo === 'new') {
       yield put(actions.loadCartSuccess('Not found carts'));
+    } else {
+      const database = getCookie('database');
+      const requestURL = `${appConstants.publicPath}/api/carts/load-cart-to-shopping`;
+      const response = yield call(request, requestURL, {
+        database,
+        method: 'POST',
+        body: JSON.stringify({ cart_no: cartNo }),
+      });
+      if (response.data) {
+        yield put(actions.loadCartSuccess(response.data[0]));
+      } else {
+        yield put(actions.loadCartSuccess('Not found carts'));
+      }
     }
   } catch (err) {
     yield put(actions.loadCartError(err));

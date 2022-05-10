@@ -21,6 +21,8 @@
   "app.containers.ForgotPassword.sendEmail": "ส่งเข้าอีเมล์",
   "app.containers.ForgotPassword.clear": "ล้างข้อความ",
   "app.containers.ForgotPassword.backToLogin": "กลับสู่หน้า Login",
+  "app.containers.ForgotPassword.mobile": "Mobile",
+  "app.containers.ForgotPassword.confirmSecret": "Confirm Secret",
   "app.containers.HomePage.header": "ยินดีต้อนรับเข้าสู่",
   "app.containers.Login.usernameShouldNotEmpty": "กรุณาระบุข้อมูลผู้ใช้งาน",
   "app.containers.Login.enterUsername": "ชื่อผู้ใช้งาน",

@@ -58,7 +58,7 @@ export default function TableItems(props) {
     }).then(result => {
       if (result.value) {
         props.onDeleteItem(id);
-        props.onInitLoad();
+        props.onInitLoad(0, 20);
         Swal.fire('Deleted!', 'Your data has been deleted.', 'success');
       }
     });
@@ -66,7 +66,7 @@ export default function TableItems(props) {
 
   const classes = useStyles();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(100);
+  const [rowsPerPage, setRowsPerPage] = useState(20);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -75,6 +75,9 @@ export default function TableItems(props) {
   const handleChangeRowsPerPage = event => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+
+    // reload data
+    props.onInitLoad({ page: 1, limit: +event.target.value });
   };
 
   const onViewItem = item => {
@@ -195,7 +198,7 @@ export default function TableItems(props) {
         </div>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[100, 500, 1000, 10000]}
+        rowsPerPageOptions={[20, 50, 100, 500, 1000]}
         component="div"
         count={getList.length}
         rowsPerPage={rowsPerPage}

@@ -34,7 +34,7 @@ export function Members(props) {
   const classes = useStyles();
 
   useEffect(() => {
-    props.onInitLoad();
+    props.onInitLoad({ page: 1, limit: 20 });
     props.onLoadRoles();
   }, []);
 
@@ -74,7 +74,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    onInitLoad: () => dispatch(actions.initLoad()),
+    onInitLoad: data => dispatch(actions.initLoad(data)),
     onCreateItem: data => dispatch(actions.createItem(data)),
     onUpdateItem: data => dispatch(actions.updateItem(data)),
     onDeleteItem: id => dispatch(actions.deleteItem(id)),

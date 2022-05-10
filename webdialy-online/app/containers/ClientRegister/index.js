@@ -19,16 +19,27 @@ import reducer from './reducer';
 import saga from './saga';
 import { Container, Topic, Panel } from './styles';
 
-export function ClientRegister() {
+export function ClientRegister(props) {
+  const { history } = props;
   useInjectReducer({ key: 'clientRegister', reducer });
   useInjectSaga({ key: 'clientRegister', saga });
 
   const database = useCookie('database', null);
   const [tokenRegister, setTokenRegister] = useState('');
+  const [showWarning, setShowWarning] = useState(false);
 
   const saveCookieRegister = () => {
-    setCookie('database', JSON.stringify(tokenRegister));
-    window.location.replace('login');
+    if (tokenRegister) {
+      setCookie('database', JSON.stringify(tokenRegister));
+      history.push(`${appConstants.publicPath}/login`);
+    } else {
+      setShowWarning(true);
+    }
+  };
+
+  const handleInput = data => {
+    setTokenRegister(data);
+    setShowWarning(false);
   };
 
   if (database[0]) {
@@ -44,16 +55,23 @@ export function ClientRegister() {
           <div>Token to register</div>
           <div>
             <input
+              id="txtToken"
               type="text"
               value={tokenRegister}
-              onChange={e => setTokenRegister(e.target.value)}
+              onChange={e => handleInput(e.target.value)}
+              autoFocus
             />
           </div>
           <div style={{ marginTop: 10 }}>
-            <button type="button" onClick={() => saveCookieRegister()}>
+            <button id="btnRegister" type="button" onClick={() => saveCookieRegister()}>
               Register
             </button>
           </div>
+          {showWarning && (
+            <div style={{ color: 'red', marginTop: '10px' }}>
+              *กรุณาระบุข้อมูล Token เพื่อลงทะเบียน
+            </div>
+          )}
         </Panel>
       </div>
     </Container>

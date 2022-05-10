@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -8,6 +8,8 @@ import Container from '@material-ui/core/Container';
 import styled from 'styled-components';
 import { Field, reduxForm } from 'redux-form';
 import { FormattedMessage } from 'react-intl';
+import SweetAlert from 'sweetalert2-react';
+
 import LoginLogo from 'images/login.png';
 import * as appConstants from 'containers/App/constants';
 import ButtonLink from 'components/ButtonLink';
@@ -45,7 +47,16 @@ const ImgLogo = styled.img`
 
 const ForgotForm = props => {
   const classes = useStyles();
-  const { handleSubmit, pristine, reset, submitting, onSendRequest, onSendEmail } = props;
+  const {
+    handleSubmit,
+    pristine,
+    reset,
+    submitting,
+    onSendRequest,
+    onSendEmail,
+    history,
+    forgotPassword,
+  } = props;
 
   const confirmRequestChangePassword = values => {
     onSendRequest({
@@ -59,8 +70,24 @@ const ForgotForm = props => {
     onSendEmail(values.email);
   };
 
+  const handleConfirmPopup = () => {
+    props.initState();
+    history.push(`${appConstants.publicPath}/login`);
+  };
+
+  useEffect(() => {
+    props.initState();
+  }, []);
+
   return (
     <Container component="main" maxWidth="xs">
+      <SweetAlert
+        show={forgotPassword.status && forgotPassword.status === 'Success'}
+        title="Success"
+        type="success"
+        text="บันทึกข้อมูลเรียบร้อย"
+        onConfirm={handleConfirmPopup}
+      />
       <div className={classes.paper}>
         <ImgLogo src={LoginLogo} width="128" height="128" />
         <Typography component="h1" variant="h5">
@@ -152,6 +179,9 @@ ForgotForm.propTypes = {
   submitting: PropTypes.bool,
   onSendRequest: PropTypes.func,
   onSendEmail: PropTypes.func,
+  initState: PropTypes.func,
+  forgotPassword: PropTypes.object,
+  history: PropTypes.object,
 };
 
 const validate = formValues => {

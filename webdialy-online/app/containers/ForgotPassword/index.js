@@ -29,6 +29,9 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
+    initState: () => {
+      dispatch(actions.initState());
+    },
     onSendRequest: payload => {
       dispatch(actions.requestPassword(payload));
     },

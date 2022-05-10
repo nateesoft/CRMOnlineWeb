@@ -21,7 +21,9 @@ export default function SearchBar(props) {
   const [value, setValue] = useState('');
 
   const onSearchData = () => {
-    props.onSearch(key, value);
+    if (value.trim() !== '') {
+      props.onSearch(key, value);
+    }
   };
 
   SearchBar.propTypes = {

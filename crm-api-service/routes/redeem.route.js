@@ -9,7 +9,7 @@ const generateRedeemCode = () => {
   return cc.generate()
 }
 
-module.exports = io => {
+module.exports = (io) => {
   router.get("/", async (req, res, next) => {
     try {
       const response = await Task(req.headers.database).findShowUser()
@@ -23,7 +23,7 @@ module.exports = io => {
   })
   router.get("/list", async (req, res, next) => {
     try {
-      const response = await TaskRedeem(req.headers.database).findAll();
+      const response = await TaskRedeem(req.headers.database).findAll()
       const data = JSON.parse(response.data)
       res.status(200).json({ status: response.status, msg: "Success", data })
     } catch (error) {
@@ -35,7 +35,7 @@ module.exports = io => {
 
   router.get("/client", async (req, res, next) => {
     try {
-      const response = await TaskRedeem(req.headers.database).getDataForClient();
+      const response = await TaskRedeem(req.headers.database).getDataForClient()
       const data = JSON.parse(response.data)
       res.status(200).json({ status: response.status, msg: "Success", data })
     } catch (error) {
@@ -47,10 +47,12 @@ module.exports = io => {
   router.put("/client", async (req, res, next) => {
     try {
       const payload = req.body
-      const response = await TaskRedeem(req.headers.database).updateRedeemFromClient(payload);
+      const response = await TaskRedeem(
+        req.headers.database
+      ).updateRedeemFromClient(payload)
       const data = JSON.parse(response.data)
-      io.emit('update_member', true);
-      io.emit('update_redeem', true);
+      // io.emit('update_member', true);
+      // io.emit('update_redeem', true);
       res.status(200).json({ status: response.status, msg: "Success", data })
     } catch (error) {
       return res
@@ -58,7 +60,7 @@ module.exports = io => {
         .json({ status: "Internal Server Error", msg: error.sqlMessage })
     }
   })
-  
+
   router.post("/", async (req, res, next) => {
     try {
       const { uuid_index, product_code, member_code_use } = req.body
@@ -82,29 +84,27 @@ module.exports = io => {
         active: "Y", // Y|N
         redeem_or_free: promotion.redeem_or_free, // (R)edeem or (F)ree
         discount_amt: promotion.discount_amt,
-        discount_percent: promotion.discount_percent,
+        discount_percent: promotion.discount_percent
       }
       const response1 = await TaskRedeem(req.headers.database).create(payload)
-      res
-        .status(200)
-        .json({
-          status: response1.status,
-          msg: "Success",
-          data: "" + redeemCodeGen,
-        })
+      res.status(200).json({
+        status: response1.status,
+        msg: "Success",
+        data: "" + redeemCodeGen
+      })
 
       // emit socket io
       const sendPayload = {
         ...payload,
         database: req.headers.database
       }
-      io.emit('create_redeem', JSON.stringify(sendPayload));
+      // io.emit('create_redeem', JSON.stringify(sendPayload));
     } catch (error) {
       return res
         .status(500)
         .json({ status: "Internal Server Error", msg: error.sqlMessage })
     }
   })
-  
+
   return router
 }

@@ -21,6 +21,8 @@
   "app.containers.ForgotPassword.sendEmail": "Send Email",
   "app.containers.ForgotPassword.clear": "ล้างข้อความ",
   "app.containers.ForgotPassword.backToLogin": "กลับสู่หน้า Login",
+  "app.containers.ForgotPassword.mobile": "มือถือ",
+  "app.containers.ForgotPassword.confirmSecret": "ยืนยันรหัสผ่าน",
   "app.containers.HomePage.header": "Welcome to",
   "app.containers.Login.usernameShouldNotEmpty": "Username should not be blank.",
   "app.containers.Login.enterUsername": "Username",

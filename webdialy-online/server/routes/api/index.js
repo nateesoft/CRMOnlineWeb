@@ -47,7 +47,7 @@ module.exports = args => {
     }
   };
 
-  router.get('*', serviceProvider);
+  router.get('/*', serviceProvider);
   router.post('*', serviceProvider);
   router.put('*', serviceProvider);
   router.patch('*', serviceProvider);

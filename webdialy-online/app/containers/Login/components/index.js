@@ -121,6 +121,7 @@ const LoginForm = props => {
                 <Grid container spacing={1} justify="center">
                   <Grid item>
                     <Button
+                      id="btnSubmit"
                       type="submit"
                       variant="contained"
                       color="primary"

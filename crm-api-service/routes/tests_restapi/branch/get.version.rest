@@ -1,0 +1,4 @@
+get http://localhost:5000/api/version
+Content-Type: application/json
+Authorization: Basic YWRtaW46c29mdHBvczIwMTM=
+database: cGFua2hhbWhvbQ

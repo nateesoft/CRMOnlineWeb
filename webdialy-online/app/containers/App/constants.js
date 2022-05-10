@@ -7,7 +7,7 @@
  *
  * Follow this format:
  */
-export const publicPath = process.env.REACT_APP_PUBLIC_PATH || '';
+export const publicPath = process.env.REACT_APP_PUBLIC_PATH || 'web-daily-online/';
 
 export const PATH_LOGIN = `${publicPath}/login`;
 export const PATH_LINE_LOGIN = `${publicPath}/line_login/:token`;

@@ -17,7 +17,7 @@ module.exports = (db) => {
         where email=? or mobile=? or line_id=?;`
         logger.debug(sql)
         const result = await pool.query(sql, [email, mobile, line_id])
-        if(result.length>0){
+        if (result.length > 0) {
           return resolve({ status: "Success", data: JSON.stringify(result[0]) })
         }
         return resolve({ status: "Success", data: JSON.stringify(result) })
@@ -118,14 +118,17 @@ module.exports = (db) => {
     })
   }
 
-  module.findAll = () => {
+  module.findAll = (start, end) => {
     logger.debug("findAll")
     return new Promise(async (resolve, reject) => {
       try {
-        const sql = `select * from ${table_name} order by code;`
+        const sql = `select * from ${table_name} order by code limit ${start},${end} ;`
         logger.debug(sql)
         const result = await pool.query(sql)
-        resolve({ status: "Success", data: JSON.stringify(result) })
+        resolve({
+          status: "Success",
+          data: JSON.stringify(result)
+        })
       } catch (err) {
         logger.error(err)
         reject({ status: "Error", msg: err.message })
@@ -156,17 +159,20 @@ module.exports = (db) => {
         set total_purchase=?,
         total_score=? where code=?;`
         logger.debug(sql)
-        let countToUpdate = 0;
+        let countToUpdate = 0
         for (let i = 0; i < member.length; i++) {
-          const memberData = JSON.parse(member[i]);
+          const memberData = JSON.parse(member[i])
           const result = await pool.query(sql, [
             memberData.Member_TotalPurchase,
             memberData.Member_TotalScore,
-            memberData.Member_Code,
+            memberData.Member_Code
           ])
-          countToUpdate = countToUpdate + result.affectedRows;
+          countToUpdate = countToUpdate + result.affectedRows
         }
-        resolve({ status: "Success", data: JSON.stringify({ result: countToUpdate }) })
+        resolve({
+          status: "Success",
+          data: JSON.stringify({ result: countToUpdate })
+        })
       } catch (err) {
         logger.error(err)
         reject({ status: "Error", msg: err.message })
@@ -203,7 +209,7 @@ module.exports = (db) => {
           prefix_running,
           member_running,
           size_running,
-          member_register_point,
+          member_register_point
         } = config[0]
         data.code = prefix_running + zeroPad(member_running, size_running) // generate prefix running
         data.total_score = member_register_point
@@ -247,7 +253,7 @@ module.exports = (db) => {
           data.mobile,
           data.line_id,
           data.line_user_id,
-          data.code,
+          data.code
         ])
         resolve({ status: "Success", data: JSON.stringify(result) })
       } catch (err) {
@@ -276,7 +282,7 @@ module.exports = (db) => {
           data.last_name,
           data.total_score,
           data.total_purchase,
-          data.uuid_index,
+          data.uuid_index
         ])
         resolve({ status: "Success", data: JSON.stringify(result) })
       } catch (err) {

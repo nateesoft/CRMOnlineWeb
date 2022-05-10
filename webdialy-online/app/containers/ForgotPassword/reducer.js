@@ -23,6 +23,7 @@ const forgotPasswordReducer = (state = initialState, action) =>
     switch (action.type) {
       case loginConstants.CHECK_LOGOUT:
       case constants.INIT_STATE:
+        draft.status = '';
         break;
       case constants.REQUEST_PASSWORD:
         draft.request = action.payload;

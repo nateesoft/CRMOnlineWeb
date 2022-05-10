@@ -156,7 +156,7 @@ const MainLayout = props => {
             {props.title}
           </Typography>
           <LocaleToggle />
-          <ButtonLink to={`${appConstants.publicPath}/logout`}>
+          <ButtonLink id="btnLogout" to={`${appConstants.publicPath}/logout`}>
             <ExitToApp />
           </ButtonLink>
         </Toolbar>

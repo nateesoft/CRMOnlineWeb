@@ -51,6 +51,7 @@ const membersReducer = (state = initialState, action) =>
         draft.response.message = '';
         break;
       case constants.INIT_LOAD:
+        draft.limit = action.payload;
         break;
       case constants.INIT_LOAD_SUCCESS:
         draft.list = action.payload;

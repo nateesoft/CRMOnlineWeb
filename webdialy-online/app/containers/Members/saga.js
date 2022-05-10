@@ -6,9 +6,10 @@ import * as selectors from './selectors';
 import * as constants from './constants';
 import * as actions from './actions';
 
-export function* initLoad() {
+export function* initLoad({ payload }) {
   try {
-    const requestURL = `${appConstants.publicPath}/api/member`;
+    const { page, limit } = payload;
+    const requestURL = `${appConstants.publicPath}/api/member/findAll/${page}/${limit}`;
     const database = getCookie('database');
     const response = yield call(request, requestURL, {
       database,
@@ -23,6 +24,7 @@ export function* initLoad() {
     yield put(actions.initLoadError(err));
   }
 }
+
 export function* searchItem({ payload }) {
   const { key, value } = payload;
   try {
@@ -120,6 +122,7 @@ export function* onLoadRolesList() {
     yield put(actions.loadRolesError(err));
   }
 }
+
 export default function* membersSaga() {
   yield takeEvery(constants.INIT_LOAD, initLoad);
   yield takeEvery(constants.CREATE_ITEM, saveData);

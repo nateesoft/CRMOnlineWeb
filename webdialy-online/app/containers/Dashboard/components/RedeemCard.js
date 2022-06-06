@@ -103,7 +103,7 @@ export default function RedeemCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Grid container justify="center">
+        <Grid container justifyContent="center">
           {options.inStock > 0 ? (
             <Button
               variant="contained"

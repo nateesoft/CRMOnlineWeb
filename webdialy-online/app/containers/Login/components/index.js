@@ -118,7 +118,7 @@ const LoginForm = props => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Grid container spacing={1} justify="center">
+                <Grid container spacing={1} justifyContent="center">
                   <Grid item>
                     <Button
                       id="btnSubmit"

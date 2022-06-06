@@ -44,7 +44,7 @@ export default function RedeemPage(props) {
         {listRedeem && listRedeem.length === 0 && (
           <ContentNotFound label={<FormattedMessage {...messages.notFoundPromotion} />} />
         )}
-        <Grid container justify="center" spacing={1}>
+        <Grid container justifyContent="center" spacing={1}>
           {listRedeem &&
             listRedeem.map(item => (
               <Grid item xs={12} md={4} key={item.product_code}>

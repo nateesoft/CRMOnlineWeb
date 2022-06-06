@@ -24,7 +24,7 @@ const ShowQRCode = props => {
       <DialogTitle id="simple-dialog-title">QR CODE</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          <QRCode value={`${hostUrl}/order_confirm/${cartNo}/${database}`} />
+          <QRCode value={`${hostUrl}/order_confirm/${cartNo}/${JSON.parse(database)}`} />
         </DialogContentText>
       </DialogContent>
       <DialogActions>

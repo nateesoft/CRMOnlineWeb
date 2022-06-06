@@ -78,7 +78,7 @@ export default function ProfileContent(props) {
   return (
     <Card className={classes.root}>
       <CardContent>
-        <Grid container spacing={2} justify="center">
+        <Grid container spacing={2} justifyContent="center">
           <Grid item xs={12}>
             <Typography variant="h5" component="h2">
               {`${profile.prefix}${profile.first_name} ${profile.last_name}`}

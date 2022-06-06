@@ -133,7 +133,7 @@ export default function TableItems(props) {
                       <TableCell align="center">{item.code}</TableCell>
                       <TableCell align="left">{item.name}</TableCell>
                       <TableCell align="center">
-                        <Grid container spacing={1} justify="center">
+                        <Grid container spacing={1} justifyContent="center">
                           <Grid item>
                             <Button variant="outlined" onClick={() => onEditItem(item)}>
                               Edit

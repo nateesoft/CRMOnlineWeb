@@ -21,3 +21,6 @@ $ docker run -i \
     -p 127.0.0.1:3306:3306 \
     -e MYSQL_ROOT_PASSWORD=mysql5password \
     -t mysql:5
+
+# Start Web App
+http://localhost:3000/web-daily-online

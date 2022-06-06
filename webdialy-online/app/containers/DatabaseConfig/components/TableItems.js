@@ -93,7 +93,7 @@ export default function TableItems(props) {
                       <TableCell align="left">{item.database}</TableCell>
                       <TableCell align="left">{item.query}</TableCell>
                       <TableCell align="center">
-                        <Grid container spacing={1} justify="center">
+                        <Grid container spacing={1} justifyContent="center">
                           <Grid item>
                             <a
                               target="_blank"

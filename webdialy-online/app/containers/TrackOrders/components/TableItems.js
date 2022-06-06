@@ -214,7 +214,7 @@ export default function TableItems(props) {
                       <TableCell align="center">{item.member_remark}</TableCell>
                       <TableCell align="center">
                         {showCommand && (
-                          <Grid container spacing={1} justify="center">
+                          <Grid container spacing={1} justifyContent="center">
                             <Grid item>
                               <Button variant="outlined" onClick={() => onViewItem(item)}>
                                 View

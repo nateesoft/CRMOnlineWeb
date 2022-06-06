@@ -241,7 +241,7 @@ export default function TableItems(props) {
                           )}
                           {showCommand && (
                             <TableCell align="center">
-                              <Grid container spacing={1} justify="center">
+                              <Grid container spacing={1} justifyContent="center">
                                 <Grid item>
                                   <Button variant="outlined" onClick={() => onViewItem(item)}>
                                     View

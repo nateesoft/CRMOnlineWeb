@@ -209,7 +209,7 @@ const ViewItem = props => {
       </Grid>
       <Grid container className={classes.buttonAction}>
         <Grid item xs={12}>
-          <Grid container spacing={1} justify="flex-end">
+          <Grid container spacing={1} justifyContent="flex-end">
             {orders.order_status !== 'member_approve' && (
               <Grid item>
                 <Button variant="contained" color="primary" onClick={() => onConfirmRecieveOrder()}>

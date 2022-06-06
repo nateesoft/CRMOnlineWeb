@@ -137,7 +137,7 @@ export default function TableItems(props) {
                       <TableCell align="left">{item.map_latitude}</TableCell>
                       <TableCell align="left">{item.map_longitude}</TableCell>
                       <TableCell align="center">
-                        <Grid container spacing={1} justify="center">
+                        <Grid container spacing={1} justifyContent="center">
                           <Grid item>
                             <Button variant="outlined" onClick={() => onEditItem(item)}>
                               Edit

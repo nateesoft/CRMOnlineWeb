@@ -4,7 +4,9 @@ const path = require("path")
 const cookieParser = require("cookie-parser")
 const morgan = require("morgan")
 const basicAuth = require("express-basic-auth")
-const socketIo = require('socket.io')
+const http = require("http")
+const { Server } = require("socket.io");
+
 require('dotenv').config();
 
 const logger = require('./logger');
@@ -73,9 +75,9 @@ app.use(nocache());
 app.use(helmet.hidePoweredBy({ setTo: 'SOFTPOS' }));
 app.disable('etag');
 
-// Socket.io
-const io = socketIo();
-app.io = io;
+// SocketIO
+const server = http.createServer(app)
+const io = new Server(server);
 
 const mailer = require('./infra/mailer/usecases')({
   smtpHost: 'smtp.ethereal.email',
@@ -93,16 +95,17 @@ const options = {
 
 const indexRouter = require("./routes/index")(options)
 const branchRouter = require("./routes/branch.route")(options)
-const memberMasterRouter = require("./routes/login.route")(options)
+const loginRouter = require("./routes/login.route")(options)
 const lineLoginRouter = require("./routes/line_login.route")(options)
 const crudRouter = require("./routes/table_crud.route")(options)
 const companyRouter = require("./routes/company.route")(options)
 const productRouter = require("./routes/product.route")(options)
 const productGroupRouter = require("./routes/product_group.route")(options)
 const stockRouter = require("./routes/stock.route")(options)
-const promotionRouter = require("./routes/promotion.route")(io)
+const promotionRouter = require("./routes/promotion.route")()
 const roleRouter = require("./routes/role.route")(options)
 const roleMappingRouter = require("./routes/roles_mapping.route")(options)
+
 const memberRouter = require("./routes/member.route")(io)
 const redeemRouter = require("./routes/redeem.route")(io)
 
@@ -134,7 +137,7 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use("/api/", indexRouter)
-app.use("/api/login", basicAuth({ users: { admin: fixPassword } }), memberMasterRouter)
+app.use("/api/login", basicAuth({ users: { admin: fixPassword } }), loginRouter)
 app.use("/api/line", lineLoginRouter)
 app.use("/api/crud", crudRouter)
 
@@ -189,4 +192,51 @@ io.on( "connection", function( client ) {
   })
 });
 
-module.exports = app
+io.on('connection', (socket) => {
+  console.log('Client connected by id: ' + socket.id);
+});
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+ function onError(error) {
+  if (error.syscall !== "listen") {
+    throw error
+  }
+
+  var bind = typeof port === "string" ? "Pipe " + port : "Port " + port
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case "EACCES":
+      console.error(bind + " requires elevated privileges")
+      process.exit(1)
+      break
+    case "EADDRINUSE":
+      console.error(bind + " is already in use")
+      process.exit(1)
+      break
+    default:
+      throw error
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address()
+  var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port
+  console.log("Listening on " + bind)
+}
+
+const port = process.env.API_PORT || "5000"
+
+server.on("error", onError)
+server.on("listening", onListening)
+
+server.listen(port, () => {
+  console.log("API running port:", port)
+});

@@ -3,7 +3,7 @@ const router = express.Router()
 const { body, validationResult } = require('express-validator');
 const Controller = require('../controllers/Branch.controller');
 
-module.exports = args => {
+module.exports = () => {
   /**
    * @swagger
    *

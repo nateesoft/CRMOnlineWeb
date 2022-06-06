@@ -27,3 +27,14 @@
 - case create/update/delete affective 0 record
 - case select found 0 record
 - Wrong syntax return Internal Server Error
+
+## การทำงานเบื้องต้น
+-รับค่า database name มาจาก web (dynamic database)
+
+## SQL UTILITY
+-- backup database from docker --
+docker exec [container_id] /usr/bin/mysqldump -u [db_user] --password=[db_pass] [database_name] > [file_name].sql
+
+## Base64
+Buffer.from(db).toString('base64')
+Buffer.from(db).toString()

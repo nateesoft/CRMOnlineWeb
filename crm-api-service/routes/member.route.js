@@ -4,7 +4,8 @@ const Task = require("../models/Member.model")
 const TaskLogin = require("../models/Login.model")
 const moment = require("moment")
 
-module.exports = (/*io*/) => {
+module.exports = (io) => {
+
   router.get("/line/:lineUserId", async (req, res, next) => {
     try {
       const lineUserId = req.params.lineUserId
@@ -69,6 +70,7 @@ module.exports = (/*io*/) => {
         .json({ status: "Internal Server Error", msg: error.sqlMessage })
     }
   })
+
   router.put("/client", async (req, res, next) => {
     try {
       const payload = req.body
@@ -182,19 +184,14 @@ module.exports = (/*io*/) => {
         password: Buffer.from(req.body.password).toString("base64"),
         member_active: "Y"
       }
-      const response2 = await TaskLogin(req.headers.database).create(
-        loginMobileForm
-      )
 
-      const data = JSON.parse(response.data)
-      res.status(200).json({ status: response2.status, msg: "Success", data })
+      const response2 = await TaskLogin(req.headers.database).create(loginMobileForm)
 
       // emit socket io
-      const sendPayload = {
-        ...memberModel,
-        database: req.headers.database
-      }
-      // io.emit("create_member", JSON.stringify(sendPayload))
+      const sendPayload = { ...memberModel, database: req.headers.database, action_status: 'create' }
+      io.emit("sync_member", JSON.stringify(sendPayload))
+      const data = JSON.parse(response.data)
+      res.status(200).json({ status: response2.status, msg: "Success", data })
     } catch (error) {
       return res
         .status(500)
@@ -207,7 +204,11 @@ module.exports = (/*io*/) => {
       const payload = { ...req.body, uuid_index: req.params.id }
       const response = await Task(req.headers.database).update(payload)
       const data = JSON.parse(response.data)
-      // io.emit("update_member", true)
+
+      // emit socket io
+      const memberModel = await Task(req.headers.database).findById(req.params.id)
+      io.emit("sync_member", { ...memberModel, database: req.headers.database, action_status: 'update' })
+
       res.status(200).json({ status: response.status, msg: "Success", data })
     } catch (error) {
       return res
@@ -252,7 +253,11 @@ module.exports = (/*io*/) => {
         response = await Task(req.headers.database).updateRole(payload)
       }
       const data = JSON.parse(response.data)
-      // io.emit("update_member", true)
+      
+      // emit socket io
+      const memberModel = await Task(req.headers.database).findById(req.params.id)
+      io.emit("sync_member", { ...memberModel, database: req.headers.database, action_status: 'update' })
+
       res.status(200).json({ status: response.status, msg: "Success", data })
     } catch (error) {
       return res
@@ -265,7 +270,11 @@ module.exports = (/*io*/) => {
     try {
       const response = await Task(req.headers.database).delete(req.params.id)
       const data = JSON.parse(response.data)
-      // io.emit("update_member", true)
+
+      // emit socket io
+      const memberModel = { uuid_index: req.params.id }
+      io.emit("sync_member", { ...memberModel, database: req.headers.database, action_status: 'delete' })
+      
       res.status(200).json({ status: response.status, msg: "Success", data })
     } catch (error) {
       return res

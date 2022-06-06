@@ -10,6 +10,7 @@ const generateRedeemCode = () => {
 }
 
 module.exports = (io) => {
+
   router.get("/", async (req, res, next) => {
     try {
       const response = await Task(req.headers.database).findShowUser()
@@ -21,6 +22,7 @@ module.exports = (io) => {
         .json({ status: "Internal Server Error", msg: error.sqlMessage })
     }
   })
+
   router.get("/list", async (req, res, next) => {
     try {
       const response = await TaskRedeem(req.headers.database).findAll()
@@ -44,12 +46,11 @@ module.exports = (io) => {
         .json({ status: "Internal Server Error", msg: error.sqlMessage })
     }
   })
+
   router.put("/client", async (req, res, next) => {
     try {
       const payload = req.body
-      const response = await TaskRedeem(
-        req.headers.database
-      ).updateRedeemFromClient(payload)
+      const response = await TaskRedeem(req.headers.database).updateRedeemFromClient(payload)
       const data = JSON.parse(response.data)
       // io.emit('update_member', true);
       // io.emit('update_redeem', true);
@@ -67,7 +68,8 @@ module.exports = (io) => {
       const response = await Task(req.headers.database).findByCode(product_code)
       const promotion = JSON.parse(response.data)[0]
       const redeemCodeGen = generateRedeemCode()
-      const payload = {
+
+      const redeemModel = {
         uuid_index,
         redeem_code: redeemCodeGen,
         product_code,
@@ -86,19 +88,14 @@ module.exports = (io) => {
         discount_amt: promotion.discount_amt,
         discount_percent: promotion.discount_percent
       }
+      
       const response1 = await TaskRedeem(req.headers.database).create(payload)
-      res.status(200).json({
-        status: response1.status,
-        msg: "Success",
-        data: "" + redeemCodeGen
-      })
 
       // emit socket io
-      const sendPayload = {
-        ...payload,
-        database: req.headers.database
-      }
-      // io.emit('create_redeem', JSON.stringify(sendPayload));
+      const sendPayload = { ...redeemModel, database: req.headers.database, status: 'create' }
+      io.emit("sync_redeem", JSON.stringify(sendPayload))
+
+      res.status(200).json({ status: response1.status, msg: "Success", data: "" + redeemCodeGen })
     } catch (error) {
       return res
         .status(500)

@@ -2,7 +2,7 @@ const express = require("express")
 const router = express.Router()
 const Task = require("../models/Promotion.model")
 
-module.exports = (io) => {
+module.exports = () => {
   router.get("/", async (req, res, next) => {
     try {
       const response = await Task(req.headers.database).findAll()

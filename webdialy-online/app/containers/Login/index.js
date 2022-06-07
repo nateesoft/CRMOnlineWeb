@@ -38,7 +38,7 @@ const Login = props => {
   }, []);
 
   if (token && database) {
-    return <Redirect to={`${appConstants.publicPath}/dashboard`} />;
+    return <Redirect to={`${appConstants.publicPath}/home/dashboard`} />;
   }
   if (!database) {
     return <Redirect to={`${appConstants.publicPath}/`} />;

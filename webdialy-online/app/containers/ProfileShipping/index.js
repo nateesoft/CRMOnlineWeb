@@ -12,7 +12,6 @@ import { compose } from 'redux';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import { makeSelectLogin } from 'containers/Login/selectors';
-import MainLayoutApp from 'containers/MainLayoutApp';
 import * as mainSelectors from 'containers/MainLayoutApp/selectors';
 import * as appSelectors from 'containers/App/selectors';
 import * as actions from './actions';
@@ -29,11 +28,7 @@ export function ProfileShipping(props) {
     props.initLoad(props.profile.member_code);
   }, []);
 
-  return (
-    <MainLayoutApp title="Edit Shipping" {...props}>
-      <MainComponents {...props} />
-    </MainLayoutApp>
-  );
+  return <MainComponents {...props} />;
 }
 
 ProfileShipping.propTypes = {

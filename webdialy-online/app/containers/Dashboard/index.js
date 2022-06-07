@@ -12,10 +12,6 @@ import { compose } from 'redux';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import * as loginSelectors from 'containers/Login/selectors';
-import * as appActions from 'containers/App/actions';
-import MainLayoutApp from 'containers/MainLayoutApp';
-import * as mainSelectors from 'containers/MainLayoutApp/selectors';
-import * as appSelectors from 'containers/App/selectors';
 import * as selectors from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -28,27 +24,19 @@ export function Dashboard(props) {
 
   useEffect(() => {
     props.onLoadRedeem();
-    props.onLoadMenu();
   }, []);
 
-  return (
-    <MainLayoutApp title="Overview" {...props}>
-      <MainComponents {...props} />
-    </MainLayoutApp>
-  );
+  return <MainComponents {...props} />;
 }
 
 Dashboard.propTypes = {
   onLoadRedeem: PropTypes.func,
-  onLoadMenu: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
   login: loginSelectors.makeSelectLogin(),
   listRedeem: selectors.makeSelectRedeem(),
   redeemPoint: selectors.makeSelectRedeemPoint(),
-  leftMenu: appSelectors.makeSelectLeftMenu(),
-  profile: mainSelectors.makeSelectProfile(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -58,9 +46,6 @@ function mapDispatchToProps(dispatch) {
     },
     onCreateRedeem: code => {
       dispatch(actions.createRedeem(code));
-    },
-    onLoadMenu: () => {
-      dispatch(appActions.initLoad());
     },
   };
 }

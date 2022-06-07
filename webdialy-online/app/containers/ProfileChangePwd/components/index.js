@@ -140,7 +140,7 @@ const EditForm = props => {
             </Button>
           </Grid>
           <Grid item xs={12} md={4}>
-            <ButtonLink to={`${appConstants.publicPath}/profile`}>
+            <ButtonLink to={`${appConstants.publicPath}/home/profile`}>
               <Button fullWidth variant="contained" onClick={reset}>
                 <FormattedMessage {...messages.btnBack} />
               </Button>

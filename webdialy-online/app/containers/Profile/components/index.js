@@ -190,17 +190,17 @@ export default function ProfileContent(props) {
         </Grid>
       </CardContent>
       <CardActions className={classes.cardAction}>
-        <ButtonLink to={`${appConstants.publicPath}/profile-change-pwd`}>
+        <ButtonLink to={`${appConstants.publicPath}/home/profile-change-pwd`}>
           <Button variant="contained" color="secondary" size="small">
             <FormattedMessage {...messages.btnChangePassword} />
           </Button>
         </ButtonLink>
-        <ButtonLink to={`${appConstants.publicPath}/profile-edit`}>
+        <ButtonLink to={`${appConstants.publicPath}/home/profile-edit`}>
           <Button variant="contained" color="primary" size="small">
             <FormattedMessage {...messages.btnEditProfile} />
           </Button>
         </ButtonLink>
-        <ButtonLink to={`${appConstants.publicPath}/profile-shipping`}>
+        <ButtonLink to={`${appConstants.publicPath}/home/profile-shipping`}>
           <Button variant="contained" size="small">
             <FormattedMessage {...messages.headerEditShipping} />
           </Button>

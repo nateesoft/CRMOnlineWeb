@@ -12,7 +12,6 @@ import { compose } from 'redux';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import * as loginSelectors from 'containers/Login/selectors';
-import MainLayoutApp from 'containers/MainLayoutApp';
 import * as mainSelectors from 'containers/MainLayoutApp/selectors';
 import * as shoppingSelectors from 'containers/Shopping/selectors';
 import * as appSelectors from 'containers/App/selectors';
@@ -39,21 +38,19 @@ export function Checkout(props) {
   }, []);
 
   return (
-    <MainLayoutApp title="Checkout Order" {...props}>
-      <MainComponents
-        activeStep={activeStep}
-        setActiveStep={setActiveStep}
-        file={file}
-        showImg={showImg}
-        setFile={setFile}
-        setShowImg={setShowImg}
-        distance={distance}
-        duration={duration}
-        setDistance={setDistance}
-        setDuration={setDuration}
-        {...props}
-      />
-    </MainLayoutApp>
+    <MainComponents
+      activeStep={activeStep}
+      setActiveStep={setActiveStep}
+      file={file}
+      showImg={showImg}
+      setFile={setFile}
+      setShowImg={setShowImg}
+      distance={distance}
+      duration={duration}
+      setDistance={setDistance}
+      setDuration={setDuration}
+      {...props}
+    />
   );
 }
 

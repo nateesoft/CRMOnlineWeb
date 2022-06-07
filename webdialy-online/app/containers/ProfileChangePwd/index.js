@@ -9,12 +9,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import { makeSelectLogin } from 'containers/Login/selectors';
-import MainLayoutApp from 'containers/MainLayoutApp';
-import * as mainSelectors from 'containers/MainLayoutApp/selectors';
-import * as appSelectors from 'containers/App/selectors';
 import * as actions from './actions';
 import reducer from './reducer';
 import saga from './saga';
@@ -25,26 +22,18 @@ export function ProfileChangePwd(props) {
   useInjectReducer({ key: 'profileChangePwd', reducer });
   useInjectSaga({ key: 'profileChangePwd', saga });
 
-  return (
-    <MainLayoutApp title="Change Password" {...props}>
-      <MainComponents {...props} />
-    </MainLayoutApp>
-  );
+  return <MainComponents {...props} />;
 }
 
 ProfileChangePwd.propTypes = {
   dispatch: PropTypes.func,
   clearData: PropTypes.func,
   initLoad: PropTypes.func,
-  login: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
-  login: makeSelectLogin(),
-  profile: mainSelectors.makeSelectProfile(),
   updateStatus: selectors.makeUpdateStatus(),
   errorUpdate: selectors.makeErrorUpdate(),
-  leftMenu: appSelectors.makeSelectLeftMenu(),
 });
 
 function mapDispatchToProps(dispatch) {

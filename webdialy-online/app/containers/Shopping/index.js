@@ -11,7 +11,6 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import MainLayoutApp from 'containers/MainLayoutApp';
 import * as mainSelectors from 'containers/MainLayoutApp/selectors';
 import * as appSelectors from 'containers/App/selectors';
 import MainComponents from './components';
@@ -30,11 +29,7 @@ export function Shopping(props) {
     props.onLoadProduct();
   }, []);
 
-  return (
-    <MainLayoutApp title="Shopping" {...props}>
-      <MainComponents {...props} />
-    </MainLayoutApp>
-  );
+  return <MainComponents {...props} />;
 }
 
 Shopping.propTypes = {

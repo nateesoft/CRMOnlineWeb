@@ -21,7 +21,7 @@ export function* onValidLogin() {
     });
     if (response.status === 'Success') {
       yield put(actions.checkLoginSuccess(username));
-      yield put(push(`${appConstants.publicPath}/dashboard`));
+      yield put(push(`${appConstants.publicPath}/home/dashboard`));
     } else if (response.status === 'Missing Role') {
       yield put(actions.checkLoginError(response.msg));
     } else {

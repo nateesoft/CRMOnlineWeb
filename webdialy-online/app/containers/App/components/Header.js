@@ -94,7 +94,7 @@ function Header(props) {
       </Toolbar>
       {loggedIn && (
         <Typography component="span" className={classes.loggedInText}>
-          <ButtonLink to={`${publicPath}/profile`} color="white">
+          <ButtonLink to={`${publicPath}/home/profile`} color="white">
             สวัสดี {profile.prefix} {profile.first_name} {profile.last_name}
           </ButtonLink>
         </Typography>

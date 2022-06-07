@@ -29,7 +29,7 @@ export function* onVerifyTokenLogin() {
       });
       if (response.status === 'Success') {
         yield put(checkLoginSuccess(response));
-        yield put(push(`${appConstants.publicPath}/dashboard`));
+        yield put(push(`${appConstants.publicPath}/home/dashboard`));
       } else {
         yield put(checkLoginError('Email or password invalid'));
       }

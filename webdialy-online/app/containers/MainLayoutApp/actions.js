@@ -23,3 +23,21 @@ export function loadProfileError(payload) {
     payload,
   };
 }
+
+export function loadLeftMenu() {
+  return {
+    type: constants.LOAD_LEFT_MENU,
+  };
+}
+export function loadLeftMenuSuccess(payload) {
+  return {
+    type: constants.LOAD_LEFT_MENU_SUCCESS,
+    payload,
+  };
+}
+export function loadLeftMenuError(payload) {
+  return {
+    type: constants.LOAD_LEFT_MENU_ERROR,
+    payload,
+  };
+}

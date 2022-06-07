@@ -13,7 +13,6 @@ import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import MainLayoutApp from 'containers/MainLayoutApp';
 import * as mainSelectors from 'containers/MainLayoutApp/selectors';
 import * as appSelectors from 'containers/App/selectors';
 import * as selectors from './selectors';
@@ -38,11 +37,9 @@ export function MsStock(props) {
   }, []);
 
   return (
-    <MainLayoutApp title="Stock" {...props}>
-      <Grid container spacing={1} className={classes.root}>
-        <MainComponents {...props} />
-      </Grid>
-    </MainLayoutApp>
+    <Grid container spacing={1} className={classes.root}>
+      <MainComponents {...props} />
+    </Grid>
   );
 }
 

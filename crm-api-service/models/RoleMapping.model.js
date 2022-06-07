@@ -10,7 +10,6 @@ module.exports = (db) => {
   module.findByUsernameAndPath = (username, path) => {
     logger.debug(`findByUsernameAndPath: ${username}, ${path}`)
     return new Promise(async (resolve, reject) => {
-      const splitPath = path.split('/')[1];
       try {
         const sql = `select rm.* 
         from ${member} m inner join ${table_name} rm 
@@ -18,7 +17,7 @@ module.exports = (db) => {
         where (email=? or mobile=?) 
         and rm.app_path=?;`;
         logger.debug(sql);
-        const result = await pool.query(sql, [username, username, `/${splitPath}`])
+        const result = await pool.query(sql, [username, username, path])
         resolve({ status: "Success", data: JSON.stringify(result) })
       } catch (err) {
         logger.error(err);

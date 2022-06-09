@@ -1,0 +1,49 @@
+{
+    "web_url": "http://localhost:3000/web-daily-online",
+    "db_token": "d2ViZGFpbHlfMDAx",
+    "auth_service": "YWRtaW46c29mdHBvczIwMTM=",
+    "database_config": {
+        "host": "localhost",
+        "port": "3306",
+        "user": "root",
+        "password": "mysql5password",
+        "database": "webdaily_001"
+    },
+    "superUser": {
+        "user": "super@webdaily.io",
+        "pass": "000000",
+        "newPass": "111111",
+        "mobile": "0800000001"
+    },
+    "adminUser": {
+        "user": "admin@webdaily.io",
+        "pass": "000000",
+        "newPass": "111111",
+        "mobile": "0800000002"
+    },
+    "employeeUser": {
+        "user": "employee@webdaily.io",
+        "pass": "000000",
+        "newPass": "111111",
+        "mobile": "0800000003"
+    },
+    "memberUser": {
+        "user": "member@webdaily.io",
+        "pass": "000000",
+        "newPass": "111111",
+        "mobile": "0800000004"
+    },
+    "register": {
+        "dumpUser": {
+            "prefix": "นาย",
+            "first_name": "นที",
+            "last_name": "ภูวงษ",
+            "birthday": "1986-09-18",
+            "mobile": "0864108409",
+            "email": "natee.phuwong@gmail.com",
+            "password": "000000",
+            "rePassword": "000000",
+            "line_id": "nathee_phuwong"
+        }
+    }
+}

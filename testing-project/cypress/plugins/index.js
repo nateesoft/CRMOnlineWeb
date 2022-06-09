@@ -12,11 +12,40 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
+const path = require('path')
+const fs = require('fs-extra')
+const mysql = require('mysql2')
+
 /**
  * @type {Cypress.PluginConfig}
  */
 // eslint-disable-next-line no-unused-vars
-module.exports = (on, config) => {
-  // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
+function getConfigurationByFile(env) {
+  const pathToConfigFile = path.resolve("cypress", "config", `${env}.json`)
+  return fs.readJson(pathToConfigFile)
+}
+
+module.exports = async (on, config) => {
+  const env = config.env.configFile || "local"
+  const data = await getConfigurationByFile(env)
+  on('task', { queryDb: query => queryTestDb(query, data)})
+  return data
+}
+
+function queryTestDb(query, config) {
+  const connection = mysql.createConnection(config.database_config)
+  connection.connect()
+
+  return new Promise((resolve, reject) => {
+    connection.query(query, (error, results) => {
+      try {
+        error ? reject(error):resolve(results)
+      } catch (err) {
+        reject(err)
+      } finally {
+        connection.end()
+      }
+      
+    })
+  })
 }

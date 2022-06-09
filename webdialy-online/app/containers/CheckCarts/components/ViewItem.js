@@ -76,9 +76,7 @@ const ViewItem = props => {
     total_transport_amt: totalTransportAmt,
   } = props.initialValues;
 
-  const loc = window.location.href.split('/');
-  const apiServiceHost = `${loc[0]}//${loc[2]}`.replace('3000', '5000');
-  const hostUrl = `${loc[0]}//${loc[2]}${appConstants.publicPath}`;
+  const apiServiceHost = appConstants.serviceApiPath;
 
   return (
     <Container component={Paper} maxWidth="lg">
@@ -93,7 +91,7 @@ const ViewItem = props => {
         <FormattedMessage {...messages.headerViewItem} />
       </LabelTopic>
       <div align="center" className={classes.showQrCode}>
-        <QRCode value={`${hostUrl}/order_confirm/${cartNo}/${database}`} />
+        <QRCode value={`/order_confirm/${cartNo}/${database}`} />
       </div>
       <Grid container spacing={1} className={classes.divContent}>
         <Grid item xs={4}>

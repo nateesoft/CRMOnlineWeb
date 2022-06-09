@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
-import Button from '@material-ui/core/Button';
 import { Paper } from '@material-ui/core';
 import { reduxForm } from 'redux-form';
 import { FormattedMessage } from 'react-intl';
 import Alert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 
+import * as appConstants from 'containers/App/constants';
 import MapDirectionAB from 'containers/GoogleMap/components/MapDirectionAB';
 import messages from './messages';
 
@@ -54,8 +54,7 @@ const PaymentForm = props => {
       resolve(true);
     });
 
-  const loc = window.location.href.split('/');
-  const apiServiceHost = `${loc[0]}//${loc[2]}`.replace('3000', '5000');
+  const apiServiceHost = appConstants.serviceApiPath;
 
   const origin = {
     position: {

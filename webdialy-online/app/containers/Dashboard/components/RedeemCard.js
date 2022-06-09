@@ -12,6 +12,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Button, Grid } from '@material-ui/core';
+
+import * as appConstants from 'containers/App/constants';
 import DialogRedeemCode from './DialogRedeemCode';
 
 const useStyles = makeStyles(theme => ({
@@ -59,8 +61,8 @@ export default function RedeemCard(props) {
   const classes = useStyles();
   const { options } = props;
   const [showDialog, setShowDialog] = useState(false);
-  const loc = window.location.href.split('/');
-  const apiServiceHost = `${loc[0]}//${loc[2]}`.replace('3000', '5000');
+
+  const apiServiceHost = appConstants.serviceApiPath;
 
   const showRedeemCode = () => {
     setShowDialog(true);

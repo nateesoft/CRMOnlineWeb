@@ -57,7 +57,7 @@ export default function FinishOrder(props) {
           ขอขอบคุณค่ะ
         </Typography>
         <Divider className={classes.separateLine} />
-        <ButtonLink to={`${appConstants.publicPath}/shopping/new`}>
+        <ButtonLink to={`${appConstants.publicPath}/home/shopping/new`}>
           <Button color="primary" variant="contained">
             กลับหน้าสั่งสินค้า
           </Button>

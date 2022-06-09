@@ -14,6 +14,8 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
+
+import * as appConstants from 'containers/App/constants';
 import RenderField from 'components/RenderField';
 import DateTimeInput from 'components/RenderField/DateTimeInput';
 import LabelTopic from 'components/LabelTopic';
@@ -98,8 +100,7 @@ const EditItem = props => {
   const [preview, setPreview] = useState(null);
   const { img_path: imgPath } = props.initialValues;
 
-  const loc = window.location.href.split('/');
-  const apiServiceHost = `${loc[0]}//${loc[2]}`.replace('3000', '5000');
+  const apiServiceHost = appConstants.serviceApiPath;
 
   const onValidated = formValues => {
     updateData(formValues);

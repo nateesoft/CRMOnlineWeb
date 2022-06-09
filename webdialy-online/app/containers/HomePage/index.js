@@ -14,6 +14,8 @@ import styled from 'styled-components';
 import useCookie from 'react-use-cookie';
 import { Helmet } from 'react-helmet';
 import { makeStyles } from '@material-ui/core/styles';
+
+import * as appConstants from 'containers/App/constants';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import * as selectors from './selectors';
@@ -42,8 +44,7 @@ const HomePage = props => {
   const [database, setDatabase] = useCookie('database', '');
   const classes = useStyles();
 
-  const loc = window.location.href.split('/');
-  const apiServiceHost = `${loc[0]}//${loc[2]}`.replace('3000', '5000');
+  const apiServiceHost = appConstants.serviceApiPath;
 
   useEffect(() => {
     const data = new URLSearchParams(props.location.search).get('data') || '';

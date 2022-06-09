@@ -80,17 +80,53 @@ export default function OrderFooter(props) {
         <Grid container>
           <Grid item xs={12}>
             <ButtonLink
-              to={`${appConstants.publicPath}/checkout-orders/${cart.cart_no}`}
+              to={`${appConstants.publicPath}/home/checkout-orders/${cart.cart_no}`}
               color="white"
             >
-              <div align="right">
-                <ShoppingBasket className={classes.shoppingBasket} />
-                <span className={classes.textItem}>
-                  รายการ :<span className={classes.cartNo}>{cart.cart_no}</span>|
-                </span>
-                <span>จน. {cart.total_item} | </span>
-                รวม: {cart.total_amount} บาท
-              </div>
+              <Grid container spacing={3}>
+                <Grid item xs={3} justifyContent="left">
+                  <div
+                    style={{
+                      padding: '5px',
+                      background: 'white',
+                      color: 'black',
+                      fontSize: '18px',
+                      fontWeight: 'bold',
+                      borderRadius: '5px',
+                      textAlign: 'center',
+                      verticalAlign: 'center',
+                      width: '50px',
+                    }}
+                  >
+                    {cart.total_item || 0}
+                  </div>
+                </Grid>
+                <Grid item xs={6} justifyContent="center">
+                  <div
+                    style={{
+                      padding: '5px',
+                      color: 'white',
+                      fontSize: '18px',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    ตะกร้าของฉัน
+                  </div>
+                </Grid>
+                <Grid item xs={3} justifyContent="right">
+                  <div
+                    style={{
+                      padding: '5px',
+                      color: 'white',
+                      fontSize: '18px',
+                      fontWeight: 'bold',
+                      textAlign: 'center',
+                    }}
+                  >
+                    ฿{cart.total_amount || 0}
+                  </div>
+                </Grid>
+              </Grid>
             </ButtonLink>
           </Grid>
         </Grid>

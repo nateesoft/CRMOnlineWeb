@@ -32,7 +32,7 @@ export function Checkout(props) {
   const [duration, setDuration] = useState(0);
 
   useEffect(() => {
-    const { cart_no: cartNo } = props.match.params;
+    const cartNo = props.match.params[0].split('/')[1];
     props.initLoadCart(cartNo);
     props.intiLoadBranchLocation();
   }, []);

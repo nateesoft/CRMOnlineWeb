@@ -209,7 +209,7 @@ export default function TableItems(props) {
                           <ButtonLink
                             size="bold"
                             title="ทำรายการสั่งซื้อต่อ"
-                            to={`${appConstants.publicPath}/checkout-orders/${item.cart_no}`}
+                            to={`${appConstants.publicPath}/home/checkout-orders/${item.cart_no}`}
                             color="primary"
                           >
                             {item.cart_no}

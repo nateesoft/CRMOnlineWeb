@@ -8,6 +8,8 @@ import { Field, reduxForm, change } from 'redux-form';
 import { connect } from 'react-redux';
 import SweetAlert from 'sweetalert2-react';
 import { makeStyles } from '@material-ui/core/styles';
+
+import * as appConstants from 'containers/App/constants';
 import RenderField from 'components/RenderField';
 import LabelTopic from 'components/LabelTopic';
 import messages from './messages';
@@ -49,8 +51,7 @@ const EditItem = props => {
   const [productGroupCode, setProductGroupCode] = useState(product_group_code);
   const [stockCode, setStockCode] = useState(stock_code);
 
-  const loc = window.location.href.split('/');
-  const apiServiceEndpoint = `${loc[0]}//${loc[2]}`.replace('3000', '5000');
+  const apiServiceEndpoint = appConstants.serviceApiPath;
 
   const onValidated = formValues => {
     updateData(formValues);

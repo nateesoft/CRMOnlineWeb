@@ -8,6 +8,7 @@ import { Field, reduxForm, change } from 'redux-form';
 import { FormattedMessage } from 'react-intl';
 import SweetAlert from 'sweetalert2-react';
 
+import * as appConstants from 'containers/App/constants';
 import RenderField from 'components/RenderField';
 import messages from './messages';
 
@@ -47,8 +48,7 @@ const NewItem = props => {
   const [productGroupCode, setProductGroupCode] = useState('');
   const [stockCode, setStockCode] = useState('');
 
-  const loc = window.location.href.split('/');
-  const apiServiceEndpoint = `${loc[0]}//${loc[2]}`.replace('3000', '5000');
+  const apiServiceEndpoint = appConstants.serviceApiPath;
 
   const onValidated = formValues => {
     saveData(formValues);

@@ -6,6 +6,8 @@ import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
+
+import * as appConstants from 'containers/App/constants';
 import ContentNotFound from 'components/ContentNotFound';
 import ProductTopic from './ProductTopic';
 import messages from './messages';
@@ -48,8 +50,7 @@ const useStyles = makeStyles(() => ({
 
 export default function ProductList(props) {
   const { data, topic, handleClickOpen } = props;
-  const loc = window.location.href.split('/');
-  const apiServiceHost = `${loc[0]}//${loc[2]}`.replace('3000', '5000');
+  const apiServiceHost = appConstants.serviceApiPath;
   const classes = useStyles();
 
   ProductList.propTypes = {

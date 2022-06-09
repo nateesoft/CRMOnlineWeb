@@ -126,7 +126,7 @@ export default function CheckoutContent(props) {
                   {activeStep === steps.length - 1 ? 'ดำเนินการเสร็จสิ้น' : 'ถัดไป'}
                 </Button>
               </div>
-              <ButtonLink to={`${appConstants.publicPath}/shopping/${props.currentCartNo}`}>
+              <ButtonLink to={`${appConstants.publicPath}/home/shopping/${props.currentCartNo}`}>
                 <Button variant="contained" className={classes.buttonAddItem}>
                   เลือกสินค้าเพิ่ม
                 </Button>

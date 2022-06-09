@@ -1,5 +1,6 @@
 import { call, put, select, takeEvery } from 'redux-saga/effects';
 import { getCookie } from 'react-use-cookie';
+
 import request from 'utils/request';
 import * as appConstants from 'containers/App/constants';
 import * as selectors from './selectors';
@@ -7,8 +8,7 @@ import * as constants from './constants';
 import * as actions from './actions';
 
 const fetch = require('node-fetch');
-const loc = window.location.href.split('/');
-const apiServiceHost = `${loc[0]}//${loc[2]}`.replace('3000', '5000');
+const apiServiceHost = appConstants.serviceApiPath;
 
 export function* initLoad() {
   try {

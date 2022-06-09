@@ -18,6 +18,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
+import * as appConstants from 'containers/App/constants';
+
 const useStyles = makeStyles(theme => ({
   appBar: {
     position: 'relative',
@@ -73,8 +75,8 @@ export default function DialogDetail(props) {
   const [options, setOptions] = useState('');
   const [specialText, setSpecialText] = useState('');
   const classes = useStyles();
-  const loc = window.location.href.split('/');
-  const apiServiceHost = `${loc[0]}//${loc[2]}`.replace('3000', '5000');
+
+  const apiServiceHost = appConstants.serviceApiPath;
 
   const handleCloseDialog = () => {
     handleClose();

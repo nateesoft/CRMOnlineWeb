@@ -48,12 +48,13 @@ module.exports = args => {
   
   router.post("/", async (req, res, next) => {
     try {
-      const { member_code } = req.body
-      const response = await Task(req.headers.database).deleteByMemberCode(
-        member_code
-      )
+      const { memberCode } = req.body
+      const response = await Task(req.headers.database).deleteByMemberCode(memberCode)
       if (response.status === "Success") {
-        const response2 = await Task(req.headers.database).create(req.body)
+        const data = req.body
+        delete data.memberCode
+        const dataInsert = { member_code: memberCode, ...req.body }
+        const response2 = await Task(req.headers.database).create(dataInsert)
         res
           .status(200)
           .json({ status: response2.status, msg: "Success", data: req.body })

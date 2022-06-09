@@ -8,7 +8,7 @@ module.exports = (db) => {
   const member = getDB(db, "member")
 
   module.findByUsernameAndPath = (username, path) => {
-    logger.debug(`findByUsernameAndPath: ${username}, ${path}`)
+    logger.info(`findByUsernameAndPath: ${username}, ${path}`)
     return new Promise(async (resolve, reject) => {
       try {
         const sql = `select rm.* 

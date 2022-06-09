@@ -12,5 +12,7 @@ npm-debug.log
 logs/*
 __snapshots__
 
-.env*
+.env
 yarn.lock
+*.log
+*-audit.json

@@ -6,10 +6,10 @@ require('winston-daily-rotate-file');
 
 const tsFormat = () => new Date().toJSON();
 const addFields = format((info, opts) => {
-  const { appName, env, hostname } = opts.config;
+  const { publicPath, env, hostname } = opts.config;
   return {
     ...info,
-    app: appName,
+    app: publicPath,
     env,
     hostname,
     '@message': info.message,
@@ -35,8 +35,8 @@ const logToFile = printf(info => {
 });
 
 const logger = (config = {}) => {
-  const { appName, logLevel, defaultMeta } = config;
-  const logPath = `./logs/${appName}`;
+  const { publicPath, logLevel, defaultMeta } = config;
+  const logPath = `./logs${publicPath}`;
 
   const tee = [
     new transports.Console({
@@ -71,13 +71,13 @@ const logger = (config = {}) => {
   return createLogger({
     format: combine(
       label({
-        label: appName,
+        label: publicPath,
       }),
       addFields({ config }),
       timestamp(),
     ),
     level: logLevel,
-    defaultMeta: { ...defaultMeta, service: appName },
+    defaultMeta: { ...defaultMeta, service: publicPath },
     transports: tee,
   });
 };

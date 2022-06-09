@@ -1,29 +1,17 @@
 const express = require('express');
-const ngrokServer = require('ngrok');
 const { resolve } = require('path');
-const argv = require('./argv');
-const isDev = process.env.NODE_ENV !== 'production';
-const ngrok = (isDev && process.env.ENABLE_TUNNEL) || argv.tunnel ? ngrokServer : false;
+require('dotenv').config();
+
+const { publicPath, serviceApiPath } = require('../app/containers/App/constants');
 const logger = require('./logger');
 const port = require('./port');
 const setup = require('./middlewares/frontendMiddleware');
+
 const app = express();
 
 const httpRequest = require('./infra/httpRequest')();
-const envConfig = require('../config/envConfig');
 
-const appBasePath = process.env.REACT_APP_PUBLIC_PATH || envConfig('APP_BASE_PATH');
-const appName = process.env.REACT_APP_NAME || envConfig('APP_NAME');
-let serviceApiHost = envConfig('SERVICE_API_HOST');
-const isDemo = process.env.NODE_ENV === 'demo';
-if (isDemo) {
-  serviceApiHost = envConfig('SERVICE_API_HOST_DEMO');
-}
-
-const loggerApp = require('./infra/logger')({
-  appName,
-  logLevel: 'info',
-});
+const loggerApp = require('./infra/logger')({ logLevel: 'info' });
 
 const jwtUseCases = require('./infra/jwt')({
   tokenAge: 3600,
@@ -35,17 +23,15 @@ const passport = require('./infra/passport')({
 });
 
 const options = {
-  serviceApiHost,
-  appBasePath,
-  appName,
+  serviceApiPath,
+  publicPath,
   httpRequest,
   passport,
   jwtUseCases,
   loggerApp,
 };
 
-const basePathForAPI = appBasePath.replace(/\/*$/, '');
-app.use(`${basePathForAPI}/api/verifyUser`, require('./routes/verifyUser')(options));
+const basePathForAPI = publicPath.replace(/\/*$/, '');
 app.use(`${basePathForAPI}/api/member/login`, require('./routes/login')(options));
 app.use(`${basePathForAPI}/api/upload`, require('./routes/upload')(options));
 app.use(`${basePathForAPI}/api`, require('./routes/api')(options));
@@ -55,10 +41,6 @@ setup(app, {
   publicPath: `${basePathForAPI}/`,
 });
 
-const customHost = argv.host || process.env.HOST;
-const host = customHost || null;
-const prettyHost = customHost || 'localhost';
-
 // use the gzipped bundle
 app.get('*.js', (req, res, next) => {
   req.url = req.url + '.gz'; // eslint-disable-line
@@ -67,21 +49,10 @@ app.get('*.js', (req, res, next) => {
 });
 
 // Start your app.
-app.listen(port, host, async err => {
+app.listen(port, async err => {
   if (err) {
     return logger.error(err.message);
   }
 
-  // Connect to ngrok in dev mode
-  if (ngrok) {
-    let url;
-    try {
-      url = await ngrok.connect(port);
-      return logger.appStarted(port, prettyHost, url);
-    } catch (e) {
-      return logger.error(e);
-    }
-  }
-
-  return logger.appStarted(port, prettyHost);
+  return logger.appStarted(port, 'localhost');
 });

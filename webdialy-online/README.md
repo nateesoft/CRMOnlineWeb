@@ -24,3 +24,15 @@ $ docker run -i \
 
 # Start Web App
 http://localhost:3000/web-daily-online
+
+
+for test
+default_db=d2ViZGFpbHlfMDAx
+super@webdaily.io=>super
+admin@webdaily.io=>admin
+employee@webdaily.io=>employee
+member@webdaily.io=>member
+
+for chekc port in use
+lsof -i :3000
+kill -9 <PID>

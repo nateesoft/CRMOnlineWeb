@@ -1,5 +1,0 @@
----
-# environment: default
-APP_BASE_PATH: /web-daily-online
-APP_NAME: web-daily-online
-PORT: 3000

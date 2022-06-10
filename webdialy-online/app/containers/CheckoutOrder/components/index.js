@@ -8,6 +8,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import { Helmet } from 'react-helmet';
 
 import * as appConstants from 'containers/App/constants';
 import ButtonLink from 'components/ButtonLink';
@@ -93,6 +94,9 @@ export default function CheckoutContent(props) {
 
   return (
     <main className={classes.layout}>
+      <Helmet>
+        <title>Checkout Order</title>
+      </Helmet>
       <Paper className={classes.paper}>
         <Typography component="h1" variant="h4" align="center">
           ขั้นตอนการสั่ง

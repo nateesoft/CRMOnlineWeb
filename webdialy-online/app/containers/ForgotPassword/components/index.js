@@ -9,8 +9,9 @@ import styled from 'styled-components';
 import { Field, reduxForm } from 'redux-form';
 import { FormattedMessage } from 'react-intl';
 import SweetAlert from 'sweetalert2-react';
+import { Helmet } from 'react-helmet';
 
-import LoginLogo from 'images/login.png';
+import LoginLogo from 'images/loginIcon.png';
 import * as appConstants from 'containers/App/constants';
 import ButtonLink from 'components/ButtonLink';
 import RenderField from 'components/RenderField';
@@ -81,6 +82,9 @@ const ForgotForm = props => {
 
   return (
     <Container component="main" maxWidth="xs">
+      <Helmet>
+        <title>Forgot Password</title>
+      </Helmet>
       <SweetAlert
         show={forgotPassword.status && forgotPassword.status === 'Success'}
         title="Success"

@@ -1,0 +1,3 @@
+get http://localhost:5000/api/database_config
+Content-Type: application/json
+Authorization: Basic YWRtaW46c29mdHBvczIwMTM=

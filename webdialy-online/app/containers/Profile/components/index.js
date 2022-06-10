@@ -11,6 +11,8 @@ import { FormattedMessage } from 'react-intl';
 import moment from 'moment';
 import NumberFormat from 'react-number-format';
 import styled from 'styled-components';
+import { Helmet } from 'react-helmet';
+
 import * as appConstants from 'containers/App/constants';
 import ButtonLink from 'components/ButtonLink';
 import messages from './messages';
@@ -77,6 +79,9 @@ export default function ProfileContent(props) {
 
   return (
     <Card className={classes.root}>
+      <Helmet>
+        <title>Profile</title>
+      </Helmet>
       <CardContent>
         <Grid container spacing={2} justifyContent="center">
           <Grid item xs={12}>

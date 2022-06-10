@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
+import { Helmet } from 'react-helmet';
 
 import RedeemPage from './RedeemPage';
 import MyQrCode from './MyQrCode';
@@ -17,6 +18,9 @@ export default function DashboardContent(props) {
 
   return (
     <Grid container spacing={2} className={classes.root}>
+      <Helmet>
+        <title>Overview</title>
+      </Helmet>
       <Grid item xs={12}>
         <MyQrCode {...props} />
       </Grid>

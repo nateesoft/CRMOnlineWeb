@@ -10,6 +10,8 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { Helmet } from 'react-helmet';
+
 import TrackCarts from 'containers/TrackCarts/Loadable';
 import * as mainSelectors from 'containers/MainLayoutApp/selectors';
 import * as appSelectors from 'containers/App/selectors';
@@ -27,6 +29,9 @@ export function MemberTracking(props) {
 
   return (
     <Grid container spacing={1} className={classes.root}>
+      <Helmet>
+        <title>Member Tracking</title>
+      </Helmet>
       <Grid item xs={12}>
         <TrackCarts {...props} showCommand={false} />
       </Grid>

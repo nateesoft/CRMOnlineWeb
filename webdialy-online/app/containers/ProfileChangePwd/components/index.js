@@ -12,6 +12,8 @@ import { createStructuredSelector } from 'reselect';
 import RenderField from 'components/RenderField';
 import SweetAlert from 'sweetalert2-react';
 import { Paper } from '@material-ui/core';
+import { Helmet } from 'react-helmet';
+
 import * as appConstants from 'containers/App/constants';
 import * as mainSelectors from 'containers/MainLayoutApp/selectors';
 import ButtonLink from 'components/ButtonLink';
@@ -61,6 +63,9 @@ const EditForm = props => {
 
   return (
     <Container component={Paper} maxWidth="lg" className={classes.container}>
+      <Helmet>
+        <title>Profile change password</title>
+      </Helmet>
       <SweetAlert show={errorUpdate} title="Update data error" type="error" text={errorUpdate} />
       <SweetAlert
         show={updateStatus === 'Success'}

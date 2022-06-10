@@ -17,6 +17,8 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import InputLabel from '@material-ui/core/InputLabel';
 import { Paper } from '@material-ui/core';
+import { Helmet } from 'react-helmet';
+
 import * as appConstants from 'containers/App/constants';
 import * as mainSelectors from 'containers/MainLayoutApp/selectors';
 import ButtonLink from 'components/ButtonLink';
@@ -80,6 +82,9 @@ const renderSelectField = ({ input, label, meta: { touched, error }, children, .
 
   return (
     <FormControl variant="outlined" error={touched && error} style={{ width: '100%' }}>
+      <Helmet>
+        <title>Profile edit</title>
+      </Helmet>
       <InputLabel htmlFor="age-native-simple">Prefix</InputLabel>
       <Select
         labelId="demo-simple-select-outlined-label"

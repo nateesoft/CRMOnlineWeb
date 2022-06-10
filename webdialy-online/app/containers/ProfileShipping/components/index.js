@@ -10,6 +10,8 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import Select from '@material-ui/core/Select';
+import { Helmet } from 'react-helmet';
+
 import * as appConstants from 'containers/App/constants';
 import RenderField from 'components/RenderField';
 import SweetAlert from 'sweetalert2-react';
@@ -81,6 +83,9 @@ const renderSelectField = ({ input, label, meta: { touched, error }, children, .
 
   return (
     <FormControl variant="outlined" error={touched && error} style={{ width: '100%' }}>
+      <Helmet>
+        <title>Profile shipping</title>
+      </Helmet>
       <InputLabel htmlFor={input.id}>{label}</InputLabel>
       <Select
         labelId="demo-simple-select-outlined-label"

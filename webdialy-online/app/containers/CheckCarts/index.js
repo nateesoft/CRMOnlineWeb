@@ -11,6 +11,8 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
+import { Helmet } from 'react-helmet';
+
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import * as mainSelectors from 'containers/MainLayoutApp/selectors';
@@ -39,6 +41,9 @@ export function CheckCarts(props) {
 
   return (
     <Grid container spacing={1} className={classes.root}>
+      <Helmet>
+        <title>Check Carts</title>
+      </Helmet>
       <Grid item xs={12}>
         <TabLayout {...props} />
       </Grid>

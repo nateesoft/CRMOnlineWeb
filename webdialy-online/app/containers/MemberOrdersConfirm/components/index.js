@@ -15,6 +15,8 @@ import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, TextField } from '@material-ui/core';
 import moment from 'moment';
+import { Helmet } from 'react-helmet';
+
 import ContentNotFound from 'components/ContentNotFound';
 import GlobalAlert from 'components/GlobalAlert';
 import SignatureForm from './SignatureForm';
@@ -78,6 +80,9 @@ const ViewItem = props => {
 
   return (
     <Container component="main" maxWidth="lg">
+      <Helmet>
+        <title>Member Order Confirm</title>
+      </Helmet>
       <GlobalAlert
         show={response.status === 'Success'}
         title="Confirm Status"

@@ -13,12 +13,13 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import DoubleArrow from '@material-ui/icons/DoubleArrow';
 import ExitToApp from '@material-ui/icons/ExitToApp';
-import { Helmet } from 'react-helmet';
 import { Button } from '@material-ui/core';
 import { Switch } from 'react-router-dom';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
+import { useIdleTimer } from 'react-idle-timer';
+import SweetAlert from 'sweetalert2-react';
 
 import PrivateRoute from 'containers/Authentication';
 
@@ -72,6 +73,7 @@ const MainLayout = props => {
   const classes = useStyles();
   const { leftMenu, profile } = props;
   const [open, setOpen] = useState(window.innerWidth > 500);
+  const [showIdle, setShowIdle] = useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -86,11 +88,29 @@ const MainLayout = props => {
 
   const notMemberRole = profile && profile.member_role !== 'member';
 
+  const onIdle = () => {
+    setShowIdle(true);
+  };
+
+  const onActive = event => {
+    // console.log('onActive', event);
+  };
+
+  useIdleTimer({
+    onIdle,
+    onActive,
+    timeout: 1000 * 60 * 5,
+  });
+
   return (
     <div className={classes.root}>
-      <Helmet>
-        <title>{props.title}</title>
-      </Helmet>
+      <SweetAlert
+        show={showIdle}
+        title="Session Timeout"
+        type="warning"
+        text="Logout and login again"
+        onConfirm={() => props.history.push(`${path.publicPath}/logout`)}
+      />
       <CssBaseline />
       <AppBar
         position="absolute"
@@ -126,15 +146,16 @@ const MainLayout = props => {
           open={open}
         >
           <div className={classes.toolbarIcon}>
-            <Typography component="span" color="inherit">
+            <Typography
+              component="span"
+              color="inherit"
+              style={{ fontSize: '22px', fontWeight: 'bold', textShadow: '2px 2px black' }}
+            >
               CRM Online
             </Typography>
-            <IconButton onClick={handleDrawerClose}>
-              <ChevronLeftIcon className={classes.iconTextWhite} />
-            </IconButton>
           </div>
           <Divider />
-          <LeftMenu leftMenu={leftMenu} appConstants={path} scope={scope} title={props.title} />
+          <LeftMenu leftMenu={leftMenu} appConstants={path} scope={scope} {...props} />
           <Button onClick={open ? handleDrawerClose : handleDrawerOpen}>
             {open ? (
               <span>

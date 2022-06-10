@@ -88,10 +88,11 @@ export default function TableItems(props) {
     <React.Fragment>
       <TableContainer component={Paper} className={classes.container}>
         <Typography color="textSecondary" variant="h6">
-          Branch Table List
+          ข้อมูลสาขา
         </Typography>
         <div className={classes.wrapButtonAction}>
           <Button
+            id="btnCreate"
             variant="contained"
             className={classes.buttonNew}
             onClick={() => props.onChangePage('NEW')}
@@ -99,6 +100,7 @@ export default function TableItems(props) {
             CREATE
           </Button>
           <Button
+            id="btnRefresh"
             variant="contained"
             color="primary"
             className={classes.buttonRefresh}

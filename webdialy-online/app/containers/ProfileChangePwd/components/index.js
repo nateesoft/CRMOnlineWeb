@@ -64,7 +64,7 @@ const EditForm = props => {
   return (
     <Container component={Paper} maxWidth="lg" className={classes.container}>
       <Helmet>
-        <title>Profile change password</title>
+        <title>เปลี่ยนรหัสผ่าน</title>
       </Helmet>
       <SweetAlert show={errorUpdate} title="Update data error" type="error" text={errorUpdate} />
       <SweetAlert

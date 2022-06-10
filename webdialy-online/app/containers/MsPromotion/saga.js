@@ -32,17 +32,19 @@ export function* saveData() {
   try {
     const data = yield select(selectors.makeSelectForm());
     const file = yield select(selectors.makeSelectFileUpload());
+    let fileName = '';
+    if (file && file.name) {
+      fileName = file.name;
+    }
     const database = getCookie('database');
     const requestURL = `${appConstants.publicPath}/api/promotion`;
     const response = yield call(request, requestURL, {
       database,
       method: 'POST',
-      body: JSON.stringify({ ...data, img_path: `/images/${file.name}` }),
+      body: JSON.stringify({ ...data, img_path: `/images/${fileName}` }),
     });
     if (response.status === 'Success') {
       yield put(actions.createItemSuccess(response));
-    } else {
-      yield put(actions.createItemError('Cannot create data'));
     }
   } catch (err) {
     yield put(actions.createItemError(err));
@@ -72,8 +74,6 @@ export function* updateData() {
 
     if (response.status === 'Success') {
       yield put(actions.updateItemSuccess(response));
-    } else {
-      yield put(actions.updateItemError('Cannot update data'));
     }
   } catch (err) {
     yield put(actions.updateItemError(err));
@@ -92,8 +92,6 @@ export function* deleteData() {
     });
     if (response.status === 'Success') {
       yield put(actions.deleteItemSuccess(response));
-    } else {
-      yield put(actions.deleteItemError('Cannot update data'));
     }
   } catch (err) {
     yield put(actions.deleteItemError(err));
@@ -113,8 +111,6 @@ export function* uploadFile() {
     const response = yield fetch(`${apiServiceHost}/api/upload`, options).then(resp => resp.json());
     if (response.status === 'Success') {
       yield put(actions.uploadImageSuccess(response));
-    } else {
-      yield put(actions.uploadImageError('Cannot update data'));
     }
   } catch (err) {
     yield put(actions.uploadImageError(err));

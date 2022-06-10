@@ -114,6 +114,7 @@ const NewItem = props => {
           <Grid item xs={4} lg={3}>
             <Button
               type="submit"
+              id="btnSave"
               fullWidth
               variant="contained"
               color="primary"
@@ -123,12 +124,23 @@ const NewItem = props => {
             </Button>
           </Grid>
           <Grid item xs={4} lg={3}>
-            <Button fullWidth variant="contained" disabled={pristine || submitting} onClick={reset}>
+            <Button
+              id="btnReset"
+              fullWidth
+              variant="contained"
+              disabled={pristine || submitting}
+              onClick={reset}
+            >
               <FormattedMessage {...messages.btnReset} />
             </Button>
           </Grid>
           <Grid item xs={4} lg={3}>
-            <Button fullWidth variant="contained" onClick={() => props.onChangePage('LIST')}>
+            <Button
+              id="btnBack"
+              fullWidth
+              variant="contained"
+              onClick={() => props.onChangePage('LIST')}
+            >
               <FormattedMessage {...messages.btnBack} />
             </Button>
           </Grid>

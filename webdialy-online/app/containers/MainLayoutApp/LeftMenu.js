@@ -84,7 +84,7 @@ export default function LeftMenu(props) {
             <ListItemIcon>
               <DnsRoundedIcon />
             </ListItemIcon>
-            <ListItemText primary="ข้อมูลระบบ" />
+            <ListItemText id="menuSystem" primary="ข้อมูลระบบ" />
             {open ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
           <Collapse in={open} timeout="auto" unmountOnExit>

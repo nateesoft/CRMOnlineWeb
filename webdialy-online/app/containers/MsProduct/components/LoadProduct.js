@@ -64,7 +64,7 @@ export default function LoadProduct(props) {
     <React.Fragment>
       <TableContainer component={Paper} className={classes.container}>
         <Typography color="textSecondary" variant="h6">
-          Load product page
+          โหลดข้อมูลสินค้า
         </Typography>
         <Grid container spacing={1}>
           <Grid item xs={12}>

@@ -62,7 +62,7 @@ export default function TableItems(props) {
     <React.Fragment>
       <TableContainer component={Paper} className={classes.container}>
         <Typography color="textSecondary" variant="h6">
-          Use Promotion List
+          ข้อมูลการใช้โปรโมชั่น
         </Typography>
         <SearchBar
           {...props}

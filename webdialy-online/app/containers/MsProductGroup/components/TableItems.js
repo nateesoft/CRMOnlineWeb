@@ -86,19 +86,24 @@ export default function TableItems(props) {
   };
 
   return (
-    <React.Fragment>
+    <>
       <TableContainer component={Paper} className={classes.container}>
         <Typography color="textSecondary" variant="h6">
-          Group List
+          ข้อมูลกลุ่มสินค้า
         </Typography>
         <Grid container spacing={1}>
           <Grid item>
-            <Button variant="contained" onClick={() => props.onChangePage('NEW')}>
+            <Button id="btnCreate" variant="contained" onClick={() => props.onChangePage('NEW')}>
               Create
             </Button>
           </Grid>
           <Grid item>
-            <Button variant="contained" color="primary" onClick={() => props.onInitLoad()}>
+            <Button
+              id="btnRefresh"
+              variant="contained"
+              color="primary"
+              onClick={() => props.onInitLoad()}
+            >
               Refresh
             </Button>
           </Grid>
@@ -167,6 +172,6 @@ export default function TableItems(props) {
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
-    </React.Fragment>
+    </>
   );
 }

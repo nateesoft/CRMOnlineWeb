@@ -65,7 +65,7 @@ export default function TableItems(props) {
     <React.Fragment>
       <TableContainer component={Paper} className={classes.container}>
         <Typography color="textSecondary" variant="h6">
-          Show all database
+          ฐานข้อมูลในระบบ ที่ใช้ระบบ CRM
         </Typography>
         <div className={classes.dataWidth}>
           <Table className={classes.table} stickyHeader aria-label="sticky table">

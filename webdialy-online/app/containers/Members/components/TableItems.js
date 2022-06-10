@@ -103,7 +103,7 @@ export default function TableItems(props) {
     <React.Fragment>
       <TableContainer component={Paper} className={classes.container}>
         <Typography color="textSecondary" variant="h6">
-          Members Table List
+          รายชื่อสมาชิกในระบบ
         </Typography>
         <div className={classes.wrapButtonAction}>
           <Button

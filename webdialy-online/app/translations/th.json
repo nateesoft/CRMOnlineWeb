@@ -315,5 +315,11 @@
   "app.containers.MsProductGroup.btnReset": "ล้างข้อมูล",
   "app.containers.MsProductGroup.btnBack": "ย้อนกลับ",
   "app.containers.MsProductGroup.codeShouldNotEmpty": "กรุณาระบุรหัสกลุ่มสินค้า",
-  "app.containers.MsProductGroup.nameShouldNotEmpty": "กรุณาระบุชื่อกลุ่มสินค้า"
+  "app.containers.MsProductGroup.nameShouldNotEmpty": "กรุณาระบุชื่อกลุ่มสินค้า",
+  "app.containers.MsRole.newItemHeader": "ข้อมูลสิทธิ์การใช้งาน",
+  "app.containers.MsRole.headerEditItem": "แก้ไขสิทธิ์การใช้งาน",
+  "app.containers.MsCompany.newItemHeader": "เพิ่มข้อมูลบริษัทใหม่",
+  "app.containers.MsCompany.updateItemHeader": "แก้ไขข้อมูลบริษัท",
+  "app.containers.MsStock.newItemHeader": "เพิ่มข้อมูลคลังสินค้า",
+  "app.containers.MsStock.updateItemHeader": "แก้ไขคลังสินค้า"
 }

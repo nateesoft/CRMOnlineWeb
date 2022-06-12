@@ -313,5 +313,6 @@ export default connect(mapStateToProps)(
     form: 'editForm',
     validate,
     enableReinitialize: true,
+    destroyOnUnmount: false,
   })(EditForm),
 );

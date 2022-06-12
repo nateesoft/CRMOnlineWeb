@@ -6,15 +6,12 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Field, reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
 import RenderField from 'components/RenderField';
 import SweetAlert from 'sweetalert2-react';
 import { Helmet } from 'react-helmet';
 
 import * as appConstants from 'containers/App/constants';
-import * as mainSelectors from 'containers/MainLayoutApp/selectors';
 import ButtonLink from 'components/ButtonLink';
 import messages from './messages';
 
@@ -194,14 +191,9 @@ const validate = formValues => {
   return errors;
 };
 
-const mapStateToProps = createStructuredSelector({
-  initialValues: mainSelectors.makeSelectProfile(),
-});
-
-export default connect(mapStateToProps)(
-  reduxForm({
-    form: 'editForm',
-    validate,
-    enableReinitialize: true,
-  })(EditForm),
-);
+export default reduxForm({
+  form: 'editForm',
+  validate,
+  enableReinitialize: true,
+  destroyOnUnmount: false,
+})(EditForm);

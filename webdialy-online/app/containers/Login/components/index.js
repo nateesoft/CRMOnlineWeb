@@ -130,4 +130,5 @@ export default reduxForm({
   form: 'loginForm',
   validate,
   enableReinitialize: true,
+  destroyOnUnmount: false,
 })(LoginForm);

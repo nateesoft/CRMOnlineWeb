@@ -153,5 +153,6 @@ export default connect(mapStateToProps)(
     form: 'editItem',
     validate,
     enableReinitialize: true,
+    destroyOnUnmount: false,
   })(EditItem),
 );

@@ -377,5 +377,6 @@ export default connect(mapStateToProps)(
     form: 'addressForm',
     validate,
     enableReinitialize: true,
+    destroyOnUnmount: false,
   })(EditForm),
 );

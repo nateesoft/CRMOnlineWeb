@@ -4,7 +4,7 @@
  *
  */
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -12,6 +12,7 @@ import { compose } from 'redux';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
+import * as mainSelectors from 'containers/MainLayoutApp/selectors';
 import * as actions from './actions';
 import reducer from './reducer';
 import saga from './saga';
@@ -34,6 +35,7 @@ ProfileChangePwd.propTypes = {
 const mapStateToProps = createStructuredSelector({
   updateStatus: selectors.makeUpdateStatus(),
   errorUpdate: selectors.makeErrorUpdate(),
+  initialValues: mainSelectors.makeSelectProfile(),
 });
 
 function mapDispatchToProps(dispatch) {

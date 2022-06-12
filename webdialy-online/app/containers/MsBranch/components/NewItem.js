@@ -385,5 +385,6 @@ export default connect(mapStateToProps)(
     form: 'newForm',
     validate,
     enableReinitialize: true,
+    destroyOnUnmount: false,
   })(NewItem),
 );

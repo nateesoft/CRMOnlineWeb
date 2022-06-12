@@ -100,5 +100,23 @@ module.exports = (db) => {
     })
   }
 
+  module.searchData = (key, value) => {
+    logger.debug(`searchData: ${key} ${value}`)
+    return new Promise(async (resolve, reject) => {
+      try {
+        let sql = `select * from ${table_name} where 1=1 `
+        if (key !== "") {
+          sql = `${sql} and ${key} like '%${value}%'`
+        }
+        logger.debug(sql)
+        const result = await pool.query(sql)
+        resolve({ status: "Success", data: JSON.stringify(result) })
+      } catch (err) {
+        logger.error(err)
+        reject({ status: "Error", msg: err.message })
+      }
+    })
+  }
+
   return module
 }

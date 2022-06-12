@@ -54,7 +54,7 @@ const SignatureForm = props => {
           </Grid>
           <Grid item>
             <Button
-              variant="contained"
+              variant="outlined"
               className={classes.btnConfirm}
               onClick={() => {
                 trim();

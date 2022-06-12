@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import useCookie, { setCookie } from 'react-use-cookie';
-import { Redirect, useLocation } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 import { useInjectSaga } from 'utils/injectSaga';

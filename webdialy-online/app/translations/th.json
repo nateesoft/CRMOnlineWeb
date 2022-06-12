@@ -228,7 +228,7 @@
   "app.containers.Checkout.memberLastname": "นามสกุล",
   "app.containers.Checkout.address1": "ที่อยู่บรรทัด 1",
   "app.containers.Checkout.address2": "ที่อยู่บรรทัด 2",
-  "app.containers.Checkout.subDistrict": "ตำบบ",
+  "app.containers.Checkout.subDistrict": "ตำบล",
   "app.containers.Checkout.district": "อำเภอ",
   "app.containers.Checkout.province": "จังหวัด",
   "app.containers.Checkout.postcode": "รหัสไปรษณีย์",

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Grid } from '@material-ui/core';
@@ -78,16 +77,14 @@ export default function ProfileContent(props) {
   }
 
   return (
-    <Card className={classes.root}>
+    <div className={classes.root}>
       <Helmet>
         <title>Profile</title>
       </Helmet>
-      <CardContent>
+      <div style={{ padding: '10px' }}>
         <Grid container spacing={2} justifyContent="center">
           <Grid item xs={12}>
-            <Typography variant="h5" component="h2">
-              {`${profile.prefix}${profile.first_name} ${profile.last_name}`}
-            </Typography>
+            <Typography>{`${profile.prefix}${profile.first_name} ${profile.last_name}`}</Typography>
           </Grid>
           <Grid item xs={12} className={classes.item}>
             <FormattedMessage {...messages.memberTopic} />
@@ -193,7 +190,7 @@ export default function ProfileContent(props) {
             </Grid>
           )}
         </Grid>
-      </CardContent>
+      </div>
       <CardActions className={classes.cardAction}>
         <ButtonLink to={`${appConstants.publicPath}/home/profile-change-pwd`}>
           <Button variant="outlined" color="secondary" size="small">
@@ -211,6 +208,6 @@ export default function ProfileContent(props) {
           </Button>
         </ButtonLink>
       </CardActions>
-    </Card>
+    </div>
   );
 }

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { FormattedMessage } from 'react-intl';
@@ -13,10 +12,13 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, TextField } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import moment from 'moment';
 import { Helmet } from 'react-helmet';
+import { Link } from 'react-router-dom';
 
+import ButtonLink from 'components/ButtonLink';
+import * as appConstant from 'containers/App/constants';
 import ContentNotFound from 'components/ContentNotFound';
 import GlobalAlert from 'components/GlobalAlert';
 import SignatureForm from './SignatureForm';
@@ -79,7 +81,7 @@ const ViewItem = props => {
   }
 
   return (
-    <Container component="main" maxWidth="lg">
+    <div style={{ border: '1px solid #eee', padding: '10px', margin: '10px' }}>
       <Helmet>
         <title>Member Order Confirm</title>
       </Helmet>
@@ -92,7 +94,7 @@ const ViewItem = props => {
       />
       <Grid container>
         <Grid item xs={12}>
-          <Paper elevation={3}>
+          <div>
             <Typography variant="h5" className={classes.updateItemHeader}>
               <FormattedMessage {...messages.headerViewItem} />
             </Typography>
@@ -140,12 +142,12 @@ const ViewItem = props => {
                 {orders.order_status}
               </Grid>
             </Grid>
-          </Paper>
+          </div>
         </Grid>
       </Grid>
       <Grid container>
         <Grid item xs={12}>
-          <Paper elevation={3} className={classes.paper1}>
+          <div className={classes.paper1}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow className={classes.colRow}>
@@ -183,12 +185,12 @@ const ViewItem = props => {
                   ))}
               </TableBody>
             </Table>
-          </Paper>
+          </div>
         </Grid>
       </Grid>
       <Grid container spacing={1}>
         <Grid item xs={12}>
-          <Paper elevation={1}>
+          <div>
             <Grid item xs={12} className={classes.divContainer}>
               {!orders.member_mobile && !orders.signature && (
                 <TextField
@@ -209,7 +211,7 @@ const ViewItem = props => {
                 <img src={orders.signature} alt="show signature" />
               </Grid>
             )}
-          </Paper>
+          </div>
         </Grid>
       </Grid>
       <Grid container className={classes.buttonAction}>
@@ -217,20 +219,22 @@ const ViewItem = props => {
           <Grid container spacing={1} justifyContent="flex-end">
             {orders.order_status !== 'member_approve' && (
               <Grid item>
-                <Button variant="contained" color="primary" onClick={() => onConfirmRecieveOrder()}>
+                <Button variant="outlined" color="primary" onClick={() => onConfirmRecieveOrder()}>
                   <FormattedMessage {...messages.btnSave} />
                 </Button>
               </Grid>
             )}
             <Grid item>
-              <Button variant="outlined" onClick={() => props.history.goBack()}>
-                <FormattedMessage {...messages.btnBack} />
-              </Button>
+              <ButtonLink to={`${appConstant.publicPath}/login`}>
+                <Button variant="outlined">
+                  <FormattedMessage {...messages.btnBack} />
+                </Button>
+              </ButtonLink>
             </Grid>
           </Grid>
         </Grid>
       </Grid>
-    </Container>
+    </div>
   );
 };
 

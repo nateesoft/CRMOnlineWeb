@@ -4,6 +4,7 @@ const express = require("express")
 const router = express.Router()
 const Task = require("../models/Orders.model")
 const TaskOrderDetail = require("../models/OrdersDetail.model")
+const TaskMember = require("../models/Member.model")
 
 module.exports = args => {
 
@@ -54,13 +55,16 @@ module.exports = args => {
       }
       const order_no = orders[0].order_no;
       const orders_detail_response = await TaskOrderDetail(req.headers.database).findByOrderNo(order_no);
+      const memberProfile = await TaskMember(req.headers.database).findMemberFromCartNo(cart_no)
+      const email = JSON.parse(memberProfile.data)[0].email
       const orders_detail = JSON.parse(orders_detail_response.data);
       return res.status(200).json({
         status: "Success",
         msg: "Success",
         data: {
           orders: orders[0],
-          orders_detail
+          orders_detail,
+          member_email: email
         },
       })
     } catch (error) {

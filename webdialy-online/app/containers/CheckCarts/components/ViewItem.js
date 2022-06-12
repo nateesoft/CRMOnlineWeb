@@ -156,27 +156,25 @@ const ViewItem = props => {
           <img src={`${apiServiceHost}${slipPath}`} width={250} alt="sample slip upload" />
         </Grid>
         <Grid item xs={6}>
-          <Paper elevation={3} className={classes.paperShoppingStep}>
-            {shoppingStep && shoppingStep !== 'approve' && (
-              <Grid item xs={12}>
-                <FormControl component="fieldset">
-                  <FormLabel component="legend">Approve Slip</FormLabel>
-                  <RadioGroup row aria-label="position" name="position" defaultValue="top">
-                    <FormControlLabel
-                      value="approve"
-                      control={<Radio color="primary" onChange={e => setApprove(e.target.value)} />}
-                      label="Approve"
-                    />
-                    <FormControlLabel
-                      value="not_approve"
-                      control={<Radio color="primary" onChange={e => setApprove(e.target.value)} />}
-                      label="Not Approve"
-                    />
-                  </RadioGroup>
-                </FormControl>
-              </Grid>
-            )}
-          </Paper>
+          {shoppingStep && shoppingStep !== 'approve' && (
+            <Grid item xs={12}>
+              <FormControl component="fieldset">
+                <FormLabel component="legend">Approve Slip</FormLabel>
+                <RadioGroup row aria-label="position" name="position" defaultValue="top">
+                  <FormControlLabel
+                    value="approve"
+                    control={<Radio color="primary" onChange={e => setApprove(e.target.value)} />}
+                    label="Approve"
+                  />
+                  <FormControlLabel
+                    value="not_approve"
+                    control={<Radio color="primary" onChange={e => setApprove(e.target.value)} />}
+                    label="Not Approve"
+                  />
+                </RadioGroup>
+              </FormControl>
+            </Grid>
+          )}
         </Grid>
         {shoppingStep && shoppingStep !== 'approve' && (
           <Grid item xs={10}>

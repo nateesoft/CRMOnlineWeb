@@ -1,5 +1,5 @@
 import { call, put, select, takeEvery } from 'redux-saga/effects';
-import { getCookie } from 'react-use-cookie';
+import { getCookie, setCookie } from 'react-use-cookie';
 import request from 'utils/request';
 import * as appConstants from 'containers/App/constants';
 import * as selectors from './selectors';
@@ -17,6 +17,10 @@ export function* initLoad() {
       method: 'GET',
     });
     if (response.status === 'Success') {
+      // set cookies
+      setCookie('database', JSON.stringify(database));
+      setCookie('token', JSON.stringify(response.data.member_email));
+
       yield put(actions.initLoadSuccess(response.data));
     }
   } catch (err) {

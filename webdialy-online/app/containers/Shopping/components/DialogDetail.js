@@ -158,12 +158,9 @@ export default function DialogDetail(props) {
         </IconButton>
       </Toolbar>
       <Typography align="center">
-        <img src={`${apiServiceHost}${item.img_path}`} width="250" alt="" />
-        <br />
-        options: {options}
-        <br />
-        special_text: {specialText}
-        <br />
+        {item.img_path && <img src={`${apiServiceHost}${item.img_path}`} width="250" alt="" />}
+        {options && <div>options: {options}</div>}
+        {specialText && <div>special_text: {specialText}</div>}
       </Typography>
       <List>
         <ListItem button>

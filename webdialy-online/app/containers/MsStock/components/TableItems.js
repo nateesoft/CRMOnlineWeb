@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -23,6 +22,7 @@ const useStyles = makeStyles({
   },
   buttonNew: {
     marginRight: '5px',
+    color: 'green',
   },
   buttonRefresh: {
     marginRight: '5px',
@@ -85,15 +85,15 @@ export default function TableItems(props) {
   };
 
   return (
-    <React.Fragment>
-      <TableContainer component={Paper} className={classes.container}>
+    <>
+      <TableContainer className={classes.container}>
         <Typography color="textSecondary" variant="h6">
           ข้อมูลคลังสินค้า
         </Typography>
         <div className={classes.wrapButtonAction}>
           <Button
             id="btnCreate"
-            variant="contained"
+            variant="outlined"
             className={classes.buttonNew}
             onClick={() => props.onChangePage('NEW')}
           >
@@ -101,7 +101,7 @@ export default function TableItems(props) {
           </Button>
           <Button
             id="btnRefresh"
-            variant="contained"
+            variant="outlined"
             color="primary"
             className={classes.buttonRefresh}
             onClick={() => props.onInitLoad()}
@@ -137,13 +137,13 @@ export default function TableItems(props) {
                       <TableCell align="center">
                         <Grid container spacing={1} justifyContent="center">
                           <Grid item>
-                            <Button variant="outlined" onClick={() => onEditItem(item)}>
+                            <Button variant="text" onClick={() => onEditItem(item)}>
                               Edit
                             </Button>
                           </Grid>
                           <Grid item>
                             <Button
-                              variant="contained"
+                              variant="text"
                               color="secondary"
                               onClick={() => handleDelete(item.uuid_index)}
                             >
@@ -174,6 +174,6 @@ export default function TableItems(props) {
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
-    </React.Fragment>
+    </>
   );
 }

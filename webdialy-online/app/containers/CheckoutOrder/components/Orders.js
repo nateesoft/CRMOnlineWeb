@@ -55,7 +55,7 @@ export default function Orders(props) {
   };
 
   return (
-    <React.Fragment>
+    <>
       <Typography variant="h6" gutterBottom>
         รายการสินค้า
       </Typography>
@@ -96,7 +96,7 @@ export default function Orders(props) {
           </Typography>
         </ListItem>
       </List>
-    </React.Fragment>
+    </>
   );
 }
 

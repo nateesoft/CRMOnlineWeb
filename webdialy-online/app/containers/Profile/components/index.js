@@ -196,17 +196,17 @@ export default function ProfileContent(props) {
       </CardContent>
       <CardActions className={classes.cardAction}>
         <ButtonLink to={`${appConstants.publicPath}/home/profile-change-pwd`}>
-          <Button variant="contained" color="secondary" size="small">
+          <Button variant="outlined" color="secondary" size="small">
             <FormattedMessage {...messages.btnChangePassword} />
           </Button>
         </ButtonLink>
         <ButtonLink to={`${appConstants.publicPath}/home/profile-edit`}>
-          <Button variant="contained" color="primary" size="small">
+          <Button variant="outlined" color="primary" size="small">
             <FormattedMessage {...messages.btnEditProfile} />
           </Button>
         </ButtonLink>
         <ButtonLink to={`${appConstants.publicPath}/home/profile-shipping`}>
-          <Button variant="contained" size="small">
+          <Button variant="outlined" size="small">
             <FormattedMessage {...messages.headerEditShipping} />
           </Button>
         </ButtonLink>

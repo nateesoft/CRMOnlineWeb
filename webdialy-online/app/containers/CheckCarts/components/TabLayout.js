@@ -61,8 +61,8 @@ export default function TabLayout(props) {
   };
 
   return (
-    <React.Fragment>
-      <AppBar position="static" color="default">
+    <>
+      <AppBar position="static" color="default" variant="outlined">
         <Tabs
           value={value}
           onChange={handleChange}
@@ -82,12 +82,12 @@ export default function TabLayout(props) {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0}>
-          <ContentPage approve={false} {...props} />
+          <ContentPage approve={false} title="รายการอนุมัติ" {...props} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <ContentPage approve {...props} />
+          <ContentPage approve title="รายการอนุมัติแล้ว" {...props} />
         </TabPanel>
       </SwipeableViews>
-    </React.Fragment>
+    </>
   );
 }

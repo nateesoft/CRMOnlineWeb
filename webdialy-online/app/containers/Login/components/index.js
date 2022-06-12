@@ -82,7 +82,7 @@ const LoginForm = props => {
                     <Button
                       id="btnSubmit"
                       type="submit"
-                      variant="contained"
+                      variant="outlined"
                       color="primary"
                       disabled={pristine || submitting}
                     >
@@ -90,7 +90,7 @@ const LoginForm = props => {
                     </Button>
                   </Grid>
                   <Grid item>
-                    <Button variant="contained" disabled={pristine || submitting} onClick={reset}>
+                    <Button variant="outlined" disabled={pristine || submitting} onClick={reset}>
                       {<FormattedMessage {...messages.clear} />}
                     </Button>
                   </Grid>

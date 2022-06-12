@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { getCookie } from 'react-use-cookie';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -124,14 +123,14 @@ export default function TableItems(props) {
   };
 
   return (
-    <React.Fragment>
-      <TableContainer component={Paper} className={classes.container}>
+    <>
+      <TableContainer className={classes.container}>
         <Typography color="textSecondary" variant="h6">
           {props.title}
         </Typography>
         <div className={classes.wrapButtonAction}>
           <Button
-            variant="contained"
+            variant="outlined"
             color="primary"
             className={classes.buttonRefresh}
             onClick={handleRefreshPage}
@@ -143,6 +142,7 @@ export default function TableItems(props) {
           <SearchBar
             {...props}
             items={[
+              { key: '', value: '' },
               { key: 'cart_no', value: 'Cart No' },
               { key: 'member_code', value: 'Member Code' },
               { key: 'cart_active', value: 'Status' },
@@ -166,7 +166,7 @@ export default function TableItems(props) {
                   <FormattedMessage {...messages.member} />
                 </TableCell>
                 {tabFilter !== 'not_approve' && (
-                  <React.Fragment>
+                  <>
                     <TableCell align="center">
                       <FormattedMessage {...messages.items} />
                     </TableCell>
@@ -182,7 +182,7 @@ export default function TableItems(props) {
                     <TableCell align="center">
                       <FormattedMessage {...messages.active} />
                     </TableCell>
-                  </React.Fragment>
+                  </>
                 )}
                 {tabFilter === 'not_approve' && (
                   <TableCell align="center">
@@ -220,7 +220,7 @@ export default function TableItems(props) {
                       <TableCell align="center">{item.cart_create_date}</TableCell>
                       <TableCell align="center">{item.member_code}</TableCell>
                       {tabFilter !== 'not_approve' && (
-                        <React.Fragment>
+                        <>
                           <TableCell align="center">{item.total_item}</TableCell>
                           <TableCell align="center">{item.total_amount}</TableCell>
                           <TableCell align="center">{item.total_point}</TableCell>
@@ -259,7 +259,7 @@ export default function TableItems(props) {
                               </Grid>
                             </TableCell>
                           )}
-                        </React.Fragment>
+                        </>
                       )}
                       {tabFilter === 'not_approve' && (
                         <TableCell align="center" style={{ color: 'red' }}>
@@ -289,6 +289,6 @@ export default function TableItems(props) {
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
       <ShowQRCode open={open} onClose={handleClose} cart={cart} db={database} />
-    </React.Fragment>
+    </>
   );
 }

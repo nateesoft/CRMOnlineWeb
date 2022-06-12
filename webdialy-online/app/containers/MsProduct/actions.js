@@ -205,3 +205,23 @@ export function loadStockListError(payload) {
     payload,
   };
 }
+export function search(payload) {
+  return {
+    type: constants.SEARCH,
+    payload,
+  };
+}
+
+export function searchSuccess(payload) {
+  return {
+    type: constants.SEARCH_SUCCESS,
+    payload,
+  };
+}
+
+export function searchError(payload) {
+  return {
+    type: constants.SEARCH_ERROR,
+    payload,
+  };
+}

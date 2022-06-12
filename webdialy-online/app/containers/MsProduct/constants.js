@@ -46,3 +46,7 @@ export const LOAD_STOCK_LIST_SUCCESS = 'app/MsProduct/LOAD_STOCK_LIST_SUCCESS';
 export const LOAD_STOCK_LIST_ERROR = 'app/MsProduct/LOAD_STOCK_LIST_ERROR';
 
 export const SET_HEADERS = 'app/MsProduct/SET_HEADERS';
+
+export const SEARCH = 'app/MsProduct/SEARCH';
+export const SEARCH_SUCCESS = 'app/MsProduct/SEARCH_SUCCESS';
+export const SEARCH_ERROR = 'app/MsProduct/SEARCH_ERROR';

@@ -34,7 +34,7 @@ export default function FinishOrder(props) {
   const loc = window.location.href.split('/');
   const hostUrl = `${loc[0]}//${loc[2]}${appConstants.publicPath}`;
   return (
-    <React.Fragment>
+    <>
       <div align="center">
         <Typography variant="h5" gutterBottom>
           ขอบคุณสำหรับคำสั่งซื้อสินค้า
@@ -58,12 +58,12 @@ export default function FinishOrder(props) {
         </Typography>
         <Divider className={classes.separateLine} />
         <ButtonLink to={`${appConstants.publicPath}/home/shopping/new`}>
-          <Button color="primary" variant="contained">
+          <Button color="primary" variant="outlined">
             กลับหน้าสั่งสินค้า
           </Button>
         </ButtonLink>
       </div>
-    </React.Fragment>
+    </>
   );
 }
 

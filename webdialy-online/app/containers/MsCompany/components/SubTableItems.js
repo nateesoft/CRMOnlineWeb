@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -47,8 +46,8 @@ export default function SubTableItems() {
   SubTableItems.propTypes = {};
 
   return (
-    <React.Fragment>
-      <TableContainer component={Paper} className={classes.container}>
+    <>
+      <TableContainer className={classes.container}>
         <Typography color="textSecondary" variant="h6">
           Sub Table List
         </Typography>
@@ -85,6 +84,6 @@ export default function SubTableItems() {
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
-    </React.Fragment>
+    </>
   );
 }

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -87,20 +86,25 @@ export default function TableItems(props) {
 
   return (
     <>
-      <TableContainer component={Paper} className={classes.container}>
+      <TableContainer className={classes.container}>
         <Typography color="textSecondary" variant="h6">
           ข้อมูลกลุ่มสินค้า
         </Typography>
         <Grid container spacing={1}>
           <Grid item>
-            <Button id="btnCreate" variant="contained" onClick={() => props.onChangePage('NEW')}>
+            <Button
+              id="btnCreate"
+              variant="outlined"
+              style={{ color: 'green' }}
+              onClick={() => props.onChangePage('NEW')}
+            >
               Create
             </Button>
           </Grid>
           <Grid item>
             <Button
               id="btnRefresh"
-              variant="contained"
+              variant="outlined"
               color="primary"
               onClick={() => props.onInitLoad()}
             >
@@ -135,14 +139,14 @@ export default function TableItems(props) {
                       <TableCell align="left">{item.name}</TableCell>
                       <TableCell align="center">
                         <Button
-                          variant="outlined"
+                          variant="text"
                           onClick={() => onEditItem(item)}
                           className={classes.buttonMargin}
                         >
                           Edit
                         </Button>
                         <Button
-                          variant="contained"
+                          variant="text"
                           color="secondary"
                           onClick={() => handleDelete(item.uuid_index)}
                           className={classes.buttonMargin}

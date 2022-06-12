@@ -51,6 +51,7 @@ MsRole.propTypes = {
   onCreateItem: PropTypes.func,
   onUpdateItem: PropTypes.func,
   onDeleteItem: PropTypes.func,
+  onSearch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -70,6 +71,7 @@ function mapDispatchToProps(dispatch) {
     onDeleteItem: id => dispatch(actions.deleteItem(id)),
     onChangePage: pageAt => dispatch(actions.changePage(pageAt)),
     onLoadEdit: item => dispatch(actions.loadEdit(item)),
+    onSearch: (key, value) => dispatch(actions.search({ key, value })),
   };
 }
 

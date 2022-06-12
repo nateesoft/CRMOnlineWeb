@@ -11,13 +11,14 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import Swal from 'sweetalert2';
+
 import SearchBar from 'components/SearchBar';
 
 const useStyles = makeStyles({
   container: {
     padding: '10px',
+    width: '100%',
   },
   table: {
     padding: '5px',
@@ -100,14 +101,14 @@ export default function TableItems(props) {
   };
 
   return (
-    <React.Fragment>
-      <TableContainer component={Paper} className={classes.container}>
+    <>
+      <TableContainer className={classes.container}>
         <Typography color="textSecondary" variant="h6">
           รายชื่อสมาชิกในระบบ
         </Typography>
         <div className={classes.wrapButtonAction}>
           <Button
-            variant="contained"
+            variant="outlined"
             color="primary"
             className={classes.buttonRefresh}
             onClick={() => props.onInitLoad()}
@@ -118,6 +119,7 @@ export default function TableItems(props) {
         <SearchBar
           {...props}
           items={[
+            { key: '', value: '' },
             { key: 'code', value: 'Code' },
             { key: 'email', value: 'Email' },
             { key: 'mobile', value: 'Mobile' },
@@ -160,22 +162,22 @@ export default function TableItems(props) {
                       </TableCell>
                       <TableCell align="left" className={classes.colRow}>
                         <Button
-                          variant="outlined"
+                          variant="text"
                           onClick={() => onViewItem(item)}
                           className={classes.buttonMargin}
                         >
                           View
                         </Button>
                         <Button
-                          variant="outlined"
+                          variant="text"
                           onClick={() => onEditItem(item)}
                           className={classes.buttonMargin}
                         >
                           Edit
                         </Button>
-                        {item.member_role !== 'admin' && (
+                        {item.member_role !== 'admin' && item.member_role !== 'super' && (
                           <Button
-                            variant="contained"
+                            variant="text"
                             color="secondary"
                             onClick={() => handleDelete(item.email)}
                             className={classes.buttonMargin}
@@ -206,6 +208,6 @@ export default function TableItems(props) {
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
-    </React.Fragment>
+    </>
   );
 }

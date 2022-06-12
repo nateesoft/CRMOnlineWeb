@@ -78,7 +78,7 @@ export default function LeftMenu(props) {
         </ButtonLink>
       ))}
       {leftMenuMaster.length > 0 && (
-        <React.Fragment>
+        <>
           <Divider />
           <ListItem button onClick={handleClick}>
             <ListItemIcon>
@@ -105,7 +105,7 @@ export default function LeftMenu(props) {
             </List>
           </Collapse>
           <Divider />
-        </React.Fragment>
+        </>
       )}
     </List>
   );

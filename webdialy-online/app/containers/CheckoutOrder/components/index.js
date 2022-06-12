@@ -43,14 +43,6 @@ const useStyles = makeStyles(theme => ({
   separateLine: {
     border: '1px solid #eee',
   },
-  buttonAddItem: {
-    background: 'green',
-    color: 'white',
-    '&:hover': {
-      color: 'white',
-      background: 'darkgreen',
-    },
-  },
 }));
 
 const steps = ['สินค้า', 'ที่อยู่', 'รับชำระ', 'ยืนยันคำสั่งซื้อ'];
@@ -97,7 +89,7 @@ export default function CheckoutContent(props) {
       <Helmet>
         <title>Checkout Order</title>
       </Helmet>
-      <Paper className={classes.paper}>
+      <>
         <Typography component="h1" variant="h4" align="center">
           ขั้นตอนการสั่ง
         </Typography>
@@ -108,11 +100,11 @@ export default function CheckoutContent(props) {
             </Step>
           ))}
         </Stepper>
-        <React.Fragment>
+        <>
           {activeStep === steps.length ? (
             <FinishOrder {...props} />
           ) : (
-            <React.Fragment>
+            <>
               {getStepContent(activeStep)}
               <Divider className={classes.separateLine} />
               <div className={classes.buttons}>
@@ -122,7 +114,7 @@ export default function CheckoutContent(props) {
                   </Button>
                 )}
                 <Button
-                  variant="contained"
+                  variant="outlined"
                   color="primary"
                   onClick={handleNext}
                   className={classes.button}
@@ -131,14 +123,14 @@ export default function CheckoutContent(props) {
                 </Button>
               </div>
               <ButtonLink to={`${appConstants.publicPath}/home/shopping/${props.currentCartNo}`}>
-                <Button variant="contained" className={classes.buttonAddItem}>
+                <Button variant="outlined" style={{ color: 'green' }}>
                   เลือกสินค้าเพิ่ม
                 </Button>
               </ButtonLink>
-            </React.Fragment>
+            </>
           )}
-        </React.Fragment>
-      </Paper>
+        </>
+      </>
     </main>
   );
 }

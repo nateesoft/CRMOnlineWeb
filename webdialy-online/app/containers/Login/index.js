@@ -45,12 +45,12 @@ const Login = props => {
   }
 
   return (
-    <React.Fragment>
+    <>
       <Helmet>
         <title>Login</title>
       </Helmet>
       <MainComponents {...props} />
-    </React.Fragment>
+    </>
   );
 };
 

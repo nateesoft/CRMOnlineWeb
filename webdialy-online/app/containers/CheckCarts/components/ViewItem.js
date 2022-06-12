@@ -18,7 +18,6 @@ import { Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import QRCode from 'qrcode.react';
 import SweetAlert from 'sweetalert2-react';
-import LabelTopic from 'components/LabelTopic';
 import * as appConstants from 'containers/App/constants';
 import messages from './messages';
 import { makeSelectForm } from '../selectors';
@@ -79,7 +78,7 @@ const ViewItem = props => {
   const apiServiceHost = appConstants.serviceApiPath;
 
   return (
-    <Container component={Paper} maxWidth="lg">
+    <Container maxWidth="lg">
       <SweetAlert
         show={showAlertResponse.status === 'Success'}
         title="Update Status"
@@ -87,9 +86,9 @@ const ViewItem = props => {
         text="Approve Cart Status Success"
         onConfirm={() => onChangePage('LIST')}
       />
-      <LabelTopic>
+      <Typography variant="h6">
         <FormattedMessage {...messages.headerViewItem} />
-      </LabelTopic>
+      </Typography>
       <div align="center" className={classes.showQrCode}>
         <QRCode value={`/order_confirm/${cartNo}/${database}`} />
       </div>

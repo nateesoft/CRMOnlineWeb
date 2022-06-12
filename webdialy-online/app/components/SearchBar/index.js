@@ -20,9 +20,13 @@ export default function SearchBar(props) {
   const [key, setKey] = useState('');
   const [value, setValue] = useState('');
 
+  const handleChange = e => {
+    setKey(e.target.value);
+  };
+
   const onSearchData = () => {
     if (value.trim() !== '') {
-      props.onSearch(key, value);
+      props.onSearch(key || 'code', value);
     }
   };
 
@@ -32,33 +36,39 @@ export default function SearchBar(props) {
   };
 
   return (
-    <Grid container spacing={1}>
-      <Grid item>
-        <Select
-          onChange={e => setKey(e.target.value)}
-          defaultValue={items[0].key}
-          className={classes.formInput}
-        >
-          {items &&
-            items.map(value1 => (
-              <MenuItem key={v4()} value={value1.key}>
-                {value1.value}
-              </MenuItem>
-            ))}
-        </Select>
+    <div
+      style={{
+        padding: '10px',
+        marginTop: '10px',
+        marginBottom: '10px',
+        background: 'snow',
+        border: '1px solid #eeeeee',
+      }}
+    >
+      <Grid container spacing={1} justifyContent="flex-end">
+        <Grid item>
+          <Select onChange={handleChange} className={classes.formInput} fullWidth>
+            {items &&
+              items.map(value1 => (
+                <MenuItem key={v4()} value={value1.key}>
+                  {value1.value}
+                </MenuItem>
+              ))}
+          </Select>
+        </Grid>
+        <Grid item>
+          <TextField
+            value={value}
+            onChange={e => setValue(e.target.value)}
+            className={classes.formInput}
+          />
+        </Grid>
+        <Grid item>
+          <Button variant="text" color="primary" onClick={() => onSearchData()}>
+            Search
+          </Button>
+        </Grid>
       </Grid>
-      <Grid item>
-        <TextField
-          value={value}
-          onChange={e => setValue(e.target.value)}
-          className={classes.formInput}
-        />
-      </Grid>
-      <Grid item>
-        <Button variant="contained" color="primary" onClick={() => onSearchData()}>
-          Search
-        </Button>
-      </Grid>
-    </Grid>
+    </div>
   );
 }

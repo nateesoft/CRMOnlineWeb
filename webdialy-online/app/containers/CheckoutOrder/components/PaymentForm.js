@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
-import { Paper } from '@material-ui/core';
 import { reduxForm } from 'redux-form';
 import { FormattedMessage } from 'react-intl';
 import Alert from '@material-ui/lab/Alert';
@@ -79,7 +78,7 @@ const PaymentForm = props => {
   };
 
   return (
-    <React.Fragment>
+    <>
       {customerLatitude && branchLatitude && (
         <Grid container>
           <Grid item xs={12}>
@@ -105,44 +104,40 @@ const PaymentForm = props => {
         </Typography>
       )}
       <Divider className={classes.separateLine} />
-      <Paper elevation={3} style={{ padding: '10px' }}>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            อัพโหลดไฟล์ Slip / Validate <input type="file" name="file" onChange={onChangeHandler} />
-          </Grid>
-          <Grid item xs={12}>
-            {props.showImg && (
-              <div align="center">
-                <img src={`${apiServiceHost}/images/${file.name}`} width={150} alt="" />
-                <br />
-                <br />
-                รูปสลิปที่โอนเงิน
-                <br />
-              </div>
-            )}
-          </Grid>
-          <Grid item xs={6} lg={6}>
-            {props.imgValid === 'Success' && (
-              <Alert severity="success">ตรวจพบข้อมูล qrcode สำหรับรายการโอนเงิน</Alert>
-            )}
-            {props.imgValid === 'Warning' && (
-              <Alert severity="error">ข้อมูลใน QR Code ไม่ถูกต้องตาม Format</Alert>
-            )}
-            {props.imgValid === 'Error' && (
-              <Alert severity="error">ไฟล์ที่อัพโหลดไม่พบข้อมูล qrcode ในการโอนเงิน</Alert>
-            )}
-          </Grid>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          อัพโหลดไฟล์ Slip / Validate <input type="file" name="file" onChange={onChangeHandler} />
         </Grid>
-      </Paper>
-    </React.Fragment>
+        <Grid item xs={12}>
+          {props.showImg && (
+            <div align="center">
+              <img src={`${apiServiceHost}/images/${file.name}`} width={150} alt="" />
+              <br />
+              <br />
+              รูปสลิปที่โอนเงิน
+              <br />
+            </div>
+          )}
+        </Grid>
+        <Grid item xs={6} lg={6}>
+          {props.imgValid === 'Success' && (
+            <Alert severity="success">ตรวจพบข้อมูล qrcode สำหรับรายการโอนเงิน</Alert>
+          )}
+          {props.imgValid === 'Warning' && (
+            <Alert severity="error">ข้อมูลใน QR Code ไม่ถูกต้องตาม Format</Alert>
+          )}
+          {props.imgValid === 'Error' && (
+            <Alert severity="error">ไฟล์ที่อัพโหลดไม่พบข้อมูล qrcode ในการโอนเงิน</Alert>
+          )}
+        </Grid>
+      </Grid>
+    </>
   );
 };
 
 PaymentForm.propTypes = {
   cartList: PropTypes.object,
   file: PropTypes.any,
-  checkSlipImage: PropTypes.func,
-  onUpdateSlipPath: PropTypes.func,
   setShowImg: PropTypes.func,
   setFile: PropTypes.func,
   onUploadImage: PropTypes.func,

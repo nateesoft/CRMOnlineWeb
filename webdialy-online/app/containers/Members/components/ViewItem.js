@@ -2,39 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+import { Grid, Typography } from '@material-ui/core';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import LabelTopic from 'components/LabelTopic';
 import messages from './messages';
 import * as selectors from '../selectors';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-  },
   container: {
-    marginTop: theme.spacing(2),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    border: '1px solid #eee',
-    padding: '20px',
-  },
-  loginTopic: {
-    marginTop: theme.spacing(1),
+    padding: '10px',
   },
   divContent: {
-    marginTop: '20px',
-    marginBottom: '10px',
-    padding: '10px',
-    borderRadius: '10px',
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
   colTab: {
-    background: '#FFF0D8',
+    background: '#eeeeee',
     fontWeight: 'bold',
     margin: '1px',
     paddingLeft: '15px',
@@ -55,63 +40,63 @@ const ViewItem = props => {
   } = props.initialValues;
 
   return (
-    <Container component={Paper} maxWidth="lg" className={classes.container}>
-      <LabelTopic>
+    <Container maxWidth="lg" className={classes.container}>
+      <Typography color="textSecondary" variant="h6">
         <FormattedMessage {...messages.headerViewItem} />
-      </LabelTopic>
-      <Grid container spacing={2} className={classes.divContent}>
-        <Grid item xs={4} className={classes.colTab}>
+      </Typography>
+      <Grid container spacing={3} className={classes.divContent}>
+        <Grid item xs={3} className={classes.colTab}>
           <FormattedMessage {...messages.memberCode} />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={7}>
           {code}
         </Grid>
-        <Grid item xs={4} className={classes.colTab}>
+        <Grid item xs={3} className={classes.colTab}>
           <FormattedMessage {...messages.email} />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={7}>
           {email}
         </Grid>
-        <Grid item xs={4} className={classes.colTab}>
+        <Grid item xs={3} className={classes.colTab}>
           <FormattedMessage {...messages.role} />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={7}>
           {memberRole}
         </Grid>
-        <Grid item xs={4} className={classes.colTab}>
+        <Grid item xs={3} className={classes.colTab}>
           <FormattedMessage {...messages.name} />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={7}>
           {firstName}
         </Grid>
-        <Grid item xs={4} className={classes.colTab}>
+        <Grid item xs={3} className={classes.colTab}>
           <FormattedMessage {...messages.lastName} />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={7}>
           {lastName}
         </Grid>
-        <Grid item xs={4} className={classes.colTab}>
+        <Grid item xs={3} className={classes.colTab}>
           <FormattedMessage {...messages.totalScore} />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={7}>
           {totalScore}
         </Grid>
-        <Grid item xs={4} className={classes.colTab}>
+        <Grid item xs={3} className={classes.colTab}>
           <FormattedMessage {...messages.totalPurchase} />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={7}>
           {totalPurchase}
         </Grid>
-        <Grid item xs={4} className={classes.colTab}>
+        <Grid item xs={3} className={classes.colTab}>
           <FormattedMessage {...messages.mobile} />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={7}>
           {mobile}
         </Grid>
       </Grid>
-      <Grid container spacing={3}>
-        <Grid item xs={3}>
-          <Button variant="contained" color="primary" onClick={() => props.onChangePage('LIST')}>
+      <Grid container>
+        <Grid item>
+          <Button variant="outlined" color="primary" onClick={() => props.onChangePage('LIST')}>
             <FormattedMessage {...messages.btnBack} />
           </Button>
         </Grid>

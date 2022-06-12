@@ -16,7 +16,6 @@ import SweetAlert from 'sweetalert2-react';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import InputLabel from '@material-ui/core/InputLabel';
-import { Paper } from '@material-ui/core';
 import { Helmet } from 'react-helmet';
 
 import * as appConstants from 'containers/App/constants';
@@ -122,7 +121,7 @@ const EditForm = props => {
   };
 
   return (
-    <Container component={Paper} maxWidth="lg" className={classes.container}>
+    <Container maxWidth="lg" className={classes.container}>
       <SweetAlert show={errorUpdate} title="Update data error" type="error" text={errorUpdate} />
       <SweetAlert
         show={updateStatus === 'Success'}
@@ -241,25 +240,24 @@ const EditForm = props => {
           </Grid>
         </Grid>
         <Grid container spacing={1}>
-          <Grid item xs={4} md={3}>
+          <Grid item>
             <Button
               type="submit"
-              fullWidth
-              variant="contained"
+              variant="outlined"
               color="primary"
               disabled={pristine || submitting}
             >
               <FormattedMessage {...messages.btnSaveProfile} />
             </Button>
           </Grid>
-          <Grid item xs={4} md={3}>
-            <Button fullWidth variant="contained" disabled={pristine || submitting} onClick={reset}>
+          <Grid item>
+            <Button variant="outlined" disabled={pristine || submitting} onClick={reset}>
               <FormattedMessage {...messages.btnResetForm} />
             </Button>
           </Grid>
-          <Grid item xs={4} md={3}>
+          <Grid item>
             <ButtonLink to={`${appConstants.publicPath}/home/profile`}>
-              <Button fullWidth variant="contained" onClick={reset}>
+              <Button variant="outlined" onClick={reset}>
                 <FormattedMessage {...messages.btnBack} />
               </Button>
             </ButtonLink>

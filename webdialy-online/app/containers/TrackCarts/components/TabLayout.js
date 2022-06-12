@@ -62,8 +62,8 @@ export default function TabLayout(props) {
   };
 
   return (
-    <React.Fragment>
-      <AppBar position="static" color="default">
+    <>
+      <AppBar position="static" color="default" variant="outlined">
         <Tabs
           value={value}
           onChange={handleChange}
@@ -101,6 +101,6 @@ export default function TabLayout(props) {
           <TableItems tabFilter="finish" title="รายการที่จัดส่งเรียบร้อยแล้ว" {...props} />
         </TabPanel>
       </SwipeableViews>
-    </React.Fragment>
+    </>
   );
 }

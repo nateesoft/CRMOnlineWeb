@@ -7,7 +7,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -61,8 +60,8 @@ export default function LoadProduct(props) {
   };
 
   return (
-    <React.Fragment>
-      <TableContainer component={Paper} className={classes.container}>
+    <>
+      <TableContainer className={classes.container}>
         <Typography color="textSecondary" variant="h6">
           โหลดข้อมูลสินค้า
         </Typography>
@@ -149,7 +148,7 @@ export default function LoadProduct(props) {
           </Button>
         </Grid>
       </Grid>
-    </React.Fragment>
+    </>
   );
 }
 

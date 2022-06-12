@@ -69,13 +69,13 @@ export default function MyQrCode(props) {
   } = props.profile;
   if (!code) {
     return (
-      <React.Fragment>
+      <>
         <FormattedMessage {...messages.loadQrCode} />
-      </React.Fragment>
+      </>
     );
   }
   return (
-    <React.Fragment>
+    <>
       <Grid container>
         <Grid item xs={12}>
           <BoxPanel>
@@ -127,7 +127,7 @@ export default function MyQrCode(props) {
           </BoxPanel>
         </Grid>
       </Grid>
-    </React.Fragment>
+    </>
   );
 }
 

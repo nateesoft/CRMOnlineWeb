@@ -11,12 +11,12 @@ export default function ContentPage(props) {
   };
 
   return (
-    <React.Fragment>
+    <>
       <Helmet>
         <title>Track carts</title>
       </Helmet>
       {props.getPage === 'LIST' && <TabLayout {...props} />}
       {props.getPage === 'VIEW' && <ViewItem {...props} />}
-    </React.Fragment>
+    </>
   );
 }

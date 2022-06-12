@@ -7,8 +7,7 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper } from '@material-ui/core';
-import LabelTopic from 'components/LabelTopic';
+import { Typography } from '@material-ui/core';
 import messages from './messages';
 import { makeSelectForm } from '../selectors';
 
@@ -34,10 +33,10 @@ const ViewItem = props => {
   const { col1, col2, col3 } = props.initialValues;
 
   return (
-    <Container component={Paper} maxWidth="lg">
-      <LabelTopic>
+    <Container maxWidth="lg">
+      <Typography variant="h6">
         <FormattedMessage {...messages.headerViewItem} />
-      </LabelTopic>
+      </Typography>
       <Grid container spacing={2} className={classes.divContent}>
         <Grid item xs={4}>
           <FormattedMessage {...messages.col1} />

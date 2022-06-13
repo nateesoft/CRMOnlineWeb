@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -13,6 +12,8 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Swal from 'sweetalert2';
+
+import SearchBar from 'components/SearchBar';
 
 const useStyles = makeStyles({
   container: {
@@ -86,20 +87,26 @@ export default function TableItems(props) {
   };
 
   return (
-    <React.Fragment>
-      <TableContainer component={Paper} className={classes.container}>
+    <>
+      <TableContainer className={classes.container}>
         <Typography color="textSecondary" variant="h6">
-          Product Table List
+          ข้อมูลสินค้า
         </Typography>
         <Grid container spacing={1}>
           <Grid item>
-            <Button variant="contained" onClick={() => props.onChangePage('NEW')}>
+            <Button
+              id="btnCreate"
+              variant="outlined"
+              style={{ color: 'green' }}
+              onClick={() => props.onChangePage('NEW')}
+            >
               Create
             </Button>
           </Grid>
           <Grid item>
             <Button
-              variant="contained"
+              id="btnLoadProduct"
+              variant="outlined"
               onClick={() => props.onChangePage('LOAD_PRODUCT')}
               className={classes.buttonUpload}
             >
@@ -107,11 +114,24 @@ export default function TableItems(props) {
             </Button>
           </Grid>
           <Grid item>
-            <Button variant="contained" color="primary" onClick={() => props.onInitLoad()}>
+            <Button
+              id="btnRefresh"
+              variant="outlined"
+              color="primary"
+              onClick={() => props.onInitLoad()}
+            >
               Refresh
             </Button>
           </Grid>
         </Grid>
+        <SearchBar
+          {...props}
+          items={[
+            { key: '', value: '' },
+            { key: 'code', value: 'Code' },
+            { key: 'name', value: 'Name' },
+          ]}
+        />
         <div className={classes.dataWidth}>
           <Table className={classes.table} stickyHeader aria-label="sticky table">
             <TableHead>
@@ -161,14 +181,14 @@ export default function TableItems(props) {
                       <TableCell align="left">{item.img_path}</TableCell>
                       <TableCell align="center">
                         <Button
-                          variant="outlined"
+                          variant="text"
                           onClick={() => onEditItem(item)}
                           className={classes.buttonMargin}
                         >
                           Edit
                         </Button>
                         <Button
-                          variant="contained"
+                          variant="text"
                           color="secondary"
                           onClick={() => handleDelete(item.uuid_index)}
                           className={classes.buttonMargin}
@@ -198,6 +218,6 @@ export default function TableItems(props) {
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
-    </React.Fragment>
+    </>
   );
 }

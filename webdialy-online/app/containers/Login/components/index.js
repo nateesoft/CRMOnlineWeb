@@ -7,9 +7,9 @@ import { Field, reduxForm } from 'redux-form';
 import { FormattedMessage } from 'react-intl';
 import RenderField from 'components/RenderField';
 import SweetAlert from 'sweetalert2-react';
-import { Paper } from '@material-ui/core';
+import { Box, Paper } from '@material-ui/core';
 
-import LoginLogo from 'images/login.png';
+import LoginLogo from 'images/loginIcon.png';
 import messages from './messages';
 import LoginFooter from './LoginFooter';
 import { useStyles } from './styles';
@@ -36,21 +36,27 @@ const LoginForm = props => {
   };
 
   return (
-    <Grid container className={classes.root}>
-      <Grid item xs={12}>
-        <SweetAlert
-          show={errorLogin}
-          title="Login Error"
-          type="error"
-          text={errorLogin}
-          onConfirm={clearData}
-        />
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      minHeight="100vh"
+      className={classes.root}
+    >
+      <SweetAlert
+        show={errorLogin}
+        title="Login Error"
+        type="error"
+        text={errorLogin}
+        onConfirm={clearData}
+      />
+      <div style={{ minHeight: '750' }}>
         <div className={classes.header}>CRM ONLINE</div>
         <Paper elevation={3} className={classes.paper}>
           <ImgLogo src={LoginLogo} width="128" height="128" />
           <form onSubmit={handleSubmit(onValidate)}>
-            <Grid container spacing={1}>
-              <Grid item xs={12}>
+            <Grid container spacing={1} justifyContent="center">
+              <Grid item xs={10} md={7}>
                 <Field
                   name="username"
                   component={RenderField}
@@ -60,7 +66,7 @@ const LoginForm = props => {
                   required
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={10} md={7}>
                 <Field
                   name="password"
                   component={RenderField}
@@ -76,7 +82,7 @@ const LoginForm = props => {
                     <Button
                       id="btnSubmit"
                       type="submit"
-                      variant="contained"
+                      variant="outlined"
                       color="primary"
                       disabled={pristine || submitting}
                     >
@@ -84,7 +90,7 @@ const LoginForm = props => {
                     </Button>
                   </Grid>
                   <Grid item>
-                    <Button variant="contained" disabled={pristine || submitting} onClick={reset}>
+                    <Button variant="outlined" disabled={pristine || submitting} onClick={reset}>
                       {<FormattedMessage {...messages.clear} />}
                     </Button>
                   </Grid>
@@ -94,8 +100,8 @@ const LoginForm = props => {
           </form>
           <LoginFooter />
         </Paper>
-      </Grid>
-    </Grid>
+      </div>
+    </Box>
   );
 };
 
@@ -124,4 +130,5 @@ export default reduxForm({
   form: 'loginForm',
   validate,
   enableReinitialize: true,
+  destroyOnUnmount: false,
 })(LoginForm);

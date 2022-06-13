@@ -42,7 +42,7 @@ export default function Review(props) {
   } = props.shipping;
 
   return (
-    <React.Fragment>
+    <>
       <Typography variant="h6" gutterBottom>
         สรุปยอดสั่งซื้อสินค้า และที่อยู่จัดส่ง
       </Typography>
@@ -85,18 +85,18 @@ export default function Review(props) {
             รายละเอียดการชำระเงิน
           </Typography>
           <Grid container>
-            <React.Fragment>
+            <>
               <Grid item xs={6}>
                 <Typography gutterBottom>ประเภทรับชำระ</Typography>
               </Grid>
               <Grid item xs={6}>
                 <Typography gutterBottom>เงินโอน</Typography>
               </Grid>
-            </React.Fragment>
+            </>
           </Grid>
         </Grid>
       </Grid>
-    </React.Fragment>
+    </>
   );
 }
 

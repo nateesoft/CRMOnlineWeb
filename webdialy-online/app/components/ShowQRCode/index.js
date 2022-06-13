@@ -26,6 +26,11 @@ const ShowQRCode = props => {
         <DialogContentText id="alert-dialog-description">
           <QRCode value={`${hostUrl}/order_confirm/${cartNo}/${JSON.parse(database)}`} />
         </DialogContentText>
+        <DialogContentText id="alert-dialog-description">
+          <a href={`${hostUrl}/order_confirm/${cartNo}/${JSON.parse(database)}`} target="_blank">
+            Load
+          </a>
+        </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} color="primary" autoFocus>

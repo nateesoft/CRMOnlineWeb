@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { getCookie } from 'react-use-cookie';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -105,8 +104,8 @@ export default function TableItems(props) {
   };
 
   return (
-    <React.Fragment>
-      <TableContainer component={Paper} className={classes.container}>
+    <>
+      <TableContainer className={classes.container}>
         <Typography color="textSecondary" variant="h6">
           <FormattedMessage {...messages.headerTableItems} />
         </Typography>
@@ -254,6 +253,6 @@ export default function TableItems(props) {
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
-    </React.Fragment>
+    </>
   );
 }

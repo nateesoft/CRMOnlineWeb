@@ -63,7 +63,7 @@ const NewItem = props => {
   };
 
   return (
-    <Container component={Paper} maxWidth="lg">
+    <Container maxWidth="lg">
       <SweetAlert
         show={response.status === 'Success'}
         title="Success"
@@ -77,7 +77,7 @@ const NewItem = props => {
         type="error"
         text={response.message}
       />
-      <Typography variant="h5" className={classes.topic}>
+      <Typography variant="h6">
         <FormattedMessage {...messages.newItemHeader} />
       </Typography>
       <form className={classes.form} onSubmit={handleSubmit(onValidated)}>
@@ -105,24 +105,29 @@ const NewItem = props => {
           </Grid>
         </Grid>
         <Grid container spacing={1}>
-          <Grid item xs={4} lg={3}>
+          <Grid item>
             <Button
+              id="btnSave"
               type="submit"
-              fullWidth
-              variant="contained"
+              variant="outlined"
               color="primary"
               disabled={pristine || submitting}
             >
               <FormattedMessage {...messages.btnSave} />
             </Button>
           </Grid>
-          <Grid item xs={4} lg={3}>
-            <Button fullWidth variant="contained" disabled={pristine || submitting} onClick={reset}>
+          <Grid item>
+            <Button
+              id="btnReset"
+              variant="outlined"
+              disabled={pristine || submitting}
+              onClick={reset}
+            >
               <FormattedMessage {...messages.btnReset} />
             </Button>
           </Grid>
-          <Grid item xs={4} lg={3}>
-            <Button fullWidth variant="contained" onClick={() => props.onChangePage('LIST')}>
+          <Grid item>
+            <Button id="btnBack" variant="outlined" onClick={() => props.onChangePage('LIST')}>
               <FormattedMessage {...messages.btnBack} />
             </Button>
           </Grid>

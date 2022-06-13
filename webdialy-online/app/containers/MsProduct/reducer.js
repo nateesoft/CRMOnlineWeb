@@ -144,6 +144,15 @@ const msProductReducer = (state = initialState, action) =>
       case constants.LOAD_STOCK_LIST_ERROR:
         draft.stock_list = [];
         break;
+      case constants.SEARCH:
+        break;
+      case constants.SEARCH_SUCCESS:
+        draft.list = action.payload;
+        break;
+      case constants.SEARCH_ERROR:
+        draft.response.status = 'Error';
+        draft.response.message = 'Search data error!';
+        break;
     }
   });
 

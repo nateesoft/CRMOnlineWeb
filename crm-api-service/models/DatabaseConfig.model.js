@@ -6,8 +6,8 @@ const pool = require("../mysql-connect")
 module.exports = db => {
   const module = {}
 
-  module.findAll = async () => {
-    logger.debug("findAll")
+  module.showAllDatabase = async () => {
+    logger.debug("showAllDatabase")
     return new Promise(async (resolve, reject) => {
       try {
         const sql = `show databases;`;
@@ -17,6 +17,21 @@ module.exports = db => {
       } catch (err) {
         logger.error(err);
         reject({ status: "Error", msg: err.message })
+      }
+    })
+  }
+
+  module.filterByCRMDatabaseConfig = async (database) => {
+    logger.debug("filterByCRMDatabaseConfig")
+    return new Promise(async (resolve, reject) => {
+      try {
+        const sql = `show tables from ${database} like 'ui_menu';`;
+        logger.debug(sql);
+        const result = await pool.query(sql)
+        resolve(result.length)
+      } catch (err) {
+        logger.error(err);
+        reject(0)
       }
     })
   }

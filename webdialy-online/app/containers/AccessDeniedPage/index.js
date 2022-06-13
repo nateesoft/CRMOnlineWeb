@@ -37,7 +37,7 @@ export default function AccessDeniedPage() {
         <FormattedMessage {...messages.detail} />
       </h4>
       <ButtonLink to={`${publicPath}`}>
-        <Button variant="contained" color="primary">
+        <Button variant="outlined" color="primary">
           <FormattedMessage {...messages.buttonHome} />
         </Button>
       </ButtonLink>

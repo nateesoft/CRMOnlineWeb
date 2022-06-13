@@ -10,6 +10,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import useCookie, { setCookie } from 'react-use-cookie';
 import { Redirect } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -20,12 +21,13 @@ import saga from './saga';
 import { Container, Topic, Panel } from './styles';
 
 export function ClientRegister(props) {
-  const { history } = props;
+  const { history, location } = props;
   useInjectReducer({ key: 'clientRegister', reducer });
   useInjectSaga({ key: 'clientRegister', saga });
 
+  const queryDatabaseParam = new URLSearchParams(location.search).get('data');
   const database = useCookie('database', null);
-  const [tokenRegister, setTokenRegister] = useState('');
+  const [tokenRegister, setTokenRegister] = useState(queryDatabaseParam || '');
   const [showWarning, setShowWarning] = useState(false);
 
   const saveCookieRegister = () => {
@@ -48,6 +50,9 @@ export function ClientRegister(props) {
 
   return (
     <Container>
+      <Helmet>
+        <title>Client Register</title>
+      </Helmet>
       <div style={{ padding: 10 }}>
         <Topic>Client Register</Topic>
         <Panel>

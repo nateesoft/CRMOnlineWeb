@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Grid, Paper, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
+import { Button, Grid, Select, FormControl, InputLabel } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Field, reduxForm, change } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { FormattedMessage } from 'react-intl';
 import SweetAlert from 'sweetalert2-react';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 import * as appConstants from 'containers/App/constants';
 import RenderField from 'components/RenderField';
@@ -32,21 +33,55 @@ const useStyles = makeStyles(theme => ({
   },
   paddingImg: {
     margin: '10px',
-    background: '#aaa',
   },
   formControl: {
     minWidth: '100%',
   },
 }));
 
+const renderFromHelper = ({ touched, error }) => {
+  renderFromHelper.propTypes = {
+    touched: PropTypes.any,
+    error: PropTypes.any,
+  };
+  if (!(touched && error)) {
+    return <span />;
+  }
+  return <FormHelperText>{touched && error}</FormHelperText>;
+};
+
+const renderSelectField = ({ id, input, label, meta: { touched, error }, children, ...custom }) => {
+  renderSelectField.propTypes = {
+    id: PropTypes.any,
+    input: PropTypes.any,
+    label: PropTypes.any,
+    meta: PropTypes.any,
+    children: PropTypes.any,
+  };
+
+  return (
+    <FormControl variant="outlined" error={touched && error} style={{ width: '100%' }}>
+      <InputLabel htmlFor={id}>{label}</InputLabel>
+      <Select
+        labelId="demo-simple-select-outlined-label"
+        native
+        {...id}
+        {...input}
+        {...custom}
+        label={label}
+      >
+        {children}
+      </Select>
+      {renderFromHelper({ touched, error })}
+    </FormControl>
+  );
+};
+
 const NewItem = props => {
   const classes = useStyles();
   const { handleSubmit, pristine, reset, submitting, response, groupList, stockList } = props;
   const [file, setFile] = useState(null);
   const [showImg, setShowImg] = useState(false);
-
-  const [productGroupCode, setProductGroupCode] = useState('');
-  const [stockCode, setStockCode] = useState('');
 
   const apiServiceEndpoint = appConstants.serviceApiPath;
 
@@ -89,18 +124,8 @@ const NewItem = props => {
     setShowImg(true);
   };
 
-  const handleProductGroup = group => {
-    change('product_group_code:', group);
-    setProductGroupCode(group);
-  };
-
-  const handleStockCode = code => {
-    change('stock_code:', code);
-    setStockCode(code);
-  };
-
   return (
-    <Container component={Paper} maxWidth="lg">
+    <Container maxWidth="lg">
       <SweetAlert
         show={response.status === 'Success'}
         title="Success"
@@ -114,7 +139,7 @@ const NewItem = props => {
         type="error"
         text={response.message}
       />
-      <Typography variant="h5" className={classes.topic}>
+      <Typography variant="h6">
         <FormattedMessage {...messages.newItemHeader} />
       </Typography>
       <form className={classes.form} onSubmit={handleSubmit(onValidated)}>
@@ -151,24 +176,17 @@ const NewItem = props => {
             />
           </Grid>
           <Grid item xs={6} md={2} style={{ marginTop: 16 }}>
-            <FormControl variant="filled" className={classes.formControl}>
-              <InputLabel htmlFor="product_group_code">
-                <FormattedMessage {...messages.groupCode} />
-              </InputLabel>
-              <Select
-                id="product_group_code"
-                value={productGroupCode}
-                onChange={e => handleProductGroup(e.target.value)}
-              >
-                <MenuItem value="">
-                  <em>--- เลือกรายการ ---</em>
-                </MenuItem>
-                {groupList &&
-                  groupList.map((item, index) => (
-                    <MenuItem value={item.code}>{item.name}</MenuItem>
-                  ))}
-              </Select>
-            </FormControl>
+            <Field
+              id="product_group_code"
+              name="product_group_code"
+              component={renderSelectField}
+              label={<FormattedMessage {...messages.groupCode} />}
+              required
+            >
+              <option value="" />
+              {groupList &&
+                groupList.map((item, index) => <option value={item.code}>{item.name}</option>)}
+            </Field>
           </Grid>
           <Grid item xs={6} md={3}>
             <Field
@@ -181,24 +199,17 @@ const NewItem = props => {
             />
           </Grid>
           <Grid item xs={6} md={3} style={{ marginTop: 16 }}>
-            <FormControl variant="filled" className={classes.formControl}>
-              <InputLabel htmlFor="stock_code">
-                <FormattedMessage {...messages.stkCode} />
-              </InputLabel>
-              <Select
-                id="stock_code"
-                value={stockCode}
-                onChange={e => handleStockCode(e.target.value)}
-              >
-                <MenuItem value="">
-                  <em>--- เลือกรายการ ---</em>
-                </MenuItem>
-                {stockList &&
-                  stockList.map((item, index) => (
-                    <MenuItem value={item.code}>{item.name}</MenuItem>
-                  ))}
-              </Select>
-            </FormControl>
+            <Field
+              id="stock_code"
+              name="stock_code"
+              component={renderSelectField}
+              label={<FormattedMessage {...messages.stkCode} />}
+              required
+            >
+              <option value="" />
+              {stockList &&
+                stockList.map((item, index) => <option value={item.code}>{item.name}</option>)}
+            </Field>
           </Grid>
           <Grid item xs={6} md={2}>
             <Field
@@ -276,37 +287,42 @@ const NewItem = props => {
           <Grid item xs={12} md={6}>
             {file && file.name && (
               <Button variant="contained" color="primary" onClick={() => onUploadImageFile()}>
-                Upload
+                อัพโหลดรูปภาพ
               </Button>
             )}
           </Grid>
           <Grid item xs={12}>
             {showImg && (
-              <Paper elevation={3} className={classes.paddingImg}>
+              <div className={classes.paddingImg}>
                 <img src={`${apiServiceEndpoint}/images/${file.name}`} width="250" alt="" />
-              </Paper>
+              </div>
             )}
           </Grid>
         </Grid>
         <Grid container spacing={1}>
-          <Grid item xs={4} lg={3}>
+          <Grid item>
             <Button
+              id="btnSave"
               type="submit"
-              fullWidth
-              variant="contained"
+              variant="outlined"
               color="primary"
               disabled={pristine || submitting}
             >
               <FormattedMessage {...messages.btnSave} />
             </Button>
           </Grid>
-          <Grid item xs={4} lg={3}>
-            <Button fullWidth variant="contained" disabled={pristine || submitting} onClick={reset}>
+          <Grid item>
+            <Button
+              id="btnReset"
+              variant="outlined"
+              disabled={pristine || submitting}
+              onClick={reset}
+            >
               <FormattedMessage {...messages.btnReset} />
             </Button>
           </Grid>
-          <Grid item xs={4} lg={3}>
-            <Button fullWidth variant="contained" onClick={() => props.onChangePage('LIST')}>
+          <Grid item>
+            <Button id="btnBack" variant="outlined" onClick={() => props.onChangePage('LIST')}>
               <FormattedMessage {...messages.btnBack} />
             </Button>
           </Grid>

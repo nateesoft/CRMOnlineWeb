@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -59,14 +58,15 @@ export default function TableItems(props) {
   };
 
   return (
-    <React.Fragment>
-      <TableContainer component={Paper} className={classes.container}>
+    <>
+      <TableContainer className={classes.container}>
         <Typography color="textSecondary" variant="h6">
-          Use Promotion List
+          ข้อมูลการใช้โปรโมชั่น
         </Typography>
         <SearchBar
           {...props}
           items={[
+            { key: '', value: '' },
             { key: 'redeem_code', value: 'Redeem Code' },
             { key: 'bill_no', value: 'Bill No' },
           ]}
@@ -84,13 +84,9 @@ export default function TableItems(props) {
                 <TableCell align="center">Type</TableCell>
                 <TableCell align="center">Product</TableCell>
                 <TableCell align="center">Point</TableCell>
-                <TableCell align="center">Branch</TableCell>
-                <TableCell align="center">Employee</TableCell>
                 <TableCell align="center">Member</TableCell>
                 <TableCell align="center">Qty</TableCell>
-                <TableCell align="center">System Created</TableCell>
                 <TableCell align="center">Redeem Date</TableCell>
-                <TableCell align="center">Expired</TableCell>
                 <TableCell align="center">Status Use</TableCell>
                 <TableCell align="center">Active</TableCell>
               </TableRow>
@@ -116,13 +112,9 @@ export default function TableItems(props) {
                       <TableCell align="center">{item.redeem_or_free}</TableCell>
                       <TableCell align="center">{item.product_code}</TableCell>
                       <TableCell align="center">{item.point_to_redeem}</TableCell>
-                      <TableCell align="center">{item.use_in_branch}</TableCell>
-                      <TableCell align="center">{item.emp_code_redeem}</TableCell>
                       <TableCell align="center">{item.member_code_use}</TableCell>
                       <TableCell align="center">{item.qty_in_use}</TableCell>
-                      <TableCell align="center">{item.system_create}</TableCell>
                       <TableCell align="center">{item.redeem_date}</TableCell>
-                      <TableCell align="center">{item.in_time}</TableCell>
                       <TableCell align="center">{item.status_use}</TableCell>
                       <TableCell align="center">{item.active}</TableCell>
                     </TableRow>
@@ -147,6 +139,6 @@ export default function TableItems(props) {
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
-    </React.Fragment>
+    </>
   );
 }

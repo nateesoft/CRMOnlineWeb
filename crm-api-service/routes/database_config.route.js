@@ -7,11 +7,12 @@ const Task = require("../models/DatabaseConfig.model")
 module.exports = args => {
 
   router.get("/", async (req, res) => {
-    const response = await Task().findAll()
+    const response = await Task().showAllDatabase()
     const data = JSON.parse(response.data)
     const database = []
     for(let i=0;i<data.length;i+=1){
-      if(data[i].Database !== 'information_schema' && data[i].Database !== 'mysql' && data[i].Database !== 'sys'){
+      const responseCheckTable = await Task().filterByCRMDatabaseConfig(data[i].Database)
+      if(responseCheckTable > 0){
         const encryptDb = Buffer.from(data[i].Database).toString('base64');
         database.push({
           database: data[i].Database,

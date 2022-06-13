@@ -69,13 +69,13 @@ export default function MyQrCode(props) {
   } = props.profile;
   if (!code) {
     return (
-      <React.Fragment>
+      <>
         <FormattedMessage {...messages.loadQrCode} />
-      </React.Fragment>
+      </>
     );
   }
   return (
-    <React.Fragment>
+    <>
       <Grid container>
         <Grid item xs={12}>
           <BoxPanel>
@@ -87,7 +87,7 @@ export default function MyQrCode(props) {
           </BoxPanel>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Paper elevation={3} className={classes.paper1}>
+          <div className={classes.paper1}>
             <BoxPanel>
               <Cake />
               วันเกิด: {birthday}
@@ -96,10 +96,10 @@ export default function MyQrCode(props) {
               <Phone />
               เบอร์ติดต่อ: {mobile}
             </BoxPanel>
-          </Paper>
+          </div>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Paper elevation={3} className={classes.paper2}>
+          <div className={classes.paper2}>
             <BoxPanel>
               <Star />
               คะแนนสะสมทั้งหมด: {totalScore}
@@ -108,15 +108,15 @@ export default function MyQrCode(props) {
               <MoneyOff />
               ยอดซื้อสินค้า: {totalPurchase}
             </BoxPanel>
-          </Paper>
+          </div>
         </Grid>
         <Grid item xs={12}>
-          <Paper elevation={3} className={classes.paper3}>
+          <div className={classes.paper3}>
             <BoxPanel>
               <AssignmentInd />
               สถานะ: {memberRole}
             </BoxPanel>
-          </Paper>
+          </div>
         </Grid>
         <Grid item xs={12}>
           <BoxPanel>
@@ -127,7 +127,7 @@ export default function MyQrCode(props) {
           </BoxPanel>
         </Grid>
       </Grid>
-    </React.Fragment>
+    </>
   );
 }
 

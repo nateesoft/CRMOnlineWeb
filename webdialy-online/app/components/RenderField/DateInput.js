@@ -19,7 +19,7 @@ function DateInput({ input, label, required, meta: { touched, error } }) {
   const classes = useStyles();
 
   return (
-    <React.Fragment>
+    <>
       <TextField
         {...input}
         variant="outlined"
@@ -33,7 +33,7 @@ function DateInput({ input, label, required, meta: { touched, error } }) {
         }}
       />
       {touched && error && <span className={classes.errorLabel}>{error}</span>}
-    </React.Fragment>
+    </>
   );
 }
 

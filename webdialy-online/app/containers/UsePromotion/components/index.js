@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Helmet } from 'react-helmet';
+
 import TableItems from './TableItems';
 
 export default function ContentPage(props) {
@@ -7,5 +9,12 @@ export default function ContentPage(props) {
     getPage: PropTypes.string,
   };
 
-  return <React.Fragment>{props.getPage === 'LIST' && <TableItems {...props} />}</React.Fragment>;
+  return (
+    <>
+      <Helmet>
+        <title>Use Promotion</title>
+      </Helmet>
+      {props.getPage === 'LIST' && <TableItems {...props} />}
+    </>
+  );
 }

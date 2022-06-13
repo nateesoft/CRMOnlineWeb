@@ -174,6 +174,26 @@ export function* loadStockList() {
   }
 }
 
+export function* searchItem({ payload }) {
+  const { key, value } = payload;
+  try {
+    const requestURL = `${appConstants.publicPath}/api/product/search`;
+    const database = getCookie('database');
+    const response = yield call(request, requestURL, {
+      database,
+      method: 'POST',
+      body: JSON.stringify({ key, value }),
+    });
+    if (response.data) {
+      yield put(actions.searchSuccess(response.data));
+    } else {
+      yield put(actions.searchError('Not found data'));
+    }
+  } catch (err) {
+    yield put(actions.searchError(err));
+  }
+}
+
 export default function* msProductSaga() {
   yield takeEvery(constants.INIT_LOAD, initLoad);
   yield takeEvery(constants.CREATE_ITEM, saveData);
@@ -183,4 +203,5 @@ export default function* msProductSaga() {
   yield takeEvery(constants.SAVE_DATA_IMPORT, saveDataImport);
   yield takeEvery(constants.INIT_LOAD, loadProductGroupList);
   yield takeEvery(constants.INIT_LOAD, loadStockList);
+  yield takeEvery(constants.SEARCH, searchItem);
 }

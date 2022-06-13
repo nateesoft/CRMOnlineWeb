@@ -26,7 +26,7 @@ function RenderField({
   const classes = useStyles();
 
   return (
-    <React.Fragment>
+    <>
       <TextField
         {...input}
         variant="outlined"
@@ -39,7 +39,7 @@ function RenderField({
         disabled={disabled}
       />
       {touched && error && <span className={classes.errorLabel}>{error}</span>}
-    </React.Fragment>
+    </>
   );
 }
 

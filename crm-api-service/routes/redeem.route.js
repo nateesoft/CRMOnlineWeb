@@ -89,7 +89,7 @@ module.exports = (io) => {
         discount_percent: promotion.discount_percent
       }
       
-      const response1 = await TaskRedeem(req.headers.database).create(payload)
+      const response1 = await TaskRedeem(req.headers.database).create(redeemModel)
 
       // emit socket io
       const sendPayload = { ...redeemModel, database: req.headers.database, status: 'create' }

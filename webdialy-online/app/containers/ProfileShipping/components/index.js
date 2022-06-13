@@ -10,6 +10,8 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import Select from '@material-ui/core/Select';
+import { Helmet } from 'react-helmet';
+
 import * as appConstants from 'containers/App/constants';
 import RenderField from 'components/RenderField';
 import SweetAlert from 'sweetalert2-react';
@@ -81,6 +83,9 @@ const renderSelectField = ({ input, label, meta: { touched, error }, children, .
 
   return (
     <FormControl variant="outlined" error={touched && error} style={{ width: '100%' }}>
+      <Helmet>
+        <title>Profile shipping</title>
+      </Helmet>
       <InputLabel htmlFor={input.id}>{label}</InputLabel>
       <Select
         labelId="demo-simple-select-outlined-label"
@@ -135,7 +140,7 @@ const EditForm = props => {
   };
 
   return (
-    <Container component={Paper} maxWidth="lg" className={classes.container}>
+    <Container maxWidth="lg" className={classes.container}>
       <SweetAlert show={errorUpdate} title="Update data error" type="error" text={errorUpdate} />
       <SweetAlert
         show={updateStatus === 'Success'}
@@ -290,7 +295,7 @@ const EditForm = props => {
             />
           </Grid>
           <Grid item xs={6} lg={6}>
-            <Button variant="contained" color="primary" onClick={() => handleLoadMap(true)}>
+            <Button variant="outlined" color="primary" onClick={() => handleLoadMap(true)}>
               Show Maps
             </Button>
           </Grid>
@@ -305,25 +310,24 @@ const EditForm = props => {
           </Grid>
         </Grid>
         <Grid container spacing={1}>
-          <Grid item xs={4} md={3}>
+          <Grid item>
             <Button
               type="submit"
-              fullWidth
-              variant="contained"
+              variant="outlined"
               color="primary"
               disabled={pristine || submitting}
             >
               <FormattedMessage {...messages.btnSaveProfile} />
             </Button>
           </Grid>
-          <Grid item xs={4} md={3}>
-            <Button fullWidth variant="contained" disabled={pristine || submitting} onClick={reset}>
+          <Grid item>
+            <Button variant="outlined" disabled={pristine || submitting} onClick={reset}>
               <FormattedMessage {...messages.btnResetForm} />
             </Button>
           </Grid>
-          <Grid item xs={4} md={3}>
+          <Grid item>
             <ButtonLink to={`${appConstants.publicPath}/home/profile`}>
-              <Button fullWidth variant="contained" onClick={reset}>
+              <Button variant="outlined" onClick={reset}>
                 <FormattedMessage {...messages.btnBack} />
               </Button>
             </ButtonLink>
@@ -373,5 +377,6 @@ export default connect(mapStateToProps)(
     form: 'addressForm',
     validate,
     enableReinitialize: true,
+    destroyOnUnmount: false,
   })(EditForm),
 );

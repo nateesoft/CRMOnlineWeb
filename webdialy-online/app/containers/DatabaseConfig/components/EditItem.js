@@ -9,9 +9,8 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import SweetAlert from 'sweetalert2-react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper } from '@material-ui/core';
 import RenderField from 'components/RenderField';
-import LabelTopic from 'components/LabelTopic';
+import { Typography } from '@material-ui/core';
 import messages from './messages';
 import * as selectors from '../selectors';
 
@@ -49,7 +48,7 @@ const EditItem = props => {
   };
 
   return (
-    <Container component={Paper} maxWidth="lg">
+    <Container maxWidth="lg">
       <SweetAlert
         show={response.status === 'Success'}
         title="Success"
@@ -63,9 +62,9 @@ const EditItem = props => {
         type="error"
         text={response.message}
       />
-      <LabelTopic>
+      <Typography variant="h6">
         <FormattedMessage {...messages.headerEditItem} />
-      </LabelTopic>
+      </Typography>
       <form className={classes.form} onSubmit={handleSubmit(onValidated)}>
         <Grid container spacing={3}>
           <Grid item xs={12} lg={3}>
@@ -163,5 +162,6 @@ export default connect(mapStateToProps)(
     form: 'editItem',
     validate,
     enableReinitialize: true,
+    destroyOnUnmount: false,
   })(EditItem),
 );

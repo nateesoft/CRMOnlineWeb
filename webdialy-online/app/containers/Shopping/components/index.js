@@ -4,6 +4,8 @@ import Box from '@material-ui/core/Box';
 import Slide from '@material-ui/core/Slide';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
+import { Helmet } from 'react-helmet';
+
 import SearchProduct from './SearchProduct';
 import DialogDetail from './DialogDetail';
 import OrderFooter from './OrderFooter';
@@ -37,6 +39,9 @@ const Media = props => {
 
   return (
     <div className={classes.root}>
+      <Helmet>
+        <title>Shopping</title>
+      </Helmet>
       <SearchProduct {...props} />
       <ProductList
         {...props}

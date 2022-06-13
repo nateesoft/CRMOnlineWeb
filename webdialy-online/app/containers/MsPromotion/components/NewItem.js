@@ -12,7 +12,6 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
-import { Paper } from '@material-ui/core';
 import RenderField from 'components/RenderField';
 import DateInput from 'components/RenderField/DateInput';
 import messages from './messages';
@@ -37,7 +36,6 @@ const useStyles = makeStyles(theme => ({
   },
   paddingImg: {
     margin: '10px',
-    background: '#aaa',
   },
   formControl: {
     width: '100%',
@@ -57,8 +55,10 @@ const renderFromHelper = ({ touched, error }) => {
   }
   return <FormHelperText>{touched && error}</FormHelperText>;
 };
-const renderSelectField = ({ input, label, meta: { touched, error }, children, ...custom }) => {
+
+const renderSelectField = ({ id, input, label, meta: { touched, error }, children, ...custom }) => {
   renderSelectField.propTypes = {
+    id: PropTypes.any,
     input: PropTypes.any,
     label: PropTypes.any,
     meta: PropTypes.any,
@@ -67,16 +67,13 @@ const renderSelectField = ({ input, label, meta: { touched, error }, children, .
 
   return (
     <FormControl variant="outlined" error={touched && error} style={{ width: '100%' }}>
-      <InputLabel htmlFor={input.id}>{label}</InputLabel>
+      <InputLabel htmlFor={id}>{label}</InputLabel>
       <Select
         labelId="demo-simple-select-outlined-label"
         native
+        {...id}
         {...input}
         {...custom}
-        inputProps={{
-          name: 'age',
-          id: input.id,
-        }}
         label={label}
       >
         {children}
@@ -129,13 +126,7 @@ const NewItem = props => {
   };
 
   return (
-    <Container component={Paper} maxWidth="lg">
-      <SweetAlert
-        show={response.status === 'Upload_Success'}
-        title="Success"
-        type="success"
-        text={response.message}
-      />
+    <Container maxWidth="lg">
       <SweetAlert
         show={response.status === 'Success'}
         title="Success"
@@ -149,7 +140,7 @@ const NewItem = props => {
         type="error"
         text={response.message}
       />
-      <Typography variant="h5" className={classes.topic}>
+      <Typography variant="h6">
         <FormattedMessage {...messages.newItemHeader} />
       </Typography>
       <form className={classes.form} onSubmit={handleSubmit(onValidated)}>
@@ -217,11 +208,13 @@ const NewItem = props => {
           <Grid item xs={6} md={3}>
             <div className={classes.divRedeem}>
               <Field
+                id="redeem_or_free"
                 name="redeem_or_free"
                 component={renderSelectField}
                 label={<FormattedMessage {...messages.col8} />}
                 required
               >
+                <option value="" />
                 <option key="F" value="F">
                   Free
                 </option>
@@ -251,7 +244,7 @@ const NewItem = props => {
               required
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <input type="file" name="file" onChange={onChangeHandler} />
             <br />
           </Grid>
@@ -261,30 +254,40 @@ const NewItem = props => {
           <Grid item xs={6}>
             {file && file.name && (
               <Button variant="contained" color="primary" onClick={() => onUploadImageFile()}>
-                Please press upload button
+                อัพโหลดรูปภาพ
               </Button>
+            )}
+          </Grid>
+          <Grid item xs={12}>
+            {response.status === 'Upload_Success' && (
+              <span style={{ color: 'green' }}>อัพโหลดข้อมูลเรียบร้อยแล้ว</span>
             )}
           </Grid>
         </Grid>
         <Grid container spacing={1}>
-          <Grid item xs={4} lg={3}>
+          <Grid item>
             <Button
+              id="btnSave"
               type="submit"
-              fullWidth
-              variant="contained"
+              variant="outlined"
               color="primary"
               disabled={pristine || submitting}
             >
               <FormattedMessage {...messages.btnSave} />
             </Button>
           </Grid>
-          <Grid item xs={4} lg={3}>
-            <Button fullWidth variant="contained" disabled={pristine || submitting} onClick={reset}>
+          <Grid item>
+            <Button
+              id="btnReset"
+              variant="outlined"
+              disabled={pristine || submitting}
+              onClick={reset}
+            >
               <FormattedMessage {...messages.btnReset} />
             </Button>
           </Grid>
-          <Grid item xs={4} lg={3}>
-            <Button fullWidth variant="contained" onClick={() => props.onChangePage('LIST')}>
+          <Grid item>
+            <Button id="btnBack" variant="outlined" onClick={() => props.onChangePage('LIST')}>
               <FormattedMessage {...messages.btnBack} />
             </Button>
           </Grid>

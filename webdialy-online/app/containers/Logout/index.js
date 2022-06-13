@@ -19,9 +19,9 @@ import Button from '@material-ui/core/Button';
 import { checkLogout } from 'containers/Login/actions';
 import * as appActions from 'containers/App/actions';
 import * as appConstant from 'containers/App/constants';
+import LogoutIcon from 'images/logout.png';
 import * as selectors from './selectors';
 import messages from './messages';
-import LogoutIcon from '../../images/logout.png';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -42,7 +42,7 @@ export function Logout(props) {
   }, []);
 
   return (
-    <React.Fragment>
+    <>
       <Helmet>
         <title>Logout</title>
       </Helmet>
@@ -57,7 +57,7 @@ export function Logout(props) {
           </Button>
         </ButtonLink>
       </Wrapper>
-    </React.Fragment>
+    </>
   );
 }
 

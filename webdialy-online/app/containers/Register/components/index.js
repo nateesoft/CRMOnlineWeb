@@ -7,6 +7,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Field, reduxForm } from 'redux-form';
 import { FormattedMessage } from 'react-intl';
+import { Helmet } from 'react-helmet';
+
 import * as appConstants from 'containers/App/constants';
 import ButtonLink from 'components/ButtonLink';
 import RenderField from 'components/RenderField';
@@ -75,6 +77,9 @@ const RegisterForm = props => {
 
   return (
     <Container component="main" maxWidth="lg">
+      <Helmet>
+        <title>Register</title>
+      </Helmet>
       <SweetAlert show={errorRegister} title="Register Error" type="error" text={errorRegister} />
       <SweetAlert
         show={registerStatus === 'Success'}

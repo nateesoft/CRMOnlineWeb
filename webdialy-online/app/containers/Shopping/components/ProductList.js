@@ -18,11 +18,14 @@ const useStyles = makeStyles(() => ({
   },
   divProduct: {
     marginBottom: '4px',
+    padding: '10px',
+    border: '1px solid #eee',
   },
   imageProduct: {
-    height: 118,
+    // height: 118,
     width: '150px',
     marginBottom: '8px',
+    padding: '10px',
   },
   productName: {
     color: '#756a67',
@@ -73,46 +76,51 @@ export default function ProductList(props) {
         data.map(item => (
           <Grid item xs={6} sm={4} md={3} lg={2} key={item.code}>
             <div align="center" className={classes.divProduct}>
-              <Paper elevation={3}>
-                <Box key={item.code} onClick={() => handleClickOpen(item)}>
+              <Box key={item.code} onClick={() => handleClickOpen(item)}>
+                {item.img_path && (
                   <img
                     className={classes.imageProduct}
                     alt={item.name}
                     src={`${apiServiceHost}${item.img_path}`}
                   />
-                  <Box pr={2}>
-                    <Typography gutterBottom variant="body2" className={classes.productName}>
-                      {item.name}
-                    </Typography>
-                    <Typography
-                      display="block"
-                      variant="caption"
-                      color="textSecondary"
-                      align="center"
-                    >
-                      <span className={classes.productPrice}>ราคา {item.price_d} บาท</span>
-                    </Typography>
-                    <Typography
-                      display="block"
-                      variant="caption"
-                      color="textSecondary"
-                      align="center"
-                    >
-                      <span className={classes.productPoint}>ได้ {item.point} คะแนน</span>
-                    </Typography>
-                    <Typography
-                      display="block"
-                      variant="caption"
-                      color="textSecondary"
-                      align="center"
-                    >
-                      <span className={classes.balance}>
-                        คงเหลือ ({`${item.in_stock || 0}/${item.max_stock}`})
-                      </span>
-                    </Typography>
-                  </Box>
+                )}
+                {!item.img_path && (
+                  <div className={classes.imageProduct} style={{ border: '1px solid #eee' }}>
+                    NO IMAGE
+                  </div>
+                )}
+                <Box pr={2}>
+                  <Typography gutterBottom variant="body2" className={classes.productName}>
+                    {item.name}
+                  </Typography>
+                  <Typography
+                    display="block"
+                    variant="caption"
+                    color="textSecondary"
+                    align="center"
+                  >
+                    <span className={classes.productPrice}>ราคา {item.price_d} บาท</span>
+                  </Typography>
+                  <Typography
+                    display="block"
+                    variant="caption"
+                    color="textSecondary"
+                    align="center"
+                  >
+                    <span className={classes.productPoint}>ได้ {item.point} คะแนน</span>
+                  </Typography>
+                  <Typography
+                    display="block"
+                    variant="caption"
+                    color="textSecondary"
+                    align="center"
+                  >
+                    <span className={classes.balance}>
+                      คงเหลือ ({`${item.in_stock || 0}/${item.max_stock}`})
+                    </span>
+                  </Typography>
                 </Box>
-              </Paper>
+              </Box>
             </div>
           </Grid>
         ))}

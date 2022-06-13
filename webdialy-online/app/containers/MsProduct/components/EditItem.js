@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Grid, Paper, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
+import { Button, Grid, Select, FormControl, InputLabel, Typography } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import { Field, reduxForm, change } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import SweetAlert from 'sweetalert2-react';
 import { makeStyles } from '@material-ui/core/styles';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 import * as appConstants from 'containers/App/constants';
 import RenderField from 'components/RenderField';
-import LabelTopic from 'components/LabelTopic';
 import messages from './messages';
 import * as selectors from '../selectors';
 
@@ -35,21 +35,55 @@ const useStyles = makeStyles(theme => ({
   },
   paddingImg: {
     margin: '10px',
-    background: '#aaa',
   },
   formControl: {
     minWidth: '100%',
   },
 }));
 
+const renderFromHelper = ({ touched, error }) => {
+  renderFromHelper.propTypes = {
+    touched: PropTypes.any,
+    error: PropTypes.any,
+  };
+  if (!(touched && error)) {
+    return <span />;
+  }
+  return <FormHelperText>{touched && error}</FormHelperText>;
+};
+
+const renderSelectField = ({ id, input, label, meta: { touched, error }, children, ...custom }) => {
+  renderSelectField.propTypes = {
+    id: PropTypes.any,
+    input: PropTypes.any,
+    label: PropTypes.any,
+    meta: PropTypes.any,
+    children: PropTypes.any,
+  };
+
+  return (
+    <FormControl variant="outlined" error={touched && error} style={{ width: '100%' }}>
+      <InputLabel htmlFor={id}>{label}</InputLabel>
+      <Select
+        labelId="demo-simple-select-outlined-label"
+        native
+        {...id}
+        {...input}
+        {...custom}
+        label={label}
+      >
+        {children}
+      </Select>
+      {renderFromHelper({ touched, error })}
+    </FormControl>
+  );
+};
+
 const EditItem = props => {
   const classes = useStyles();
   const { handleSubmit, pristine, reset, submitting, response, groupList, stockList } = props;
   const [file, setFile] = useState(null);
-  const { img_path: imgPath, product_group_code, stock_code } = props.initialValues;
-
-  const [productGroupCode, setProductGroupCode] = useState(product_group_code);
-  const [stockCode, setStockCode] = useState(stock_code);
+  const { img_path: imgPath } = props.initialValues;
 
   const apiServiceEndpoint = appConstants.serviceApiPath;
 
@@ -74,18 +108,8 @@ const EditItem = props => {
     props.onUploadImage(file);
   };
 
-  const handleProductGroup = group => {
-    change('product_group_code:', group);
-    setProductGroupCode(group);
-  };
-
-  const handleStockCode = code => {
-    change('stock_code:', code);
-    setStockCode(code);
-  };
-
   return (
-    <Container component={Paper} maxWidth="lg">
+    <Container maxWidth="lg">
       <SweetAlert
         show={response.status === 'Success'}
         title="Success"
@@ -99,9 +123,9 @@ const EditItem = props => {
         type="error"
         text={response.message}
       />
-      <LabelTopic>
+      <Typography variant="h6">
         <FormattedMessage {...messages.headerEditItem} />
-      </LabelTopic>
+      </Typography>
       <form className={classes.form} onSubmit={handleSubmit(onValidated)}>
         <Grid container spacing={3}>
           <Grid item xs={6} md={3}>
@@ -136,24 +160,17 @@ const EditItem = props => {
             />
           </Grid>
           <Grid item xs={6} md={2} style={{ marginTop: 16 }}>
-            <FormControl variant="filled" className={classes.formControl}>
-              <InputLabel htmlFor="product_group_code">
-                <FormattedMessage {...messages.groupCode} />
-              </InputLabel>
-              <Select
-                id="product_group_code"
-                value={productGroupCode}
-                onChange={e => handleProductGroup(e.target.value)}
-              >
-                <MenuItem value="">
-                  <em>--- เลือกรายการ ---</em>
-                </MenuItem>
-                {groupList &&
-                  groupList.map((item, index) => (
-                    <MenuItem value={item.code}>{item.name}</MenuItem>
-                  ))}
-              </Select>
-            </FormControl>
+            <Field
+              id="product_group_code"
+              name="product_group_code"
+              component={renderSelectField}
+              label={<FormattedMessage {...messages.groupCode} />}
+              required
+            >
+              <option value="" />
+              {groupList &&
+                groupList.map((item, index) => <option value={item.code}>{item.name}</option>)}
+            </Field>
           </Grid>
           <Grid item xs={6} md={3}>
             <Field
@@ -166,24 +183,17 @@ const EditItem = props => {
             />
           </Grid>
           <Grid item xs={6} md={3} style={{ marginTop: 16 }}>
-            <FormControl variant="filled" className={classes.formControl}>
-              <InputLabel htmlFor="stock_code">
-                <FormattedMessage {...messages.stkCode} />
-              </InputLabel>
-              <Select
-                id="stock_code"
-                value={stockCode}
-                onChange={e => handleStockCode(e.target.value)}
-              >
-                <MenuItem value="">
-                  <em>--- เลือกรายการ ---</em>
-                </MenuItem>
-                {stockList &&
-                  stockList.map((item, index) => (
-                    <MenuItem value={item.code}>{item.name}</MenuItem>
-                  ))}
-              </Select>
-            </FormControl>
+            <Field
+              id="stock_code"
+              name="stock_code"
+              component={renderSelectField}
+              label={<FormattedMessage {...messages.stkCode} />}
+              required
+            >
+              <option value="" />
+              {stockList &&
+                stockList.map((item, index) => <option value={item.code}>{item.name}</option>)}
+            </Field>
           </Grid>
           <Grid item xs={6} md={2}>
             <Field
@@ -269,37 +279,36 @@ const EditItem = props => {
             <input type="file" name="file" onChange={onChangeHandler} />
           </Grid>
           <Grid item xs={12}>
-            <Button variant="contained" color="primary" onClick={() => onUploadImageFile()}>
-              Upload
+            <Button variant="outlined" color="primary" onClick={() => onUploadImageFile()}>
+              อัพโหลดรูปภาพ
             </Button>
           </Grid>
           {imgPath && (
             <Grid item xs={12}>
-              <Paper elevation={3} className={classes.paddingImg}>
+              <div className={classes.paddingImg}>
                 <img src={`${apiServiceEndpoint}${imgPath}`} width="250" alt="" />
-              </Paper>
+              </div>
             </Grid>
           )}
         </Grid>
-        <Grid container spacing={3}>
-          <Grid item xs={4} lg={3}>
+        <Grid container spacing={1}>
+          <Grid item>
             <Button
               type="submit"
-              fullWidth
-              variant="contained"
+              variant="outlined"
               color="primary"
               disabled={pristine || submitting}
             >
               <FormattedMessage {...messages.btnSave} />
             </Button>
           </Grid>
-          <Grid item xs={4} lg={3}>
-            <Button fullWidth variant="contained" disabled={pristine || submitting} onClick={reset}>
+          <Grid item>
+            <Button variant="outlined" disabled={pristine || submitting} onClick={reset}>
               <FormattedMessage {...messages.btnReset} />
             </Button>
           </Grid>
-          <Grid item xs={4} lg={3}>
-            <Button fullWidth variant="contained" onClick={() => props.onChangePage('LIST')}>
+          <Grid item>
+            <Button variant="outlined" onClick={() => props.onChangePage('LIST')}>
               <FormattedMessage {...messages.btnBack} />
             </Button>
           </Grid>
@@ -381,5 +390,6 @@ export default connect(mapStateToProps)(
     form: 'editItem',
     validate,
     enableReinitialize: true,
+    destroyOnUnmount: false,
   })(EditItem),
 );

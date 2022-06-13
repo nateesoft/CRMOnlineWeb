@@ -6,14 +6,12 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Field, reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
 import RenderField from 'components/RenderField';
 import SweetAlert from 'sweetalert2-react';
-import { Paper } from '@material-ui/core';
+import { Helmet } from 'react-helmet';
+
 import * as appConstants from 'containers/App/constants';
-import * as mainSelectors from 'containers/MainLayoutApp/selectors';
 import ButtonLink from 'components/ButtonLink';
 import messages from './messages';
 
@@ -60,7 +58,10 @@ const EditForm = props => {
   };
 
   return (
-    <Container component={Paper} maxWidth="lg" className={classes.container}>
+    <Container maxWidth="lg" className={classes.container}>
+      <Helmet>
+        <title>เปลี่ยนรหัสผ่าน</title>
+      </Helmet>
       <SweetAlert show={errorUpdate} title="Update data error" type="error" text={errorUpdate} />
       <SweetAlert
         show={updateStatus === 'Success'}
@@ -94,7 +95,7 @@ const EditForm = props => {
               disabled
             />
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item>
             <Field
               name="old_password"
               component={RenderField}
@@ -103,7 +104,7 @@ const EditForm = props => {
               label={<FormattedMessage {...messages.oldPassword} />}
             />
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item>
             <Field
               name="new_password"
               component={RenderField}
@@ -112,7 +113,7 @@ const EditForm = props => {
               label={<FormattedMessage {...messages.newPassword} />}
             />
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item>
             <Field
               name="confirm_password"
               component={RenderField}
@@ -123,25 +124,24 @@ const EditForm = props => {
           </Grid>
         </Grid>
         <Grid container spacing={1}>
-          <Grid item xs={12} md={4}>
+          <Grid item>
             <Button
               type="submit"
-              fullWidth
-              variant="contained"
+              variant="outlined"
               color="primary"
               disabled={pristine || submitting}
             >
               <FormattedMessage {...messages.btnSaveProfile} />
             </Button>
           </Grid>
-          <Grid item xs={12} md={4}>
-            <Button fullWidth variant="contained" disabled={pristine || submitting} onClick={reset}>
+          <Grid item>
+            <Button variant="outlined" disabled={pristine || submitting} onClick={reset}>
               <FormattedMessage {...messages.btnResetForm} />
             </Button>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item>
             <ButtonLink to={`${appConstants.publicPath}/home/profile`}>
-              <Button fullWidth variant="contained" onClick={reset}>
+              <Button variant="outlined" onClick={reset}>
                 <FormattedMessage {...messages.btnBack} />
               </Button>
             </ButtonLink>
@@ -191,14 +191,9 @@ const validate = formValues => {
   return errors;
 };
 
-const mapStateToProps = createStructuredSelector({
-  initialValues: mainSelectors.makeSelectProfile(),
-});
-
-export default connect(mapStateToProps)(
-  reduxForm({
-    form: 'editForm',
-    validate,
-    enableReinitialize: true,
-  })(EditForm),
-);
+export default reduxForm({
+  form: 'editForm',
+  validate,
+  enableReinitialize: true,
+  destroyOnUnmount: false,
+})(EditForm);

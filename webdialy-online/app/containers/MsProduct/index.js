@@ -53,6 +53,7 @@ MsProduct.propTypes = {
   onUpdateItem: PropTypes.func,
   onDeleteItem: PropTypes.func,
   loadProductGroupList: PropTypes.func,
+  onSearch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -80,6 +81,7 @@ function mapDispatchToProps(dispatch) {
     onSaveDataImport: () => dispatch(actions.saveDataImport()),
     onSetHeaders: headers => dispatch(actions.setHeaders(headers)),
     loadProductGroupList: () => dispatch(actions.loadProductGroupList()),
+    onSearch: (key, value) => dispatch(actions.search({ key, value })),
   };
 }
 

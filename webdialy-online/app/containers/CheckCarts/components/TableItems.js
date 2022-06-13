@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -76,11 +76,15 @@ export default function TableItems(props) {
     onInitLoad: PropTypes.func,
     profile: PropTypes.object,
     approve: PropTypes.bool,
+    title: PropTypes.string,
   };
 
   return (
-    <React.Fragment>
-      <TableContainer component={Paper} className={classes.container}>
+    <>
+      <TableContainer className={classes.container}>
+        <Typography color="textSecondary" variant="h6">
+          {props.title}
+        </Typography>
         <SearchBar
           {...props}
           items={[
@@ -152,6 +156,6 @@ export default function TableItems(props) {
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
-    </React.Fragment>
+    </>
   );
 }

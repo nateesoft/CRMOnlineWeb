@@ -84,9 +84,30 @@ export function* deleteData() {
   }
 }
 
+export function* searchItem({ payload }) {
+  const { key, value } = payload;
+  try {
+    const requestURL = `${appConstants.publicPath}/api/role/search`;
+    const database = getCookie('database');
+    const response = yield call(request, requestURL, {
+      database,
+      method: 'POST',
+      body: JSON.stringify({ key, value }),
+    });
+    if (response.data) {
+      yield put(actions.searchSuccess(response.data));
+    } else {
+      yield put(actions.searchError('Not found data'));
+    }
+  } catch (err) {
+    yield put(actions.searchError(err));
+  }
+}
+
 export default function* msRoleSaga() {
   yield takeEvery(constants.INIT_LOAD, initLoad);
   yield takeEvery(constants.CREATE_ITEM, saveData);
   yield takeEvery(constants.UPDATE_ITEM, updateData);
   yield takeEvery(constants.DELETE_ITEM, deleteData);
+  yield takeEvery(constants.SEARCH, searchItem);
 }

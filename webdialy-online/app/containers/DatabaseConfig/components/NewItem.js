@@ -59,7 +59,7 @@ const NewItem = props => {
   };
 
   return (
-    <Container component={Paper} maxWidth="lg">
+    <Container maxWidth="lg">
       <SweetAlert
         show={response.status === 'Success'}
         title="Success"

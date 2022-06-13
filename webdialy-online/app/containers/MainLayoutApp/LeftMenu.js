@@ -33,7 +33,7 @@ const useStyles = makeStyles(() => ({
 
 export default function LeftMenu(props) {
   const classes = useStyles();
-  const { leftMenu = [], appConstants, scope, title } = props;
+  const { leftMenu = [], appConstants, scope, location } = props;
   const [open, setOpen] = useState(false);
 
   const leftMenuMaster = leftMenu.filter(
@@ -47,23 +47,6 @@ export default function LeftMenu(props) {
     setOpen(!open);
   };
 
-  useEffect(() => {
-    if (
-      [
-        'Database',
-        'Promotion',
-        'Roles',
-        'Branch',
-        'Company',
-        'Product',
-        'Stock',
-        'ProductGroup',
-      ].includes(title)
-    ) {
-      setOpen(true);
-    }
-  }, []);
-
   return (
     <List className={classes.container}>
       {leftMenuOther.map(({ id, icon, to_path: to }) => (
@@ -71,7 +54,11 @@ export default function LeftMenu(props) {
           to={appConstants.publicPath + to.replace('shopping', 'shopping/new')}
           key={`menu${id}`}
         >
-          <ListItem key={id} button className={clsx(id === title && classes.itemActiveItem)}>
+          <ListItem
+            key={id}
+            button
+            className={clsx(location.pathname.includes(to) && classes.itemActiveItem)}
+          >
             <FormattedMessage id={`${scope}.menu${id}`}>
               {tt => (
                 <ListItemIcon title={tt}>
@@ -91,13 +78,13 @@ export default function LeftMenu(props) {
         </ButtonLink>
       ))}
       {leftMenuMaster.length > 0 && (
-        <React.Fragment>
+        <>
           <Divider />
           <ListItem button onClick={handleClick}>
             <ListItemIcon>
               <DnsRoundedIcon />
             </ListItemIcon>
-            <ListItemText primary="ข้อมูลระบบ" />
+            <ListItemText id="menuSystem" primary="ข้อมูลระบบ" />
             {open ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
           <Collapse in={open} timeout="auto" unmountOnExit>
@@ -107,7 +94,7 @@ export default function LeftMenu(props) {
                   <ListItem
                     key={id}
                     button
-                    className={clsx(id === title && classes.itemActiveItem)}
+                    className={clsx(location.pathname.includes(to) && classes.itemActiveItem)}
                   >
                     <ListItemText>
                       <FormattedMessage id={`${scope}.menu${id}`} />
@@ -118,7 +105,7 @@ export default function LeftMenu(props) {
             </List>
           </Collapse>
           <Divider />
-        </React.Fragment>
+        </>
       )}
     </List>
   );

@@ -11,25 +11,25 @@
     },
     "superUser": {
         "user": "super@webdaily.io",
-        "pass": "000000",
+        "pass": "P@ssw0rd",
         "newPass": "111111",
         "mobile": "0800000001"
     },
     "adminUser": {
         "user": "admin@webdaily.io",
-        "pass": "000000",
+        "pass": "P@ssw0rd",
         "newPass": "111111",
         "mobile": "0800000002"
     },
     "employeeUser": {
         "user": "employee@webdaily.io",
-        "pass": "000000",
+        "pass": "P@ssw0rd",
         "newPass": "111111",
         "mobile": "0800000003"
     },
     "memberUser": {
         "user": "member@webdaily.io",
-        "pass": "000000",
+        "pass": "P@ssw0rd",
         "newPass": "111111",
         "mobile": "0800000004"
     },
@@ -41,8 +41,8 @@
             "birthday": "1986-09-18",
             "mobile": "0864108409",
             "email": "natee.phuwong@gmail.com",
-            "password": "000000",
-            "rePassword": "000000",
+            "password": "P@ssw0rd",
+            "rePassword": "P@ssw0rd",
             "line_id": "nathee_phuwong"
         }
     }

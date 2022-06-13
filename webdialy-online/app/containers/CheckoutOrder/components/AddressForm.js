@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { createStructuredSelector } from 'reselect';
-import { change, Field, reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
@@ -58,7 +58,7 @@ const AddressForm = props => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <form className={classes.form} onSubmit={handleSubmit(onValidated)}>
         <Typography variant="h6" gutterBottom>
           ที่อยู่ร้าน สำหรับจัดส่งสินค้า
@@ -176,7 +176,7 @@ const AddressForm = props => {
           )}
         </Grid>
       </form>
-    </React.Fragment>
+    </>
   );
 };
 
@@ -228,5 +228,6 @@ export default connect(mapStateToProps)(
     form: 'addressForm',
     validate,
     enableReinitialize: true,
+    destroyOnUnmount: false,
   })(AddressForm),
 );

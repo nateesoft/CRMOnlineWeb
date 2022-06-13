@@ -7,7 +7,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -61,10 +60,10 @@ export default function LoadProduct(props) {
   };
 
   return (
-    <React.Fragment>
-      <TableContainer component={Paper} className={classes.container}>
+    <>
+      <TableContainer className={classes.container}>
         <Typography color="textSecondary" variant="h6">
-          Load product page
+          โหลดข้อมูลสินค้า
         </Typography>
         <Grid container spacing={1}>
           <Grid item xs={12}>
@@ -132,24 +131,23 @@ export default function LoadProduct(props) {
         </Table>
       </TableContainer>
       <Grid container spacing={1}>
-        <Grid item xs={4} lg={3}>
+        <Grid item>
           <Button
             type="button"
-            fullWidth
-            variant="contained"
+            variant="outlined"
             color="primary"
             onClick={() => props.onSaveDataImport()}
           >
             <FormattedMessage {...messages.btnSave} />
           </Button>
         </Grid>
-        <Grid item xs={4} lg={3}>
-          <Button fullWidth variant="contained" onClick={() => props.onChangePage('LIST')}>
+        <Grid item>
+          <Button variant="outlined" onClick={() => props.onChangePage('LIST')}>
             <FormattedMessage {...messages.btnBack} />
           </Button>
         </Grid>
       </Grid>
-    </React.Fragment>
+    </>
   );
 }
 

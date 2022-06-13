@@ -1,9 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
 import { FormattedMessage } from 'react-intl';
 import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import ArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import Typography from '@material-ui/core/Typography';
@@ -47,20 +45,20 @@ export default function CardPoint(props) {
   };
 
   return (
-    <Card className={classes.root}>
-      <CardContent className={classes.cardContent}>
+    <div className={classes.root}>
+      <div className={classes.cardContent}>
         <Typography variant="h6" gutterBottom>
           {label}
         </Typography>
         <Typography variant="h4">
           <NumberFormat value={point} displayType="text" thousandSeparator />
         </Typography>
-      </CardContent>
+      </div>
       <CardActions className={classes.cardAction}>
         <Button endIcon={<ArrowRight />} className={classes.buttomWhite}>
           <FormattedMessage {...messages.moreInfo} />
         </Button>
       </CardActions>
-    </Card>
+    </div>
   );
 }

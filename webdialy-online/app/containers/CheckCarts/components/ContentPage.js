@@ -9,9 +9,9 @@ export default function ContentPage(props) {
   };
 
   return (
-    <React.Fragment>
+    <>
       {props.getPage === 'LIST' && <TableItems {...props} />}
       {props.getPage === 'VIEW' && <ViewItem {...props} />}
-    </React.Fragment>
+    </>
   );
 }

@@ -30,70 +30,70 @@ export default function PaymentDetail(props) {
           รายละเอียดการชำระเงิน
         </Typography>
         <Grid container>
-          <React.Fragment>
+          <>
             <Grid item xs={6}>
               <Typography gutterBottom>ประเภทรับชำระ</Typography>
             </Grid>
             <Grid item xs={6}>
               <Typography gutterBottom>เงินโอน</Typography>
             </Grid>
-          </React.Fragment>
-          <React.Fragment>
+          </>
+          <>
             <Grid item xs={6}>
               <Typography gutterBottom>บัญชีต้นทาง</Typography>
             </Grid>
             <Grid item xs={6}>
               <Typography gutterBottom>{payment.account_from_name}</Typography>
             </Grid>
-          </React.Fragment>
-          <React.Fragment>
+          </>
+          <>
             <Grid item xs={6}>
               <Typography gutterBottom>เลขที่บัญชีต้นทาง</Typography>
             </Grid>
             <Grid item xs={6}>
               <Typography gutterBottom>{payment.from_account_no}</Typography>
             </Grid>
-          </React.Fragment>
-          <React.Fragment>
+          </>
+          <>
             <Grid item xs={6}>
               <Typography gutterBottom>ชื่อบัญชีปลายทาง</Typography>
             </Grid>
             <Grid item xs={6}>
               <Typography gutterBottom>{payment.account_to_name}</Typography>
             </Grid>
-          </React.Fragment>
-          <React.Fragment>
+          </>
+          <>
             <Grid item xs={6}>
               <Typography gutterBottom>เลขที่บัญชีปลายทาง</Typography>
             </Grid>
             <Grid item xs={6}>
               <Typography gutterBottom>{payment.to_account_no}</Typography>
             </Grid>
-          </React.Fragment>
-          <React.Fragment>
+          </>
+          <>
             <Grid item xs={6}>
               <Typography gutterBottom>เลขที่อ้างอิงการโอนเงิน</Typography>
             </Grid>
             <Grid item xs={6}>
               <Typography gutterBottom>{payment.transfer_ref}</Typography>
             </Grid>
-          </React.Fragment>
-          <React.Fragment>
+          </>
+          <>
             <Grid item xs={6}>
               <Typography gutterBottom>จำนวนเงินที่โอน</Typography>
             </Grid>
             <Grid item xs={6}>
               <Typography gutterBottom>{payment.transfer_amount}</Typography>
             </Grid>
-          </React.Fragment>
-          <React.Fragment>
+          </>
+          <>
             <Grid item xs={6}>
               <Typography gutterBottom>วันที่/เวลา ที่โอนเงิน</Typography>
             </Grid>
             <Grid item xs={6}>
               <Typography gutterBottom>{payment.transfer_date}</Typography>
             </Grid>
-          </React.Fragment>
+          </>
         </Grid>
       </Grid>
     );

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Grid } from '@material-ui/core';
@@ -11,6 +10,8 @@ import { FormattedMessage } from 'react-intl';
 import moment from 'moment';
 import NumberFormat from 'react-number-format';
 import styled from 'styled-components';
+import { Helmet } from 'react-helmet';
+
 import * as appConstants from 'containers/App/constants';
 import ButtonLink from 'components/ButtonLink';
 import messages from './messages';
@@ -76,13 +77,14 @@ export default function ProfileContent(props) {
   }
 
   return (
-    <Card className={classes.root}>
-      <CardContent>
+    <div className={classes.root}>
+      <Helmet>
+        <title>Profile</title>
+      </Helmet>
+      <div style={{ padding: '10px' }}>
         <Grid container spacing={2} justifyContent="center">
           <Grid item xs={12}>
-            <Typography variant="h5" component="h2">
-              {`${profile.prefix}${profile.first_name} ${profile.last_name}`}
-            </Typography>
+            <Typography>{`${profile.prefix}${profile.first_name} ${profile.last_name}`}</Typography>
           </Grid>
           <Grid item xs={12} className={classes.item}>
             <FormattedMessage {...messages.memberTopic} />
@@ -188,24 +190,24 @@ export default function ProfileContent(props) {
             </Grid>
           )}
         </Grid>
-      </CardContent>
+      </div>
       <CardActions className={classes.cardAction}>
         <ButtonLink to={`${appConstants.publicPath}/home/profile-change-pwd`}>
-          <Button variant="contained" color="secondary" size="small">
+          <Button variant="outlined" color="secondary" size="small">
             <FormattedMessage {...messages.btnChangePassword} />
           </Button>
         </ButtonLink>
         <ButtonLink to={`${appConstants.publicPath}/home/profile-edit`}>
-          <Button variant="contained" color="primary" size="small">
+          <Button variant="outlined" color="primary" size="small">
             <FormattedMessage {...messages.btnEditProfile} />
           </Button>
         </ButtonLink>
         <ButtonLink to={`${appConstants.publicPath}/home/profile-shipping`}>
-          <Button variant="contained" size="small">
+          <Button variant="outlined" size="small">
             <FormattedMessage {...messages.headerEditShipping} />
           </Button>
         </ButtonLink>
       </CardActions>
-    </Card>
+    </div>
   );
 }

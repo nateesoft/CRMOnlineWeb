@@ -8,6 +8,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import { Helmet } from 'react-helmet';
 
 import * as appConstants from 'containers/App/constants';
 import ButtonLink from 'components/ButtonLink';
@@ -41,14 +42,6 @@ const useStyles = makeStyles(theme => ({
   },
   separateLine: {
     border: '1px solid #eee',
-  },
-  buttonAddItem: {
-    background: 'green',
-    color: 'white',
-    '&:hover': {
-      color: 'white',
-      background: 'darkgreen',
-    },
   },
 }));
 
@@ -93,7 +86,10 @@ export default function CheckoutContent(props) {
 
   return (
     <main className={classes.layout}>
-      <Paper className={classes.paper}>
+      <Helmet>
+        <title>Checkout Order</title>
+      </Helmet>
+      <>
         <Typography component="h1" variant="h4" align="center">
           ขั้นตอนการสั่ง
         </Typography>
@@ -104,11 +100,11 @@ export default function CheckoutContent(props) {
             </Step>
           ))}
         </Stepper>
-        <React.Fragment>
+        <>
           {activeStep === steps.length ? (
             <FinishOrder {...props} />
           ) : (
-            <React.Fragment>
+            <>
               {getStepContent(activeStep)}
               <Divider className={classes.separateLine} />
               <div className={classes.buttons}>
@@ -118,7 +114,7 @@ export default function CheckoutContent(props) {
                   </Button>
                 )}
                 <Button
-                  variant="contained"
+                  variant="outlined"
                   color="primary"
                   onClick={handleNext}
                   className={classes.button}
@@ -127,14 +123,14 @@ export default function CheckoutContent(props) {
                 </Button>
               </div>
               <ButtonLink to={`${appConstants.publicPath}/home/shopping/${props.currentCartNo}`}>
-                <Button variant="contained" className={classes.buttonAddItem}>
+                <Button variant="outlined" style={{ color: 'green' }}>
                   เลือกสินค้าเพิ่ม
                 </Button>
               </ButtonLink>
-            </React.Fragment>
+            </>
           )}
-        </React.Fragment>
-      </Paper>
+        </>
+      </>
     </main>
   );
 }

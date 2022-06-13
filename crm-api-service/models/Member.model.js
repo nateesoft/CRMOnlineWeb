@@ -7,6 +7,7 @@ module.exports = (db) => {
   const table_name = getDB(db, "member")
   const tb_company = getDB(db, "company")
   const tb_login = getDB(db, "login")
+  const tb_orders = getDB(db, "orders")
 
   module.checkDuplicateCreateMember = (data) => {
     logger.debug(`checkDuplicateCreateMember: ${data}`)
@@ -50,6 +51,23 @@ module.exports = (db) => {
         const sql = `select * from ${table_name} where uuid_index=?;`
         logger.debug(sql)
         const result = await pool.query(sql, [id])
+        resolve({ status: "Success", data: JSON.stringify(result) })
+      } catch (err) {
+        logger.error(err)
+        reject({ status: "Error", msg: err.message })
+      }
+    })
+  }
+
+  module.findMemberFromCartNo = (cartNo) => {
+    logger.debug(`findMemberFromCartNo: ${cartNo}`)
+    return new Promise(async (resolve, reject) => {
+      try {
+        const sql = `select m.email from ${tb_orders} o 
+                    inner join ${table_name} m on o.member_code = m.code 
+                    where o.cart_no ='${cartNo}';`
+        logger.debug(sql)
+        const result = await pool.query(sql, [cartNo])
         resolve({ status: "Success", data: JSON.stringify(result) })
       } catch (err) {
         logger.error(err)

@@ -15,7 +15,10 @@ import CSVReader from 'react-csv-reader';
 import { v4 } from 'uuid';
 import SweetAlert from 'sweetalert2-react';
 
+import * as appConstants from 'containers/App/constants';
 import messages from './messages';
+
+const apiServiceHost = appConstants.serviceApiPath;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -77,8 +80,9 @@ export default function LoadProduct(props) {
           โหลดข้อมูลสินค้า
         </Typography>
         <div style={{ paddingTop: '10px', paddingBottom: '10px' }}>
-          <a href="/" target="_blank">
-            download template
+          Download template:{' '}
+          <a href={`${apiServiceHost}/images/exel_uploads/product_template.xlsx`} target="_blank">
+            download
           </a>
         </div>
         <Grid container spacing={1}>

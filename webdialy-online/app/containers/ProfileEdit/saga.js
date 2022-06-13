@@ -12,16 +12,12 @@ export function* onEditMember() {
     const { profile } = yield select(selectors.makeSelectProfile());
     const database = getCookie('database');
     const requestURL = `${appConstants.publicPath}/api/member/${email}`;
-    const response = yield call(request, requestURL, {
+    yield call(request, requestURL, {
       database,
       method: 'PUT',
       body: JSON.stringify(profile),
     });
-    if (response.status === 'Success') {
-      yield put(actions.editMemberSuccess());
-    } else {
-      yield put(actions.editMemberError(response.msg));
-    }
+    yield put(actions.editMemberSuccess());
   } catch (err) {
     yield put(actions.editMemberError(err));
   }

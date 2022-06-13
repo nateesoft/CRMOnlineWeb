@@ -18,11 +18,7 @@ export function* initLoad() {
       database,
       method: 'GET',
     });
-    if (response.data) {
-      yield put(actions.initLoadSuccess(response.data));
-    } else {
-      yield put(actions.initLoadError('Not found data'));
-    }
+    yield put(actions.initLoadSuccess(response.data));
   } catch (err) {
     yield put(actions.initLoadError(err));
   }
@@ -43,9 +39,7 @@ export function* saveData() {
       method: 'POST',
       body: JSON.stringify({ ...data, img_path: `/images/${fileName}` }),
     });
-    if (response.status === 'Success') {
-      yield put(actions.createItemSuccess(response));
-    }
+    yield put(actions.createItemSuccess(response));
   } catch (err) {
     yield put(actions.createItemError(err));
   }
@@ -71,10 +65,7 @@ export function* updateData() {
         body: JSON.stringify(data),
       });
     }
-
-    if (response.status === 'Success') {
-      yield put(actions.updateItemSuccess(response));
-    }
+    yield put(actions.updateItemSuccess(response));
   } catch (err) {
     yield put(actions.updateItemError(err));
   }
@@ -90,9 +81,7 @@ export function* deleteData() {
       method: 'DELETE',
       body: JSON.stringify(data),
     });
-    if (response.status === 'Success') {
-      yield put(actions.deleteItemSuccess(response));
-    }
+    yield put(actions.deleteItemSuccess(response));
   } catch (err) {
     yield put(actions.deleteItemError(err));
   }
@@ -109,9 +98,7 @@ export function* uploadFile() {
       redirect: 'follow',
     };
     const response = yield fetch(`${apiServiceHost}/api/upload`, options).then(resp => resp.json());
-    if (response.status === 'Success') {
-      yield put(actions.uploadImageSuccess(response));
-    }
+    yield put(actions.uploadImageSuccess(response));
   } catch (err) {
     yield put(actions.uploadImageError(err));
   }

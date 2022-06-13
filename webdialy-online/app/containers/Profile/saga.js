@@ -13,9 +13,7 @@ export function* onLoadCompany() {
       database,
       method: 'GET',
     });
-    if (response.status === 'Success') {
-      yield put(actions.initLoadCompanySuccess(response.data[0]));
-    }
+    yield put(actions.initLoadCompanySuccess(response.data[0]));
   } catch (err) {
     yield put(actions.initLoadCompanyError(err));
   }

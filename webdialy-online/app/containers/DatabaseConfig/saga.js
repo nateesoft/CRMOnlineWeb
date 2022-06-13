@@ -10,11 +10,7 @@ export function* initLoad() {
     const response = yield call(request, requestURL, {
       method: 'GET',
     });
-    if (response.data) {
-      yield put(actions.initLoadSuccess(response.data));
-    } else {
-      yield put(actions.initLoadError('Not found data'));
-    }
+    yield put(actions.initLoadSuccess(response.data));
   } catch (err) {
     yield put(actions.initLoadError(err));
   }

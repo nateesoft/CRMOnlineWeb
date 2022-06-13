@@ -27,12 +27,8 @@ export function* onVerifyTokenLogin() {
           password,
         }),
       });
-      if (response.status === 'Success') {
-        yield put(checkLoginSuccess(response));
-        yield put(push(`${appConstants.publicPath}/home/dashboard`));
-      } else {
-        yield put(checkLoginError('Email or password invalid'));
-      }
+      yield put(checkLoginSuccess(response));
+      yield put(push(`${appConstants.publicPath}/home/dashboard`));
     } else {
       yield put(checkLoginError('Invalid token or expired'));
     }

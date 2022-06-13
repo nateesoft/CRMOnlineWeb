@@ -53,6 +53,7 @@ const msProductReducer = (state = initialState, action) =>
         draft.response.message = '';
         break;
       case constants.INIT_LOAD:
+        draft.uploadSuccess = false;
         break;
       case constants.INIT_LOAD_SUCCESS:
         draft.list = action.payload;

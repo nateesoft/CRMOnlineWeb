@@ -24,11 +24,7 @@ export function* saveDataImport() {
         data: productImports,
       }),
     });
-    if (response.status === 'Success') {
-      yield put(actions.saveDataImportSuccess(response));
-    } else {
-      yield put(actions.saveDataImportError('Cannot create data'));
-    }
+    yield put(actions.saveDataImportSuccess(response));
   } catch (err) {
     yield put(actions.saveDataImportError(err));
   }
@@ -42,11 +38,7 @@ export function* initLoad() {
       database,
       method: 'GET',
     });
-    if (response.data) {
-      yield put(actions.initLoadSuccess(response.data));
-    } else {
-      yield put(actions.initLoadError('Not found data'));
-    }
+    yield put(actions.initLoadSuccess(response.data));
   } catch (err) {
     yield put(actions.initLoadError(err));
   }
@@ -67,11 +59,7 @@ export function* saveData() {
       method: 'POST',
       body: JSON.stringify({ ...data, img_path: imagePath }),
     });
-    if (response.status === 'Success') {
-      yield put(actions.createItemSuccess(response));
-    } else {
-      yield put(actions.createItemError('Cannot create data'));
-    }
+    yield put(actions.createItemSuccess(response));
   } catch (err) {
     yield put(actions.createItemError(err));
   }
@@ -87,11 +75,7 @@ export function* updateData() {
       method: 'PUT',
       body: JSON.stringify(data),
     });
-    if (response.status === 'Success') {
-      yield put(actions.updateItemSuccess(response));
-    } else {
-      yield put(actions.updateItemError('Cannot update data'));
-    }
+    yield put(actions.updateItemSuccess(response));
   } catch (err) {
     yield put(actions.updateItemError(err));
   }
@@ -107,11 +91,7 @@ export function* deleteData() {
       method: 'DELETE',
       body: JSON.stringify(data),
     });
-    if (response.status === 'Success') {
-      yield put(actions.deleteItemSuccess(response));
-    } else {
-      yield put(actions.deleteItemError('Cannot update data'));
-    }
+    yield put(actions.deleteItemSuccess(response));
   } catch (err) {
     yield put(actions.deleteItemError(err));
   }
@@ -128,11 +108,7 @@ export function* uploadFile() {
       redirect: 'follow',
     };
     const response = yield fetch(`${apiServiceHost}/api/upload`, options).then(resp => resp.json());
-    if (response.status === 'Success') {
-      yield put(actions.uploadImageSuccess(response));
-    } else {
-      yield put(actions.uploadImageError('Cannot update data'));
-    }
+    yield put(actions.uploadImageSuccess(response));
   } catch (err) {
     yield put(actions.uploadImageError(err));
   }
@@ -146,11 +122,7 @@ export function* loadProductGroupList() {
       database,
       method: 'GET',
     });
-    if (response.data) {
-      yield put(actions.loadProductGroupListSuccess(response.data));
-    } else {
-      yield put(actions.loadProductGroupListError('Not found data'));
-    }
+    yield put(actions.loadProductGroupListSuccess(response.data));
   } catch (err) {
     yield put(actions.loadProductGroupListError(err));
   }
@@ -164,11 +136,7 @@ export function* loadStockList() {
       database,
       method: 'GET',
     });
-    if (response.data) {
-      yield put(actions.loadStockListSuccess(response.data));
-    } else {
-      yield put(actions.loadStockListError('Not found data'));
-    }
+    yield put(actions.loadStockListSuccess(response.data));
   } catch (err) {
     yield put(actions.loadStockListError(err));
   }
@@ -184,11 +152,7 @@ export function* searchItem({ payload }) {
       method: 'POST',
       body: JSON.stringify({ key, value }),
     });
-    if (response.data) {
-      yield put(actions.searchSuccess(response.data));
-    } else {
-      yield put(actions.searchError('Not found data'));
-    }
+    yield put(actions.searchSuccess(response.data));
   } catch (err) {
     yield put(actions.searchError(err));
   }

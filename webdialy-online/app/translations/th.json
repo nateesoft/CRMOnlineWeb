@@ -321,5 +321,7 @@
   "app.containers.MsCompany.newItemHeader": "เพิ่มข้อมูลบริษัทใหม่",
   "app.containers.MsCompany.updateItemHeader": "แก้ไขข้อมูลบริษัท",
   "app.containers.MsStock.newItemHeader": "เพิ่มข้อมูลคลังสินค้า",
-  "app.containers.MsStock.updateItemHeader": "แก้ไขคลังสินค้า"
+  "app.containers.MsStock.updateItemHeader": "แก้ไขคลังสินค้า",
+  "app.containers.MsPromotion.newItemHeader": "เพิ่มโปรโมชั่น",
+  "app.containers.MsPromotion.headerEditItem": "แก้ไขข้อมูลโปรโมชั่น"
 }

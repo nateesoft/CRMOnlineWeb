@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import { Paper, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import SweetAlert from 'sweetalert2-react';
@@ -41,7 +41,6 @@ const useStyles = makeStyles(theme => ({
   },
   paddingImg: {
     margin: '10px',
-    background: '#aaa',
   },
   formControl: {
     width: '100%',
@@ -62,8 +61,9 @@ const renderFromHelper = ({ touched, error }) => {
   }
   return <FormHelperText>{touched && error}</FormHelperText>;
 };
-const renderSelectField = ({ input, label, meta: { touched, error }, children, ...custom }) => {
+const renderSelectField = ({ id, input, label, meta: { touched, error }, children, ...custom }) => {
   renderSelectField.propTypes = {
+    id: PropTypes.any,
     input: PropTypes.any,
     label: PropTypes.any,
     meta: PropTypes.any,
@@ -72,10 +72,11 @@ const renderSelectField = ({ input, label, meta: { touched, error }, children, .
 
   return (
     <FormControl variant="outlined" error={touched && error} style={{ width: '100%' }}>
-      <InputLabel htmlFor={input.id}>{label}</InputLabel>
+      <InputLabel htmlFor={id}>{label}</InputLabel>
       <Select
         labelId="demo-simple-select-outlined-label"
         native
+        {...id}
         {...input}
         {...custom}
         inputProps={{
@@ -222,6 +223,7 @@ const EditItem = props => {
                 label={<FormattedMessage {...messages.col8} />}
                 required
               >
+                <option value="" />
                 <option key="F" value="F">
                   Free
                 </option>
@@ -260,14 +262,14 @@ const EditItem = props => {
           </Grid>
           <Grid item xs={12} md={6}>
             <Button variant="contained" color="primary" onClick={() => onUploadImageFile()}>
-              Please press upload button
+              อัพโหลดรูปภาพ
             </Button>
           </Grid>
           {imgPath && (
             <Grid item xs={12}>
-              <Paper elevation={3} className={classes.paddingImg}>
+              <div className={classes.paddingImg}>
                 <img src={`${apiServiceHost}${imgPath}`} width="250" alt="" />
-              </Paper>
+              </div>
             </Grid>
           )}
         </Grid>

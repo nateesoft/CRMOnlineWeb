@@ -19,9 +19,10 @@ const useStyles = makeStyles(() => ({
   divProduct: {
     marginBottom: '4px',
     padding: '10px',
+    border: '1px solid #eee',
   },
   imageProduct: {
-    height: 118,
+    // height: 118,
     width: '150px',
     marginBottom: '8px',
     padding: '10px',

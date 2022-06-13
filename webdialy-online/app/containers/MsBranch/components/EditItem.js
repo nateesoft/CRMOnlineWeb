@@ -8,13 +8,52 @@ import { createStructuredSelector } from 'reselect';
 import { Field, reduxForm, change } from 'redux-form';
 import { connect } from 'react-redux';
 import SweetAlert from 'sweetalert2-react';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import { Select, FormControl, InputLabel, Typography } from '@material-ui/core';
+
 import RenderField from 'components/RenderField';
 import MapMarker from 'containers/GoogleMap/components/MapMarker';
-import InputSelectOptions from 'components/InputSelectOptions';
-import { Typography } from '@material-ui/core';
 import messages from './messages';
 import * as selectors from '../selectors';
 import { useStyles } from './styles';
+
+const renderFromHelper = ({ touched, error }) => {
+  renderFromHelper.propTypes = {
+    touched: PropTypes.any,
+    error: PropTypes.any,
+  };
+  if (!(touched && error)) {
+    return <span />;
+  }
+  return <FormHelperText>{touched && error}</FormHelperText>;
+};
+
+const renderSelectField = ({ id, input, label, meta: { touched, error }, children, ...custom }) => {
+  renderSelectField.propTypes = {
+    id: PropTypes.any,
+    input: PropTypes.any,
+    label: PropTypes.any,
+    meta: PropTypes.any,
+    children: PropTypes.any,
+  };
+
+  return (
+    <FormControl variant="outlined" error={touched && error} style={{ width: '100%' }}>
+      <InputLabel htmlFor={id}>{label}</InputLabel>
+      <Select
+        labelId="demo-simple-select-outlined-label"
+        native
+        {...id}
+        {...input}
+        {...custom}
+        label={label}
+      >
+        {children}
+      </Select>
+      {renderFromHelper({ touched, error })}
+    </FormControl>
+  );
+};
 
 const EditItem = props => {
   const classes = useStyles();
@@ -124,12 +163,12 @@ const EditItem = props => {
           <Grid item xs={5}>
             <div className={classes.divRedeem}>
               <Field
+                id="mapping_type1"
                 name="mapping_type1"
-                component={InputSelectOptions}
-                type="text"
-                margin="normal"
+                component={renderSelectField}
                 label={<FormattedMessage {...messages.mappingType} />}
               >
+                <option value="" />
                 <option key="A" value="A">
                   คิดราคาตามช่วงกิโลเมตร
                 </option>
@@ -163,12 +202,12 @@ const EditItem = props => {
           <Grid item xs={5}>
             <div className={classes.divRedeem}>
               <Field
+                id="mapping_type2"
                 name="mapping_type2"
-                component={InputSelectOptions}
-                type="text"
-                margin="normal"
+                component={renderSelectField}
                 label={<FormattedMessage {...messages.mappingType} />}
               >
+                <option value="" />
                 <option key="A" value="A">
                   คิดราคาตามช่วงกิโลเมตร
                 </option>
@@ -202,12 +241,12 @@ const EditItem = props => {
           <Grid item xs={5}>
             <div className={classes.divRedeem}>
               <Field
+                id="mapping_type3"
                 name="mapping_type3"
-                component={InputSelectOptions}
-                type="text"
-                margin="normal"
+                component={renderSelectField}
                 label={<FormattedMessage {...messages.mappingType} />}
               >
+                <option value="" />
                 <option key="A" value="A">
                   คิดราคาตามช่วงกิโลเมตร
                 </option>
@@ -241,12 +280,12 @@ const EditItem = props => {
           <Grid item xs={5}>
             <div className={classes.divRedeem}>
               <Field
+                id="bill_type1"
                 name="bill_type1"
-                component={InputSelectOptions}
-                type="text"
-                margin="normal"
+                component={renderSelectField}
                 label={<FormattedMessage {...messages.mappingType} />}
               >
+                <option value="" />
                 <option key="A" value="A">
                   ฟรีค่าส่งสินค้า
                 </option>
@@ -280,12 +319,12 @@ const EditItem = props => {
           <Grid item xs={5}>
             <div className={classes.divRedeem}>
               <Field
+                id="bill_type2"
                 name="bill_type2"
-                component={InputSelectOptions}
-                type="text"
-                margin="normal"
+                component={renderSelectField}
                 label={<FormattedMessage {...messages.mappingType} />}
               >
+                <option value="" />
                 <option key="A" value="A">
                   ฟรีค่าส่งสินค้า
                 </option>

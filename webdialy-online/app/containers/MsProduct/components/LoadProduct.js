@@ -131,19 +131,18 @@ export default function LoadProduct(props) {
         </Table>
       </TableContainer>
       <Grid container spacing={1}>
-        <Grid item xs={4} lg={3}>
+        <Grid item>
           <Button
             type="button"
-            fullWidth
-            variant="contained"
+            variant="outlined"
             color="primary"
             onClick={() => props.onSaveDataImport()}
           >
             <FormattedMessage {...messages.btnSave} />
           </Button>
         </Grid>
-        <Grid item xs={4} lg={3}>
-          <Button fullWidth variant="contained" onClick={() => props.onChangePage('LIST')}>
+        <Grid item>
+          <Button variant="outlined" onClick={() => props.onChangePage('LIST')}>
             <FormattedMessage {...messages.btnBack} />
           </Button>
         </Grid>

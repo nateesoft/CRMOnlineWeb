@@ -63,6 +63,7 @@ module.exports = args => {
     try {
       // find data exists or not
       const { headers, data } = req.body;
+      headers.push('uuid_index')
       const response = await Task(req.headers.database).createList(headers, data)
       const responseData = JSON.parse(response.data)
       res.status(200).json({ status: response.status, msg: "Success", responseData })

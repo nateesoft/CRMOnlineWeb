@@ -71,3 +71,8 @@ export const makeSelectStockList = () =>
     selectMsProductDomain,
     substate => substate.stock_list,
   );
+export const makeGetUploadStatus = () =>
+  createSelector(
+    selectMsProductDomain,
+    substate => substate.uploadSuccess,
+  );

@@ -1,0 +1,2 @@
+﻿code,name,unit,group,image_path,point,stock_code,price_e,price_t,price_d,max_stock,min_stock,unit_code_stock,qty_over_stock
+p001,production name 001,pack,g001,/images/p001.png,10,s001,10,20,30,0,0,pack,N

@@ -97,7 +97,6 @@ const indexRouter = require("./routes/index")(options)
 const branchRouter = require("./routes/branch.route")(options)
 const loginRouter = require("./routes/login.route")(options)
 const lineLoginRouter = require("./routes/line_login.route")(options)
-const crudRouter = require("./routes/table_crud.route")(options)
 const companyRouter = require("./routes/company.route")(options)
 const productRouter = require("./routes/product.route")(options)
 const productGroupRouter = require("./routes/product_group.route")(options)
@@ -132,6 +131,13 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, "public")))
 
+// set date prototyp
+Date.prototype.toJSON = function(){
+  const hoursDiff = this.getHours() - this.getTimezoneOffset() / 60;
+  this.setHours(hoursDiff);
+  return this.toISOString();
+};
+
 // swagger api document
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
@@ -139,7 +145,6 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use("/api/", indexRouter)
 app.use("/api/login", basicAuth({ users: { admin: fixPassword } }), loginRouter)
 app.use("/api/line", lineLoginRouter)
-app.use("/api/crud", crudRouter)
 
 // master
 app.use("/api/company", basicAuth({ users: { admin: fixPassword } }), companyRouter)

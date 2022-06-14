@@ -52,8 +52,6 @@ module.exports = (io) => {
       const payload = req.body
       const response = await TaskRedeem(req.headers.database).updateRedeemFromClient(payload)
       const data = JSON.parse(response.data)
-      // io.emit('update_member', true);
-      // io.emit('update_redeem', true);
       res.status(200).json({ status: response.status, msg: "Success", data })
     } catch (error) {
       return res
@@ -92,7 +90,8 @@ module.exports = (io) => {
       const response1 = await TaskRedeem(req.headers.database).create(redeemModel)
 
       // emit socket io
-      const sendPayload = { ...redeemModel, database: req.headers.database, status: 'create' }
+      const getRedeemData = await TaskRedeem(req.headers.database).findById(uuid_index)
+      const sendPayload = { data: JSON.parse(getRedeemData.data), database: req.headers.database, action_status: 'create' }
       io.emit("sync_redeem", JSON.stringify(sendPayload))
 
       res.status(200).json({ status: response1.status, msg: "Success", data: "" + redeemCodeGen })

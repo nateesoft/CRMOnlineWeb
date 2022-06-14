@@ -9,7 +9,7 @@ import * as actions from './actions';
 export function* initLoad({ payload }) {
   try {
     const { page, limit } = payload;
-    const requestURL = `${appConstants.publicPath}/api/member/findAll/${page}/${limit}`;
+    const requestURL = `${appConstants.publicPath}/api/member/findAll/${page || 1}/${limit || 20}`;
     const database = getCookie('database');
     const response = yield call(request, requestURL, {
       database,

@@ -273,7 +273,7 @@
   "app.components.MainLayout.menuProfile": "ข้อมูลส่วนตัว",
   "app.components.MainLayout.menuShopping": "สั่งซื้อสินค้า",
   "app.components.MainLayout.menuTrackOrder": "รายการที่สั่ง",
-  "app.components.MainLayout.menuCheckCartList": "สินค้าในตะกร้า",
+  "app.components.MainLayout.menuCheckCartList": "ตรวจสอบคำสั่งซื้อ",
   "app.components.MainLayout.menuMemberList": "รายชื่อสมาชิก",
   "app.components.MainLayout.menuUsePromotion": "การใช้โปรโมชั่น",
   "app.components.MainLayout.menuRoles": "สิทธิ์การใช้งาน",

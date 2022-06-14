@@ -18,7 +18,7 @@ import SweetAlert from 'sweetalert2-react';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import InputLabel from '@material-ui/core/InputLabel';
-import { Paper } from '@material-ui/core';
+
 import MapMarker from 'containers/GoogleMap/components/MapMarker';
 import ButtonLink from 'components/ButtonLink';
 import messages from './messages';
@@ -116,6 +116,7 @@ const EditForm = props => {
     updateStatus,
     clearData,
     dispatch,
+    backPage,
   } = props;
 
   const [latitude, setLatitude] = useState(13.752434);
@@ -326,7 +327,7 @@ const EditForm = props => {
             </Button>
           </Grid>
           <Grid item>
-            <ButtonLink to={`${appConstants.publicPath}/home/profile`}>
+            <ButtonLink to={backPage}>
               <Button variant="outlined" onClick={reset}>
                 <FormattedMessage {...messages.btnBack} />
               </Button>
@@ -349,6 +350,8 @@ EditForm.propTypes = {
   clearData: PropTypes.func,
   onEditShipping: PropTypes.func,
   onChangeMapsValue: PropTypes.func,
+  dispatch: PropTypes.func,
+  backPage: PropTypes.string,
 };
 
 const validate = formValues => {

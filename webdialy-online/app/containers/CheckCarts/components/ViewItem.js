@@ -14,7 +14,6 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import { Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import QRCode from 'qrcode.react';
 import SweetAlert from 'sweetalert2-react';

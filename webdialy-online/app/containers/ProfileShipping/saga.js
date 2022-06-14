@@ -19,20 +19,16 @@ export function* initLoad() {
         database,
         method: 'GET',
       });
-      if (response.status === 'Success') {
-        if (response.data.length > 0) {
-          yield put(actions.initLoadSuccess(response.data[0]));
-        } else {
-          yield put(
-            actions.initLoadSuccess({
-              member_code: memberCode,
-              create: true,
-              uuid_index: v4(),
-            }),
-          );
-        }
+      if (response.data.length > 0) {
+        yield put(actions.initLoadSuccess(response.data[0]));
       } else {
-        yield put(actions.initLoadError(response.msg));
+        yield put(
+          actions.initLoadSuccess({
+            member_code: memberCode,
+            create: true,
+            uuid_index: v4(),
+          }),
+        );
       }
     } catch (error) {
       yield put(actions.initLoadError(error));
@@ -52,11 +48,7 @@ export function* onEditShipping() {
       method: addressData.create === true ? 'POST' : 'PUT',
       body: JSON.stringify(addressData),
     });
-    if (response.status === 'Success') {
-      yield put(actions.editShippingSuccess(response.data));
-    } else {
-      yield put(actions.editShippingError(response.msg));
-    }
+    yield put(actions.editShippingSuccess(response.data));
   } catch (err) {
     yield put(actions.editShippingError(err));
   }

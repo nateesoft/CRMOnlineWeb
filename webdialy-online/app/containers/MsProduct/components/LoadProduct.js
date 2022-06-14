@@ -13,7 +13,12 @@ import Button from '@material-ui/core/Button';
 import { FormattedMessage } from 'react-intl';
 import CSVReader from 'react-csv-reader';
 import { v4 } from 'uuid';
+import SweetAlert from 'sweetalert2-react';
+
+import * as appConstants from 'containers/App/constants';
 import messages from './messages';
+
+const apiServiceHost = appConstants.serviceApiPath;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -36,7 +41,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function LoadProduct(props) {
   const classes = useStyles();
-  const { productImports: rows } = props;
+  const { productImports: rows, uploadSuccess } = props;
 
   const csvJSON = lines => {
     const result = [];
@@ -61,10 +66,25 @@ export default function LoadProduct(props) {
 
   return (
     <>
+      {uploadSuccess && (
+        <SweetAlert
+          show={uploadSuccess}
+          title="Success"
+          type="success"
+          text="Upload data success"
+          onConfirm={() => props.onChangePage('LIST')}
+        />
+      )}
       <TableContainer className={classes.container}>
         <Typography color="textSecondary" variant="h6">
           โหลดข้อมูลสินค้า
         </Typography>
+        <div style={{ paddingTop: '10px', paddingBottom: '10px' }}>
+          Download template:{' '}
+          <a href={`${apiServiceHost}/images/exel_uploads/product_template.xlsx`} target="_blank">
+            download
+          </a>
+        </div>
         <Grid container spacing={1}>
           <Grid item xs={12}>
             <CSVReader
@@ -83,9 +103,9 @@ export default function LoadProduct(props) {
               <TableCell>#</TableCell>
               <TableCell align="left">code</TableCell>
               <TableCell align="left">name</TableCell>
-              <TableCell align="right">unit</TableCell>
-              <TableCell align="center">group</TableCell>
-              <TableCell align="left">image_path</TableCell>
+              <TableCell align="right">unit_code_sale</TableCell>
+              <TableCell align="center">product_group_code</TableCell>
+              <TableCell align="left">img_path</TableCell>
               <TableCell align="right">point</TableCell>
               <TableCell align="right">stock_code</TableCell>
               <TableCell align="right">price_e</TableCell>
@@ -157,4 +177,5 @@ LoadProduct.propTypes = {
   onLoadDataFromFile: PropTypes.func,
   onSaveDataImport: PropTypes.func,
   onChangePage: PropTypes.func,
+  uploadSuccess: PropTypes.bool,
 };

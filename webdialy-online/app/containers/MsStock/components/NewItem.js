@@ -8,7 +8,6 @@ import Container from '@material-ui/core/Container';
 import { Field, reduxForm } from 'redux-form';
 import { FormattedMessage } from 'react-intl';
 import SweetAlert from 'sweetalert2-react';
-import { Paper } from '@material-ui/core';
 import RenderField from 'components/RenderField';
 import messages from './messages';
 

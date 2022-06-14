@@ -8,6 +8,9 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
+
+import ButtonLink from 'components/ButtonLink';
+import * as appConstants from 'containers/App/constants';
 import RenderField from 'components/RenderField';
 import InputSelectOptions from 'components/InputSelectOptions';
 import * as selectors from '../selectors';
@@ -32,7 +35,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const AddressForm = props => {
+const ShippingForm = props => {
   const classes = useStyles();
   const { handleSubmit, response, branchList, initialValues } = props;
 
@@ -86,6 +89,14 @@ const AddressForm = props => {
         </Grid>
         <Typography variant="h6" gutterBottom>
           ที่อยู่ลูกค้า สำหรับจัดส่งสินค้า
+          <ButtonLink
+            to={`${appConstants.publicPath}/home/profile-shipping?backPage=/home/checkout-orders/${
+              props.currentCartNo
+            }`}
+            style={{ color: 'blue', marginLeft: '10px' }}
+          >
+            อัพเดตข้อมูล!
+          </ButtonLink>
         </Typography>
         <Divider className={classes.separateStyle} />
         <Grid container spacing={1}>
@@ -180,7 +191,7 @@ const AddressForm = props => {
   );
 };
 
-AddressForm.propTypes = {
+ShippingForm.propTypes = {
   handleSubmit: PropTypes.func,
   pristine: PropTypes.bool,
   reset: PropTypes.func,
@@ -191,6 +202,7 @@ AddressForm.propTypes = {
   initLoadMemberShipping: PropTypes.func,
   onUpdateAddressForm: PropTypes.func,
   branchList: PropTypes.array,
+  currentCartNo: PropTypes.string,
 };
 
 const validate = formValues => {
@@ -229,5 +241,5 @@ export default connect(mapStateToProps)(
     validate,
     enableReinitialize: true,
     destroyOnUnmount: false,
-  })(AddressForm),
+  })(ShippingForm),
 );

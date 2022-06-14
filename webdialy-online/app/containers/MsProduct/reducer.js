@@ -53,6 +53,7 @@ const msProductReducer = (state = initialState, action) =>
         draft.response.message = '';
         break;
       case constants.INIT_LOAD:
+        draft.uploadSuccess = false;
         break;
       case constants.INIT_LOAD_SUCCESS:
         draft.list = action.payload;
@@ -122,9 +123,10 @@ const msProductReducer = (state = initialState, action) =>
       case constants.SAVE_DATA_IMPORT:
         break;
       case constants.SAVE_DATA_IMPORT_SUCCESS:
-        draft.profile = action.payload;
+        draft.uploadSuccess = true;
         break;
       case constants.SAVE_DATA_IMPORT_ERROR:
+        draft.uploadSuccess = false;
         break;
       case constants.SET_HEADERS:
         draft.productImportHeaders = action.payload;

@@ -100,7 +100,7 @@ module.exports = (db) => {
         let values = objectArray.map((obj) => headers.map((key) => obj[key]))
         let sql = `INSERT INTO ${table_name} (${headers.join(
           ","
-        )}) VALUES ? ON DUPLICATE KEY UPDATE uuid_index=VALUES(uuid_index)`
+        )}) VALUES ? ON DUPLICATE KEY UPDATE name=VALUES(name)`
         logger.debug(sql)
         const result = await pool.query(sql, [values])
         resolve({ status: "Success", data: JSON.stringify(result) })

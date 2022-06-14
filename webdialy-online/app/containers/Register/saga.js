@@ -41,12 +41,8 @@ export function* onAddRegisterMember() {
         member_role: 'member',
       }),
     });
-    if (response.status === 'Success') {
-      yield put(actions.addRegisterMemberSuccess());
-      yield put(push(`${appConstants.publicPath}/login`));
-    } else {
-      yield put(actions.addRegisterMemberError(response.Error));
-    }
+    yield put(actions.addRegisterMemberSuccess());
+    yield put(push(`${appConstants.publicPath}/login`));
   } catch (err) {
     yield put(actions.addRegisterMemberError(err));
   }

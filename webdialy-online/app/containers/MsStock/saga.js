@@ -14,11 +14,7 @@ export function* initLoad() {
       database,
       method: 'GET',
     });
-    if (response.data) {
-      yield put(actions.initLoadSuccess(response.data));
-    } else {
-      yield put(actions.initLoadError('Not found data'));
-    }
+    yield put(actions.initLoadSuccess(response.data));
   } catch (err) {
     yield put(actions.initLoadError(err));
   }
@@ -34,11 +30,7 @@ export function* saveData() {
       method: 'POST',
       body: JSON.stringify(data),
     });
-    if (response.status === 'Success') {
-      yield put(actions.createItemSuccess(response));
-    } else {
-      yield put(actions.createItemError('Cannot create data'));
-    }
+    yield put(actions.createItemSuccess(response));
   } catch (err) {
     yield put(actions.createItemError(err));
   }
@@ -54,11 +46,7 @@ export function* updateData() {
       method: 'PUT',
       body: JSON.stringify(data),
     });
-    if (response.status === 'Success') {
-      yield put(actions.updateItemSuccess(response));
-    } else {
-      yield put(actions.updateItemError('Cannot update data'));
-    }
+    yield put(actions.updateItemSuccess(response));
   } catch (err) {
     yield put(actions.updateItemError(err));
   }
@@ -74,11 +62,7 @@ export function* deleteData() {
       method: 'DELETE',
       body: JSON.stringify(data),
     });
-    if (response.status === 'Success') {
-      yield put(actions.deleteItemSuccess(response));
-    } else {
-      yield put(actions.deleteItemError('Cannot update data'));
-    }
+    yield put(actions.deleteItemSuccess(response));
   } catch (err) {
     yield put(actions.deleteItemError(err));
   }

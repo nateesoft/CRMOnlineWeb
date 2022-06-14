@@ -14,11 +14,7 @@ export function* loadProduct() {
       database,
       method: 'GET',
     });
-    if (response.data) {
-      yield put(actions.loadProductSuccess(response.data));
-    } else {
-      yield put(actions.loadProductError('Not found data'));
-    }
+    yield put(actions.loadProductSuccess(response.data));
   } catch (err) {
     yield put(actions.loadProductError(err));
   }
@@ -34,11 +30,7 @@ export function* saveCartItem() {
       method: 'POST',
       body: JSON.stringify(data),
     });
-    if (response.status === 'Success') {
-      yield put(actions.createItemCartSuccess(response.data[0]));
-    } else {
-      yield put(actions.createItemCartError('Cannot create data'));
-    }
+    yield put(actions.createItemCartSuccess(response.data[0]));
   } catch (err) {
     yield put(actions.createItemCartError(err));
   }
@@ -54,11 +46,7 @@ export function* updateCartItem() {
       method: 'PUT',
       body: JSON.stringify(data),
     });
-    if (response.status === 'Success') {
-      yield put(actions.updateItemCartSuccess(response.data));
-    } else {
-      yield put(actions.updateItemCartError('Cannot create data'));
-    }
+    yield put(actions.updateItemCartSuccess(response.data));
   } catch (err) {
     yield put(actions.updateItemCartError(err));
   }
@@ -73,11 +61,7 @@ export function* searchProduct() {
       database,
       method: 'GET',
     });
-    if (response.data) {
-      yield put(actions.searchProductSuccess(response.data));
-    } else {
-      yield put(actions.searchProductError('Not found data'));
-    }
+    yield put(actions.searchProductSuccess(response.data));
   } catch (err) {
     yield put(actions.searchProductError(err));
   }
@@ -96,11 +80,7 @@ export function* loadCartToShopping() {
         method: 'POST',
         body: JSON.stringify({ cart_no: cartNo }),
       });
-      if (response.data) {
-        yield put(actions.loadCartSuccess(response.data[0]));
-      } else {
-        yield put(actions.loadCartSuccess('Not found carts'));
-      }
+      yield put(actions.loadCartSuccess(response.data[0]));
     }
   } catch (err) {
     yield put(actions.loadCartError(err));

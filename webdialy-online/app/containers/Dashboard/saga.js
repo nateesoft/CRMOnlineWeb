@@ -15,11 +15,7 @@ export function* loadRedeem() {
       database,
       method: 'GET',
     });
-    if (response.status === 'Success') {
-      yield put(actions.loadRedeemSuccess(response.data));
-    } else {
-      yield put(actions.loadRedeemError('Not found data'));
-    }
+    yield put(actions.loadRedeemSuccess(response.data));
   } catch (err) {
     yield put(actions.loadRedeemError(err));
   }
@@ -42,11 +38,7 @@ export function* createRedeemCode() {
         member_code_use: code,
       }),
     });
-    if (response.status === 'Success') {
-      yield put(actions.createRedeemSuccess(response.data));
-    } else {
-      yield put(actions.createRedeemError('Create redeem code error'));
-    }
+    yield put(actions.createRedeemSuccess(response.data));
   } catch (err) {
     yield put(actions.createRedeemError(err));
   }

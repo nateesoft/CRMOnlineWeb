@@ -66,6 +66,7 @@ const mapStateToProps = createStructuredSelector({
   productImports: selectors.makeSelectProductImport(),
   groupList: selectors.makeSelectProductGroupList(),
   stockList: selectors.makeSelectStockList(),
+  uploadSuccess: selectors.makeGetUploadStatus(),
 });
 
 function mapDispatchToProps(dispatch) {

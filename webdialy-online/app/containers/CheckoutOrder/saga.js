@@ -19,11 +19,7 @@ export function* loadCartList() {
       database,
       method: 'GET',
     });
-    if (response.data) {
-      yield put(actions.loadCartSuccess(response.data));
-    } else {
-      yield put(actions.loadCartError('Not found carts'));
-    }
+    yield put(actions.loadCartSuccess(response.data));
   } catch (err) {
     yield put(actions.loadCartError(err));
   }
@@ -79,11 +75,7 @@ export function* uploadImage() {
       redirect: 'follow',
     };
     const response = yield fetch(`${apiServiceHost}/api/upload`, options).then(resp => resp.json());
-    if (response.status === 'Success') {
-      yield put(actions.uploadImageSuccess(response));
-    } else {
-      yield put(actions.uploadImageError('Cannot upload file'));
-    }
+    yield put(actions.uploadImageSuccess(response));
   } catch (err) {
     yield put(actions.uploadImageError(err));
   }
@@ -97,11 +89,7 @@ export function* validateSlipUpload() {
       method: 'POST',
       body: JSON.stringify({ img_file: imgFile }),
     });
-    if (response.data) {
-      yield put(actions.checkSlipSuccess(response.data));
-    } else {
-      yield put(actions.checkSlipError('Image uploaded is invalid'));
-    }
+    yield put(actions.checkSlipSuccess(response.data));
   } catch (err) {
     yield put(actions.checkSlipError(err));
   }
@@ -113,16 +101,12 @@ export function* onDeleteItemCart() {
     const { product_code: productCode } = yield select(selectors.makeSelectProduct());
     const database = getCookie('database');
     const requestURL = `${appConstants.publicPath}/api/carts_detail`;
-    const response = yield call(request, requestURL, {
+    yield call(request, requestURL, {
       database,
       method: 'DELETE',
       body: JSON.stringify({ cart_no: cartNo, product_code: productCode }),
     });
-    if (response.status === 'Success') {
-      yield put(actions.deleteItemCartSuccess('Delete item success'));
-    } else {
-      yield put(actions.deleteItemCartError('Cannot delete item cart'));
-    }
+    yield put(actions.deleteItemCartSuccess('Delete item success'));
   } catch (err) {
     yield put(actions.deleteItemCartError(err));
   }
@@ -134,16 +118,12 @@ export function* onUpdateItemCart() {
     const database = getCookie('database');
     const { product_code: productCode, qty } = yield select(selectors.makeSelectProduct());
     const requestURL = `${appConstants.publicPath}/api/carts_detail`;
-    const response = yield call(request, requestURL, {
+    yield call(request, requestURL, {
       database,
       method: 'PATCH',
       body: JSON.stringify({ cart_no: cartNo, product_code: productCode, qty }),
     });
-    if (response.status === 'Success') {
-      yield put(actions.updateItemCartSuccess('Update item success'));
-    } else {
-      yield put(actions.updateItemCartError('Cannot update item cart'));
-    }
+    yield put(actions.updateItemCartSuccess('Update item success'));
   } catch (err) {
     yield put(actions.updateItemCartError(err));
   }
@@ -160,11 +140,7 @@ export function* onUpdateAddressForm() {
       method: addressFormData.create === true ? 'POST' : 'PUT',
       body: JSON.stringify({ ...addressFormData, memberCode }),
     });
-    if (response.status === 'Success') {
-      yield put(actions.updateAddressFormSuccess(response));
-    } else {
-      yield put(actions.updateAddressFormError('Cannot update address form'));
-    }
+    yield put(actions.updateAddressFormSuccess(response));
   } catch (err) {
     yield put(actions.updateAddressFormError(err));
   }
@@ -181,11 +157,7 @@ export function* onUpdateCartsBranchShipping() {
       method: 'PATCH',
       body: JSON.stringify({ cart_no: cartNo, branch_shipping: branchShipping }),
     });
-    if (response.status === 'Success') {
-      yield put(actions.updateAddressFormSuccess(response));
-    } else {
-      yield put(actions.updateAddressFormError('Cannot update address form'));
-    }
+    yield put(actions.updateAddressFormSuccess(response));
   } catch (err) {
     yield put(actions.updateAddressFormError(err));
   }
@@ -198,7 +170,7 @@ export function* onUpdatePaymentForm() {
     const paymentData = yield select(selectors.makeSelectPaymentData());
     const database = getCookie('database');
     const requestURL = `${appConstants.publicPath}/api/carts/payment`;
-    const response = yield call(request, requestURL, {
+    yield call(request, requestURL, {
       database,
       method: 'POST',
       body: JSON.stringify({
@@ -207,11 +179,7 @@ export function* onUpdatePaymentForm() {
         cart_no: cartNo,
       }),
     });
-    if (response.status === 'Success') {
-      yield put(actions.setPaymentDataSuccess());
-    } else {
-      yield put(actions.setPaymentDataError('Cannot update payment form'));
-    }
+    yield put(actions.setPaymentDataSuccess());
   } catch (err) {
     yield put(actions.setPaymentDataError(err));
   }
@@ -223,14 +191,12 @@ export function* updateTransportAmt() {
     const { distance } = yield select(selectors.makeSelectPaymentData());
     const database = getCookie('database');
     const requestURL = `${appConstants.publicPath}/api/carts/payment-transport-amt`;
-    const response = yield call(request, requestURL, {
+    yield call(request, requestURL, {
       database,
       method: 'PATCH',
       body: JSON.stringify({ cart_no: cartNo, distance }),
     });
-    if (response.status === 'Success') {
-      yield put(actions.updateTransportAmtSuccess());
-    }
+    yield put(actions.updateTransportAmtSuccess());
   } catch (err) {
     yield put(actions.updateTransportAmtError(err));
   }
@@ -241,16 +207,12 @@ export function* onUpdateShoppingStep() {
     const cartNo = yield select(selectors.makeSelectCartsNo());
     const requestURL = `${appConstants.publicPath}/api/carts/shopping_step`;
     const database = getCookie('database');
-    const response = yield call(request, requestURL, {
+    yield call(request, requestURL, {
       database,
       method: 'PATCH',
       body: JSON.stringify({ cart_no: cartNo, shopping_step: 'wait_confirm' }),
     });
-    if (response.status === 'Success') {
-      yield put(actions.updateShoppingStepSuccess('Finish checkout order step'));
-    } else {
-      yield put(actions.updateShoppingStepError('Cannot update shopping step'));
-    }
+    yield put(actions.updateShoppingStepSuccess('Finish checkout order step'));
   } catch (err) {
     yield put(actions.updateShoppingStepError(err));
   }
@@ -262,7 +224,7 @@ export function* onUpdateSlipPath() {
     const slipPath = yield select(selectors.makeSelectSlipPath());
     const requestURL = `${appConstants.publicPath}/api/carts/slip_path`;
     const database = getCookie('database');
-    const response = yield call(request, requestURL, {
+    yield call(request, requestURL, {
       database,
       method: 'PATCH',
       body: JSON.stringify({
@@ -270,11 +232,7 @@ export function* onUpdateSlipPath() {
         slip_path: `/images/${slipPath}`,
       }),
     });
-    if (response.status === 'Success') {
-      yield put(actions.updateSlipPathSuccess('Update slip path success'));
-    } else {
-      yield put(actions.updateSlipPathError('Cannot update slip path'));
-    }
+    yield put(actions.updateSlipPathSuccess('Update slip path success'));
   } catch (err) {
     yield put(actions.updateShoppingStepError(err));
   }
@@ -290,11 +248,7 @@ export function* loadBranchLocation() {
       method: 'GET',
     });
     if (response.status === 200) {
-      if (response.data.length > 0) {
-        yield put(actions.loadBranchLocationSuccess(response.data[0]));
-      } else {
-        yield put(actions.loadBranchLocationSuccess({}));
-      }
+      yield put(actions.loadBranchLocationSuccess(response.data[0]));
     } else {
       yield put(actions.loadBranchLocationError('Not found branch location'));
     }

@@ -13,7 +13,7 @@ export function* onUpdatePassword() {
       selectors.makeSelectEditForm(),
     );
     const database = getCookie('database');
-    const response = yield call(request, requestURL, {
+    yield call(request, requestURL, {
       database,
       method: 'PUT',
       body: JSON.stringify({
@@ -22,11 +22,7 @@ export function* onUpdatePassword() {
         new_password: newPassword,
       }),
     });
-    if (response.status === 'Success') {
-      yield put(actions.updatePasswordSuccess());
-    } else {
-      yield put(actions.updatePasswordError(response.msg));
-    }
+    yield put(actions.updatePasswordSuccess());
   } catch (err) {
     yield put(actions.updatePasswordError(err));
   }

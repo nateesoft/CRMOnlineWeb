@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Orders(props) {
+export default function ListProduct(props) {
   const classes = useStyles();
   const { carts, carts_detail: cartsDetail } = props.cartList;
 
@@ -100,7 +100,7 @@ export default function Orders(props) {
   );
 }
 
-Orders.propTypes = {
+ListProduct.propTypes = {
   cartList: PropTypes.object,
   deleteItemCart: PropTypes.func,
   updateItemCart: PropTypes.func,

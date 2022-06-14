@@ -78,7 +78,6 @@ module.exports = (io) => {
         payload
       )
       const data = JSON.parse(response.data)
-      // io.emit("update_member", true)
       res.status(200).json({ status: response.status, msg: "Success", data })
     } catch (error) {
       return res
@@ -187,8 +186,10 @@ module.exports = (io) => {
 
       const response2 = await TaskLogin(req.headers.database).create(loginMobileForm)
 
+      const getMemberModel = await Task(req.headers.database).findByEmail(req.body.email)
+
       // emit socket io
-      const sendPayload = { ...memberModel, database: req.headers.database, action_status: 'create' }
+      const sendPayload = { data: JSON.parse(getMemberModel.data), database: req.headers.database, action_status: 'create' }
       io.emit("sync_member", JSON.stringify(sendPayload))
       const data = JSON.parse(response.data)
       res.status(200).json({ status: response2.status, msg: "Success", data })
@@ -204,10 +205,11 @@ module.exports = (io) => {
       const payload = { ...req.body, uuid_index: req.params.id }
       const response = await Task(req.headers.database).update(payload)
       const data = JSON.parse(response.data)
-
+      
       // emit socket io
-      const memberModel = await Task(req.headers.database).findById(req.params.id)
-      io.emit("sync_member", { ...memberModel, database: req.headers.database, action_status: 'update' })
+      const getMemberModel = await Task(req.headers.database).findByEmail(req.body.email)
+      const sendPayload = { data: JSON.parse(getMemberModel.data), database: req.headers.database, action_status: 'update' }
+      io.emit("sync_member", JSON.stringify(sendPayload))
 
       res.status(200).json({ status: response.status, msg: "Success", data })
     } catch (error) {
@@ -253,10 +255,10 @@ module.exports = (io) => {
         response = await Task(req.headers.database).updateRole(payload)
       }
       const data = JSON.parse(response.data)
-      
+
       // emit socket io
-      const memberModel = await Task(req.headers.database).findById(req.params.id)
-      io.emit("sync_member", { ...memberModel, database: req.headers.database, action_status: 'update' })
+      const sendPayload = { data: payload, database: req.headers.database, action_status: 'update' }
+      io.emit("sync_member", JSON.stringify(sendPayload))
 
       res.status(200).json({ status: response.status, msg: "Success", data })
     } catch (error) {
@@ -270,11 +272,6 @@ module.exports = (io) => {
     try {
       const response = await Task(req.headers.database).delete(req.params.id)
       const data = JSON.parse(response.data)
-
-      // emit socket io
-      const memberModel = { uuid_index: req.params.id }
-      io.emit("sync_member", { ...memberModel, database: req.headers.database, action_status: 'delete' })
-      
       res.status(200).json({ status: response.status, msg: "Success", data })
     } catch (error) {
       return res

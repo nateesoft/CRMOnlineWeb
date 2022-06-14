@@ -16,11 +16,7 @@ export function* initLoad() {
       database,
       method: 'GET',
     });
-    if (response.data) {
-      yield put(actions.initLoadSuccess(response.data));
-    } else {
-      yield put(actions.initLoadError('Not found data'));
-    }
+    yield put(actions.initLoadSuccess(response.data));
   } catch (err) {
     yield put(actions.initLoadError(err));
   }
@@ -35,11 +31,7 @@ export function* searchItem({ payload }) {
       method: 'POST',
       body: JSON.stringify({ key, value }),
     });
-    if (response.data) {
-      yield put(actions.searchSuccess(response.data));
-    } else {
-      yield put(actions.searchError('Not found data'));
-    }
+    yield put(actions.searchSuccess(response.data));
   } catch (err) {
     yield put(actions.searchError(err));
   }
@@ -64,12 +56,8 @@ export function* onUpdateShoppingStep() {
         member_code: memberCode,
       }),
     });
-    if (response.status === 'Success') {
-      yield initLoad();
-      yield put(actions.updateShoppingStepSuccess('Finish checkout order step'));
-    } else {
-      yield put(actions.updateShoppingStepError('Cannot update shopping step'));
-    }
+    yield initLoad();
+    yield put(actions.updateShoppingStepSuccess('Finish checkout order step'));
   } catch (err) {
     yield put(actions.updateShoppingStepError(err));
   }

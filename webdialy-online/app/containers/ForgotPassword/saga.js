@@ -18,12 +18,8 @@ export function* onRequestChangePassword() {
       method: 'PATCH',
       body: JSON.stringify({ email, mobile, secret }),
     });
-    if (response.status === 'Success') {
-      yield put(actions.requestPasswordSuccess(response));
-      yield put(push(`${appConstants.publicPath}/login`));
-    } else {
-      yield put(actions.requestPasswordError(response.msg));
-    }
+    yield put(actions.requestPasswordSuccess(response));
+    yield put(push(`${appConstants.publicPath}/login`));
   } catch (err) {
     yield put(actions.requestPasswordError(`${err}`));
   }
@@ -39,12 +35,8 @@ export function* onSendEmail() {
       method: 'PATCH',
       body: JSON.stringify({ email }),
     });
-    if (response.status === 'Success') {
-      yield put(actions.sendEmailSuccess(response));
-      yield put(push(`${appConstants.publicPath}/login`));
-    } else {
-      yield put(actions.sendEmailError(response.msg));
-    }
+    yield put(actions.sendEmailSuccess(response));
+    yield put(push(`${appConstants.publicPath}/login`));
   } catch (err) {
     yield put(actions.sendEmailError(`${err}`));
   }

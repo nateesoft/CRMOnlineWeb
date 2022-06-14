@@ -9,17 +9,13 @@ import * as actions from './actions';
 export function* initLoad({ payload }) {
   try {
     const { page, limit } = payload;
-    const requestURL = `${appConstants.publicPath}/api/member/findAll/${page}/${limit}`;
+    const requestURL = `${appConstants.publicPath}/api/member/findAll/${page || 1}/${limit || 20}`;
     const database = getCookie('database');
     const response = yield call(request, requestURL, {
       database,
       method: 'GET',
     });
-    if (response.data) {
-      yield put(actions.initLoadSuccess(response.data));
-    } else {
-      yield put(actions.initLoadError('Not found data'));
-    }
+    yield put(actions.initLoadSuccess(response.data));
   } catch (err) {
     yield put(actions.initLoadError(err));
   }
@@ -35,11 +31,7 @@ export function* searchItem({ payload }) {
       method: 'POST',
       body: JSON.stringify({ key, value }),
     });
-    if (response.data) {
-      yield put(actions.searchSuccess(response.data));
-    } else {
-      yield put(actions.searchError('Not found data'));
-    }
+    yield put(actions.searchSuccess(response.data));
   } catch (err) {
     yield put(actions.searchError(err));
   }
@@ -55,11 +47,7 @@ export function* saveData() {
       method: 'POST',
       body: JSON.stringify(data),
     });
-    if (response.status === 'Success') {
-      yield put(actions.createItemSuccess(response));
-    } else {
-      yield put(actions.createItemError('Cannot create data'));
-    }
+    yield put(actions.createItemSuccess(response));
   } catch (err) {
     yield put(actions.createItemError(err));
   }
@@ -75,11 +63,7 @@ export function* updateMemberData() {
       method: 'PATCH',
       body: JSON.stringify(data),
     });
-    if (response.status === 'Success') {
-      yield put(actions.updateItemSuccess(response));
-    } else {
-      yield put(actions.updateItemError('Cannot update data'));
-    }
+    yield put(actions.updateItemSuccess(response));
   } catch (err) {
     yield put(actions.updateItemError(err));
   }
@@ -95,11 +79,7 @@ export function* deleteData() {
       method: 'DELETE',
       body: JSON.stringify(data),
     });
-    if (response.status === 'Success') {
-      yield put(actions.deleteItemSuccess(response));
-    } else {
-      yield put(actions.deleteItemError('Cannot update data'));
-    }
+    yield put(actions.deleteItemSuccess(response));
   } catch (err) {
     yield put(actions.deleteItemError(err));
   }
@@ -113,11 +93,7 @@ export function* onLoadRolesList() {
       database,
       method: 'GET',
     });
-    if (response.data) {
-      yield put(actions.loadRolesSuccess(response.data));
-    } else {
-      yield put(actions.loadRolesError('Not found data'));
-    }
+    yield put(actions.loadRolesSuccess(response.data));
   } catch (err) {
     yield put(actions.loadRolesError(err));
   }

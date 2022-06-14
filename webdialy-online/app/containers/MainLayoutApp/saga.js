@@ -14,11 +14,7 @@ export function* loadProfile() {
       database,
       method: 'GET',
     });
-    if (response.status === 'Success') {
-      yield put(actions.loadProfileSuccess(response.data));
-    } else {
-      yield put(actions.loadProfileError('Cannot load data'));
-    }
+    yield put(actions.loadProfileSuccess(response.data));
   } catch (err) {
     yield put(actions.loadProfileSuccess(err));
   }

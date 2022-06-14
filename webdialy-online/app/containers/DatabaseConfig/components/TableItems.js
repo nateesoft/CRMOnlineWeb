@@ -11,7 +11,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+
 import * as appConstants from 'containers/App/constants';
+const apiServiceHost = appConstants.serviceApiPath;
 
 const useStyles = makeStyles({
   container: {
@@ -119,6 +121,12 @@ export default function TableItems(props) {
           </Table>
         </div>
       </TableContainer>
+      <div style={{ background: 'green', padding: '10px', color: 'white', fontWeight: 'bold' }}>
+        Download Application Client:{' '}
+        <a href={`${apiServiceHost}/images/applications/MonitorApplication.zip`} target="_blank">
+          Download
+        </a>
+      </div>
       <TablePagination
         rowsPerPageOptions={[5, 10, 25, 100]}
         component="div"

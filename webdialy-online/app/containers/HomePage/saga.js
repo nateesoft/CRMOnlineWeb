@@ -13,11 +13,7 @@ export function* initLoad() {
       database,
       method: 'GET',
     });
-    if (response.status === 'Success') {
-      yield put(actions.initLoadSuccess(response.data[0]));
-    } else {
-      yield put(actions.initLoadError('Cannot load data'));
-    }
+    yield put(actions.initLoadSuccess(response.data[0]));
   } catch (err) {
     yield put(actions.initLoadError(err));
   }

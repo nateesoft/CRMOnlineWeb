@@ -4,11 +4,13 @@
  *
  */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+
+import * as appConstants from 'containers/App/constants';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import { makeSelectLogin } from 'containers/Login/selectors';
@@ -24,11 +26,21 @@ export function ProfileShipping(props) {
   useInjectReducer({ key: 'profileShipping', reducer });
   useInjectSaga({ key: 'profileShipping', saga });
 
+  const [backPage, setBackPage] = useState('');
+
   useEffect(() => {
+    const { search } = props.location;
+    const page = new URLSearchParams(search).get('backPage');
+    if (page) {
+      setBackPage(`${appConstants.publicPath}${page}`);
+    } else {
+      setBackPage(`${appConstants.publicPath}/home/profile`);
+    }
+
     props.initLoad(props.profile.member_code);
   }, []);
 
-  return <MainComponents {...props} />;
+  return <MainComponents {...props} backPage={backPage} />;
 }
 
 ProfileShipping.propTypes = {
@@ -37,6 +49,8 @@ ProfileShipping.propTypes = {
   initLoad: PropTypes.func,
   login: PropTypes.object,
   profile: PropTypes.object,
+  backPage: PropTypes.string,
+  location: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({

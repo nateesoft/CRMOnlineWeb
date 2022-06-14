@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
@@ -12,8 +11,8 @@ import { Helmet } from 'react-helmet';
 
 import * as appConstants from 'containers/App/constants';
 import ButtonLink from 'components/ButtonLink';
-import Orders from './Orders';
-import AddressForm from './AddressForm';
+import ListProduct from './ListProduct';
+import ShippingForm from './ShippingForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
 import FinishOrder from './FinishOrder';
@@ -24,10 +23,6 @@ const useStyles = makeStyles(theme => ({
   },
   layout: {
     marginTop: '5px',
-  },
-  paper: {
-    marginBottom: theme.spacing(3),
-    padding: theme.spacing(2),
   },
   stepper: {
     padding: theme.spacing(3, 0, 5),
@@ -47,16 +42,28 @@ const useStyles = makeStyles(theme => ({
 
 const steps = ['สินค้า', 'ที่อยู่', 'รับชำระ', 'ยืนยันคำสั่งซื้อ'];
 export default function CheckoutContent(props) {
+  const [validItem, setValidItem] = useState(true);
+  const [validShipping, setValidShipping] = useState(true);
   const classes = useStyles();
   const { activeStep, setActiveStep } = props;
 
   const handleNext = () => {
+    setValidItem(true);
+    setValidShipping(true);
+    if (props.cartList && props.cartList.carts_detail.length === 0) {
+      setValidItem(false);
+      return;
+    }
     if (activeStep + 1 === 4) {
       // if last step or finish step
       setActiveStep(activeStep + 1);
       props.onUpdateShoppingStep();
     }
     if (activeStep + 1 === 2) {
+      if (props.shipping && props.shipping.province === null) {
+        setValidShipping(false);
+        return;
+      }
       if (props.shipping) {
         setActiveStep(activeStep + 1);
       }
@@ -72,9 +79,9 @@ export default function CheckoutContent(props) {
   const getStepContent = step => {
     switch (step) {
       case 0:
-        return <Orders {...props} />;
+        return <ListProduct {...props} />;
       case 1:
-        return <AddressForm {...props} />;
+        return <ShippingForm {...props} />;
       case 2:
         return <PaymentForm {...props} />;
       case 3:
@@ -90,10 +97,10 @@ export default function CheckoutContent(props) {
         <title>Checkout Order</title>
       </Helmet>
       <>
-        <Typography component="h1" variant="h4" align="center">
+        <Typography variant="h4" align="center">
           ขั้นตอนการสั่ง
         </Typography>
-        <Stepper activeStep={activeStep} className={classes.stepper} alternativeLabel>
+        <Stepper activeStep={activeStep} className={classes.stepper}>
           {steps.map(label => (
             <Step key={label}>
               <StepLabel>{label}</StepLabel>
@@ -107,6 +114,16 @@ export default function CheckoutContent(props) {
             <>
               {getStepContent(activeStep)}
               <Divider className={classes.separateLine} />
+              {!validItem && (
+                <div style={{ color: 'red', paddingTop: '10px', fontWeight: 'bold' }}>
+                  ไม่พบรายการสินค้า
+                </div>
+              )}
+              {!validShipping && (
+                <div style={{ color: 'red', paddingTop: '10px', fontWeight: 'bold' }}>
+                  ไม่พบข้อมูลจัดส่งสินค้า
+                </div>
+              )}
               <div className={classes.buttons}>
                 {activeStep !== 0 && (
                   <Button onClick={handleBack} className={classes.button}>
@@ -141,4 +158,5 @@ CheckoutContent.propTypes = {
   onUpdateShoppingStep: PropTypes.func,
   shipping: PropTypes.any,
   currentCartNo: PropTypes.string,
+  cartList: PropTypes.object,
 };

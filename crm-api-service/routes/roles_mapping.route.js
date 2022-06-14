@@ -7,7 +7,8 @@ module.exports = () => {
   router.post("/auth", async (req, res, next) => {
     try {
       const { user, path } = req.body;
-      const response = await Task(req.headers.database).findByUsernameAndPath(user, path);
+      let newPath = path.replace('/:cart_no', '')
+      const response = await Task(req.headers.database).findByUsernameAndPath(user, newPath);
       const data = JSON.parse(response.data)
       if(data.length > 0){
         res.status(200).json({ status: 'Allow', msg: "Authentication Pass"})

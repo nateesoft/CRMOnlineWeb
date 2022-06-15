@@ -35,7 +35,7 @@ module.exports = (io) => {
     }
   })
 
-  router.get("/client", async (req, res, next) => {
+  router.get("/client2", async (req, res, next) => {
     try {
       const response = await TaskRedeem(req.headers.database).getDataForClient()
       const data = JSON.parse(response.data)
@@ -47,7 +47,7 @@ module.exports = (io) => {
     }
   })
 
-  router.put("/client", async (req, res, next) => {
+  router.put("/client2", async (req, res, next) => {
     try {
       const payload = req.body
       const response = await TaskRedeem(req.headers.database).updateRedeemFromClient(payload)

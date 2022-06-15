@@ -12,7 +12,8 @@ import '@babel/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'connected-react-router';
+// import { ConnectedRouter } from 'connected-react-router';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { CssBaseline } from '@material-ui/core';
 
 import history from 'utils/history';
@@ -56,10 +57,10 @@ const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
       <LanguageProvider messages={messages}>
-        <ConnectedRouter history={history}>
+        <Router history={history}>
           <CssBaseline />
           <AppMain />
-        </ConnectedRouter>
+        </Router>
       </LanguageProvider>
     </Provider>,
     MOUNT_NODE,

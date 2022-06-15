@@ -4,7 +4,7 @@ Authorization: Basic YWRtaW46c29mdHBvczIwMTM=
 database: cGFua2hhbWhvbQ
 
 ###
-get http://localhost:5000/api/member/client
+get http://localhost:5000/api/member/client2
 Content-Type: application/json
 Authorization: Basic YWRtaW46c29mdHBvczIwMTM=
 database: cGFua2hhbWhvbQ

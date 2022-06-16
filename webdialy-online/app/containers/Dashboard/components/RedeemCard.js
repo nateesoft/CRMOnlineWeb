@@ -111,6 +111,7 @@ export default function RedeemCard(props) {
               variant="contained"
               className={classes.buttonFooter}
               onClick={() => showRedeemCode()}
+              disabled={options.disabled}
             >
               กดรับสิทธิ์
             </Button>
@@ -132,4 +133,5 @@ RedeemCard.propTypes = {
   options: PropTypes.object,
   img: PropTypes.string,
   free: PropTypes.bool,
+  disabled: PropTypes.bool,
 };

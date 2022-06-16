@@ -56,6 +56,7 @@ export default function RedeemPage(props) {
                     expiredPro: `หมดเขต: ${moment(item.finish_time).format('DD/MM/YYYY')}`,
                     pointUse: `ใช้คะแนน: ${item.point_to_redeem} คะแนน`,
                     inStock: item.qty_in_stock,
+                    disabled: profile.total_score < item.point_to_redeem,
                     status:
                       profile.total_score >= item.point_to_redeem
                         ? `สถานะ: สามารถแลกได้`

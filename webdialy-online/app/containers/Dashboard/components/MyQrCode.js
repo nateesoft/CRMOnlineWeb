@@ -5,7 +5,6 @@ import Avatar from '@material-ui/core/Avatar';
 import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import Paper from '@material-ui/core/Paper';
 import { Cake, Phone, MoneyOff, Star, AssignmentInd } from '@material-ui/icons';
 import { Grid } from '@material-ui/core';
 import QRCode from 'qrcode.react';

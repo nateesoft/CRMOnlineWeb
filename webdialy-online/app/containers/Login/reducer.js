@@ -66,6 +66,12 @@ const loginReducer = (state = initialState, action) =>
       case constants.LOAD_PROFILE_TOKEN:
         draft.profile = action.payload;
         break;
+      case constants.LOAD_COMPANY_SUCCESS:
+        draft.company = action.payload;
+        break;
+      case constants.LOAD_COMPANY_ERROR:
+        draft.error = action.error;
+        break;
     }
   });
 

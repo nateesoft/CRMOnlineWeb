@@ -35,3 +35,8 @@ export const makeSelectDatabase = () =>
     selectLogin,
     loginState => loginState.queryDb,
   );
+export const makeCompanyProfile = () =>
+  createSelector(
+    selectLogin,
+    loginState => loginState.company,
+  );

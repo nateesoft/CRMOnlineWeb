@@ -64,6 +64,7 @@ const mapStateToProps = createStructuredSelector({
   login: selectors.makeSelectLogin(),
   errorLogin: selectors.makeLoginError(),
   profile: selectors.makeSelectProfile(),
+  company: selectors.makeCompanyProfile(),
 });
 
 function mapDispatchToProps(dispatch) {

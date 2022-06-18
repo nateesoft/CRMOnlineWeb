@@ -12,6 +12,21 @@ export function initDatabase(payload) {
     payload,
   };
 }
+
+export function loadCompanySuccess(payload) {
+  return {
+    type: constants.LOAD_COMPANY_SUCCESS,
+    payload,
+  };
+}
+
+export function loadCompanyError(payload) {
+  return {
+    type: constants.LOAD_COMPANY_ERROR,
+    payload,
+  };
+}
+
 export function initState() {
   return {
     type: constants.INIT_STATE,

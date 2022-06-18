@@ -40,7 +40,22 @@ export function* onLogout() {
   }
 }
 
+export function* getCompanyProfile() {
+  try {
+    const requestURL = `${appConstants.publicPath}/api/company`;
+    const database = JSON.parse(getCookie('database'));
+    const response = yield call(request, requestURL, {
+      database,
+      method: 'GET',
+    });
+    yield put(actions.loadCompanySuccess(response.data[0]));
+  } catch (err) {
+    yield put(actions.loadCompanyError(err));
+  }
+}
+
 export default function* loginSaga() {
+  yield takeEvery(constants.INIT_DATABASE, getCompanyProfile);
   yield takeEvery(constants.CHECK_LOGIN, onValidLogin);
   yield takeEvery(constants.CHECK_LOGOUT, onLogout);
 }

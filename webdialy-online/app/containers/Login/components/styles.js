@@ -28,9 +28,9 @@ export const useStyles = makeStyles(theme => ({
     paddingBottom: '20px',
     margin: '10px',
     marginBottom: '20px',
-    borderRadius: '20px',
+    borderRadius: '10px',
     border: '1px solid #123456',
-    boxShadow: '5px 10px 18px #123456',
+    boxShadow: '5px 5px 10px #123456',
     background: 'linear-gradient(to top left, #ffffff 0%, #ffcc99 100%)',
   },
   avatar: {

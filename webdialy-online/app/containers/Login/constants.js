@@ -14,3 +14,6 @@ export const CHECK_LOGOUT_SUCCESS = 'containers/Login/CHECK_LOGOUT_SUCCESS';
 export const CHECK_LOGOUT_ERROR = 'containers/Login/CHECK_LOGOUT_ERROR';
 export const CLEAR_LOGIN = 'containers/Login/CLEAR_LOGIN';
 export const LOAD_PROFILE_TOKEN = 'containers/Login/LOAD_PROFILE_TOKEN';
+
+export const LOAD_COMPANY_SUCCESS = 'containers/Login/LOAD_COMPANY_SUCCESS';
+export const LOAD_COMPANY_ERROR = 'containers/Login/LOAD_COMPANY_ERROR';

@@ -54,7 +54,7 @@ import * as loginSelectors from 'containers/Login/selectors';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import { getCookie, setCookie } from 'react-use-cookie';
+import { setCookie } from 'react-use-cookie';
 import SubMenu from '../../components/SubMenu';
 
 import * as selectors from './selectors';

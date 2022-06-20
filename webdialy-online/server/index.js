@@ -11,7 +11,7 @@ const app = express();
 
 const httpRequest = require('./infra/httpRequest')();
 
-const loggerApp = require('./infra/logger')({ logLevel: 'info' });
+const loggerApp = require('./infra/logger')({ logLevel: 'info', publicPath });
 
 const jwtUseCases = require('./infra/jwt')({
   tokenAge: 3600,

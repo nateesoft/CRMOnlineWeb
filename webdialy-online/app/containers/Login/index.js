@@ -12,11 +12,9 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import useCookie, { getCookie } from 'react-use-cookie';
-import { Redirect } from 'react-router-dom';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import * as appConstants from 'containers/App/constants';
 import * as selectors from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -37,19 +35,12 @@ const Login = props => {
     }
   }, []);
 
-  if (token && database) {
-    return <Redirect to={`${appConstants.publicPath}/home/dashboard`} />;
-  }
-  if (!database) {
-    return <Redirect to={`${appConstants.publicPath}/`} />;
-  }
-
   return (
     <>
       <Helmet>
         <title>Login</title>
       </Helmet>
-      <MainComponents {...props} />
+      <MainComponents {...props} database={database} token={token} />
     </>
   );
 };
@@ -58,6 +49,8 @@ Login.propTypes = {
   onSubmit: PropTypes.func,
   location: PropTypes.object,
   initDatabase: PropTypes.func,
+  isLogin: PropTypes.bool,
+  history: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -65,6 +58,7 @@ const mapStateToProps = createStructuredSelector({
   errorLogin: selectors.makeLoginError(),
   profile: selectors.makeSelectProfile(),
   company: selectors.makeCompanyProfile(),
+  isLogin: selectors.makeSelectLoggedIn(),
 });
 
 function mapDispatchToProps(dispatch) {

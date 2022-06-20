@@ -22,7 +22,6 @@ import { useIdleTimer } from 'react-idle-timer';
 import SweetAlert from 'sweetalert2-react';
 
 import PrivateRoute from 'containers/Authentication';
-
 import Dashboard from 'containers/Dashboard/Loadable';
 import LineLogin from 'containers/LineLogin/Loadable';
 import Profile from 'containers/Profile/Loadable';
@@ -55,6 +54,7 @@ import * as loginSelectors from 'containers/Login/selectors';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
+import { getCookie, setCookie } from 'react-use-cookie';
 import SubMenu from '../../components/SubMenu';
 
 import * as selectors from './selectors';
@@ -102,6 +102,11 @@ const MainLayout = props => {
     timeout: 1000 * 60 * 5,
   });
 
+  const logout = () => {
+    setCookie('token', '');
+    props.history.push(`${path.publicPath}/login`);
+  };
+
   return (
     <div className={classes.root}>
       <SweetAlert
@@ -109,7 +114,7 @@ const MainLayout = props => {
         title="Session Timeout"
         type="warning"
         text="Logout and login again"
-        onConfirm={() => props.history.push(`${path.publicPath}/logout`)}
+        onConfirm={() => logout()}
       />
       <CssBaseline />
       <AppBar
@@ -132,7 +137,7 @@ const MainLayout = props => {
             {props.title}
           </Typography>
           <LocaleToggle />
-          <ButtonLink id="btnLogout" to={`${path.publicPath}/logout`}>
+          <ButtonLink id="btnLogout" onClick={() => logout()}>
             <ExitToApp />
           </ButtonLink>
         </Toolbar>

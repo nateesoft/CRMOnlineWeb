@@ -1,5 +1,5 @@
 import { put, takeEvery, call, select } from 'redux-saga/effects';
-import { push } from 'connected-react-router';
+import { push } from 'react-router-redux';
 import request from 'utils/request';
 import { checkLoginSuccess, checkLoginError } from 'containers/Login/actions';
 import * as appConstants from 'containers/App/constants';

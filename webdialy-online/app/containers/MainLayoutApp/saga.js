@@ -16,7 +16,7 @@ export function* loadProfile() {
     });
     yield put(actions.loadProfileSuccess(response.data));
   } catch (err) {
-    yield put(actions.loadProfileSuccess(err));
+    yield put(actions.loadProfileError(err));
   }
 }
 

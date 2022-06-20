@@ -49,7 +49,7 @@ const EditForm = props => {
     onEditMember,
     errorUpdate,
     updateStatus,
-    clearData,
+    logout,
   } = props;
 
   const onValidated = formValues => {
@@ -68,7 +68,7 @@ const EditForm = props => {
         title="Update data success"
         type="success"
         text="Back to profile detail"
-        onConfirm={clearData}
+        onConfirm={() => logout(props)}
       />
       <Typography variant="h5" className={classes.loginTopic}>
         <FormattedMessage {...messages.header} />
@@ -161,7 +161,7 @@ EditForm.propTypes = {
   initialValues: PropTypes.object,
   errorUpdate: PropTypes.string,
   updateStatus: PropTypes.string,
-  clearData: PropTypes.func,
+  logout: PropTypes.func,
   input: PropTypes.any,
   label: PropTypes.any,
   meta: PropTypes.any,

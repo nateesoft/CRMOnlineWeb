@@ -1,6 +1,6 @@
 import { put, select, takeEvery, call } from 'redux-saga/effects';
 import moment from 'moment';
-import { push } from 'connected-react-router';
+import { push } from 'react-router-redux';
 import { getCookie } from 'react-use-cookie';
 import request from 'utils/request';
 import * as appConstants from 'containers/App/constants';

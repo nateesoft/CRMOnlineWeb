@@ -39,7 +39,6 @@ const loginReducer = (state = initialState, action) =>
         draft.loginForm = action.payload;
         break;
       case constants.CHECK_LOGIN_SUCCESS:
-        setCookie('token', JSON.stringify(action.payload));
         draft.loggedIn = true;
         break;
       case constants.CHECK_LOGIN_ERROR:
@@ -62,6 +61,7 @@ const loginReducer = (state = initialState, action) =>
           username: '',
           password: '',
         };
+        draft.loggedIn = false;
         break;
       case constants.LOAD_PROFILE_TOKEN:
         draft.profile = action.payload;

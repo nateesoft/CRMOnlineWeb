@@ -48,6 +48,9 @@ const LoginForm = props => {
     clearData,
     onValidateLogin,
     company,
+    history,
+    database,
+    token,
   } = props;
 
   const apiServiceHost = appConstants.serviceApiPath;
@@ -55,6 +58,14 @@ const LoginForm = props => {
   const onValidate = formValues => {
     onValidateLogin(formValues);
   };
+
+  if (!database) {
+    history.push(`${appConstants.publicPath}/`);
+  }
+
+  if (token && database) {
+    history.push(`${appConstants.publicPath}/home/dashboard`);
+  }
 
   return (
     <>
@@ -169,6 +180,9 @@ LoginForm.propTypes = {
   clearData: PropTypes.func,
   onValidateLogin: PropTypes.func,
   company: PropTypes.object,
+  database: PropTypes.string,
+  token: PropTypes.string,
+  history: PropTypes.string,
 };
 
 const validate = formValues => {

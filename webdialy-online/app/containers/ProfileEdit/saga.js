@@ -2,6 +2,7 @@ import { put, select, takeEvery, call } from 'redux-saga/effects';
 import { getCookie } from 'react-use-cookie';
 import request from 'utils/request';
 import * as appConstants from 'containers/App/constants';
+import { loadProfile } from 'containers/MainLayoutApp/actions';
 import * as constants from './constants';
 import * as actions from './actions';
 import * as selectors from './selectors';
@@ -18,6 +19,7 @@ export function* onEditMember() {
       body: JSON.stringify(profile),
     });
     yield put(actions.editMemberSuccess());
+    yield put(loadProfile());
   } catch (err) {
     yield put(actions.editMemberError(err));
   }

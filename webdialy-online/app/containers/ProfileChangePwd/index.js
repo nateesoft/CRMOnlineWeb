@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+import * as appConstants from 'containers/App/constants';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import * as mainSelectors from 'containers/MainLayoutApp/selectors';
@@ -28,7 +29,7 @@ export function ProfileChangePwd(props) {
 
 ProfileChangePwd.propTypes = {
   dispatch: PropTypes.func,
-  clearData: PropTypes.func,
+  logout: PropTypes.func,
   initLoad: PropTypes.func,
 };
 
@@ -42,7 +43,10 @@ function mapDispatchToProps(dispatch) {
   return {
     onEditMember: member => dispatch(actions.updatePassword(member)),
     intLoadProfile: member => dispatch(actions.updatePassword(member)),
-    clearData: () => dispatch(actions.initState()),
+    logout: props => {
+      dispatch(actions.logout());
+      props.history.push(`${appConstants.publicPath}/login`);
+    },
   };
 }
 

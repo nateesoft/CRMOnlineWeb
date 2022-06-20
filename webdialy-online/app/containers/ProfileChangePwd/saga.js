@@ -1,5 +1,7 @@
 import { put, select, takeEvery, call } from 'redux-saga/effects';
-import { getCookie } from 'react-use-cookie';
+import { getCookie, setCookie } from 'react-use-cookie';
+import { push } from 'react-router-redux';
+
 import request from 'utils/request';
 import * as appConstants from 'containers/App/constants';
 import * as constants from './constants';
@@ -28,7 +30,12 @@ export function* onUpdatePassword() {
   }
 }
 
+export function* onLogout() {
+  setCookie('token', '');
+}
+
 // Individual exports for testing
 export default function* profileChangePwdSaga() {
   yield takeEvery(constants.UPDATE_PASSWORD, onUpdatePassword);
+  yield takeEvery(constants.LOGOUT, onLogout);
 }

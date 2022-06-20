@@ -1,5 +1,5 @@
 import { put, select, takeEvery, call } from 'redux-saga/effects';
-import { push } from 'connected-react-router';
+import { push } from 'react-router-redux';
 import { getCookie } from 'react-use-cookie';
 
 import request from 'utils/request';

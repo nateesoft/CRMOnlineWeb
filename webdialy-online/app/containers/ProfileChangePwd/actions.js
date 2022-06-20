@@ -12,6 +12,12 @@ export function initState() {
   };
 }
 
+export function logout() {
+  return {
+    type: constants.LOGOUT,
+  };
+}
+
 export function updatePassword(payload) {
   return {
     type: constants.UPDATE_PASSWORD,

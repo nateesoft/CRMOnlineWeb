@@ -20,7 +20,6 @@ export function* initLoad() {
       // set cookies
       setCookie('database', JSON.stringify(database));
       setCookie('token', JSON.stringify(response.data.member_email));
-
       yield put(actions.initLoadSuccess(response.data));
     }
   } catch (err) {

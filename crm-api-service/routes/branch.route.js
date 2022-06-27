@@ -1,9 +1,9 @@
 const express = require("express")
 const router = express.Router()
 const { body, validationResult } = require('express-validator');
-const Controller = require('../controllers/Branch.controller');
+const Task = require("../models/Branch.model");
 
-module.exports = () => {
+module.exports = args => {
   /**
    * @swagger
    *
@@ -25,22 +25,15 @@ module.exports = () => {
    *      '500':
    *        description: Internal Server Error
    */
-  router.get("/", async (req, res) => {
+  router.get("/", async (req, res, next) => {
     try {
-      const result = await Controller(req.headers.database).findAll();
-      return res.status(result.status).json({
-        status: result.status,
-        msg: result.message,
-        error: result.error,
-        data: result.data
-      })
+      const response = await Task(req.headers.database).findAll();
+      const data = JSON.parse(response.data)
+      return res.status(200).json({ status: response.status, msg: "Success", data })
     } catch (error) {
-      return res.status(error.status).json({
-        status: error.status,
-        msg: error.message,
-        error: error.error,
-        data: error.data
-      })
+      return res
+        .status(500)
+        .json({ status: "Internal Server Error", msg: error.sqlMessage })
     }
     
   })
@@ -76,7 +69,7 @@ module.exports = () => {
     }
     try {
       const id = req.params.id;
-      const result = await Controller(req.headers.database).findById(id)
+      const result = await Task(req.headers.database).findById(id)
       return res.status(result.status).json({
         status: result.status, 
         msg: result.message, 
@@ -120,7 +113,7 @@ module.exports = () => {
   router.get("/getcode/:code", async (req, res) => {
     try {
       const { code } = req.params;
-      const result = await Controller(req.headers.database).findByCode(code)
+      const result = await Task(req.headers.database).findByCode(code)
       return res.status(result.status).json({
         status: result.status, 
         msg: result.message, 
@@ -187,7 +180,7 @@ module.exports = () => {
 
     // find data exists or not
     const { code } = req.body;
-    const foundCode = await Controller(req.headers.database).findByCode(code)
+    const foundCode = await Task(req.headers.database).findByCode(code)
     if(foundCode.length>0){
       return res
       .status(400)
@@ -195,7 +188,7 @@ module.exports = () => {
     }
   
     try {
-      const result = await Controller(req.headers.database).create(req.body)
+      const result = await Task(req.headers.database).create(req.body)
       return res.status(result.status).json({
         status: result.status, 
         msg: result.message, 
@@ -257,7 +250,7 @@ module.exports = () => {
     }
     try {
       const payload = {...req.body, uuid_index: req.params.id}
-      const result = await Controller(req.headers.database).update(payload)
+      const result = await Task(req.headers.database).update(payload)
       return res.status(result.status).json({
         status: result.status, 
         msg: result.message, 
@@ -315,7 +308,7 @@ module.exports = () => {
     }
     try {
       const payload = {...req.body, uuid_index: req.params.id}
-      const result = await Controller(req.headers.database).updatePatch(payload)
+      const result = await Task(req.headers.database).updatePatch(payload)
       return res.status(result.status).json({
         status: result.status, 
         msg: result.message, 
@@ -362,7 +355,7 @@ module.exports = () => {
       return res.status(400).json({ status: 'Error', errors: errors.array() });
     }
     try {
-      const result = await Controller(req.headers.database).delete(req.params.id)
+      const result = await Task(req.headers.database).delete(req.params.id)
       return res.status(result.status).json({
         status: result.status, 
         msg: result.message, 

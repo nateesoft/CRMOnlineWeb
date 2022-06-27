@@ -143,51 +143,50 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use("/api/", indexRouter)
-app.use("/api/login", basicAuth({ users: { admin: fixPassword } }), loginRouter)
+app.use("/api/login", WithAuth(), loginRouter)
 app.use("/api/line", lineLoginRouter)
 
+function myAuthorizer(username, password) {
+  const userMatches = basicAuth.safeCompare(username, 'admin')
+  const passwordMatches = basicAuth.safeCompare(password, fixPassword)
+
+  return userMatches & passwordMatches
+}
+
+function getUnauthorizedResponse(req) {
+  return req.auth
+        ? ('Credentials ' + req.auth.user + ':' + req.auth.password + ' rejected')
+        : 'Unauthorized'
+}
+
+function WithAuth() {
+  return basicAuth({ authorizer: myAuthorizer, unauthorizedResponse: getUnauthorizedResponse })
+}
+
 // master
-app.use("/api/company", basicAuth({ users: { admin: fixPassword } }), companyRouter)
-app.use("/api/branch", basicAuth({ users: { admin: fixPassword } }), branchRouter)
-app.use("/api/product", basicAuth({ users: { admin: fixPassword } }), productRouter)
-app.use("/api/product_group", basicAuth({ users: { admin: fixPassword } }), productGroupRouter)
-app.use("/api/stock", basicAuth({ users: { admin: fixPassword } }), stockRouter)
-app.use("/api/promotion", basicAuth({ users: { admin: fixPassword } }), promotionRouter)
-app.use("/api/redeem", basicAuth({ users: { admin: fixPassword } }), redeemRouter)
-app.use("/api/role", basicAuth({ users: { admin: fixPassword } }), roleRouter)
-app.use("/api/member", basicAuth({ users: { admin: fixPassword } }), memberRouter)
-app.use("/api/roles_mapping", basicAuth({ users: { admin: fixPassword } }), roleMappingRouter)
+app.use("/api/company", WithAuth(), companyRouter)
+app.use("/api/branch", WithAuth(), branchRouter)
+app.use("/api/product", WithAuth(), productRouter)
+app.use("/api/product_group", WithAuth(), productGroupRouter)
+app.use("/api/stock", WithAuth(), stockRouter)
+app.use("/api/promotion", WithAuth(), promotionRouter)
+app.use("/api/redeem", WithAuth(), redeemRouter)
+app.use("/api/role", WithAuth(), roleRouter)
+app.use("/api/member", WithAuth(), memberRouter)
+app.use("/api/roles_mapping", WithAuth(), roleMappingRouter)
 
 // order shopping
-app.use("/api/carts", basicAuth({ users: { admin: fixPassword } }), cartsRouter)
-app.use("/api/carts_detail", basicAuth({ users: { admin: fixPassword } }), cartsDetailRouter)
-app.use("/api/shipping", basicAuth({ users: { admin: fixPassword } }), memberShippingRouter)
-app.use("/api/validate_slip", basicAuth({ users: { admin: fixPassword } }), slipImageRouter)
-app.use("/api/orders", basicAuth({ users: { admin: fixPassword } }), ordersRouter)
+app.use("/api/carts", WithAuth(), cartsRouter)
+app.use("/api/carts_detail", WithAuth(), cartsDetailRouter)
+app.use("/api/shipping", WithAuth(), memberShippingRouter)
+app.use("/api/validate_slip", WithAuth(), slipImageRouter)
+app.use("/api/orders", WithAuth(), ordersRouter)
 
 // database config
-app.use("/api/database_config", basicAuth({ users: { admin: fixPassword } }), dbConfigRouter)
+app.use("/api/database_config", WithAuth(), dbConfigRouter)
 
 // left menu
-app.use("/api/leftmenu", basicAuth({ users: { admin: fixPassword } }), leftMenuRouter)
-
-// catch 404 and forward to error handler
-app.use((req, res, next) => {
-  next(createError(404))
-})
-
-// error handler
-app.use((err, req, res, next) => {
-  // set locals, only providing error in development
-  res.locals.message = err.message
-  res.locals.error = req.app.get("env") === "development" ? err : {}
-
-  // render the error page
-  res.status(err.status || 500)
-  res.json({
-    status: 'Someting wrong with api request:'+err
-  })
-})
+app.use("/api/leftmenu", WithAuth(), leftMenuRouter)
 
 // socket.io events
 io.on( "connection", function( client ) {
@@ -206,6 +205,7 @@ io.on('connection', (socket) => {
  */
 
  function onError(error) {
+  console.log('onError', error);
   if (error.syscall !== "listen") {
     throw error
   }
@@ -245,3 +245,5 @@ server.on("listening", onListening)
 server.listen(port, () => {
   console.log("API running port:", port)
 });
+
+module.exports = app;

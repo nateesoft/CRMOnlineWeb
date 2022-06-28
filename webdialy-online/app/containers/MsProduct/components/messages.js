@@ -93,6 +93,10 @@ export default defineMessages({
     id: `${scope}.checkQtyOrNotShouldNotEmpty`,
     defaultMessage: 'Flag to check qty or not',
   },
+  checkImageFileNotShouldNotEmpty: {
+    id: `${scope}.checkImageFileNotShouldNotEmpty`,
+    defaultMessage: 'Image file not empty',
+  },
   code: {
     id: `${scope}.code`,
     defaultMessage: 'Product Code',
@@ -148,6 +152,10 @@ export default defineMessages({
   qtyNoLimit: {
     id: `${scope}.qtyNoLimit`,
     defaultMessage: 'Qty No limit',
+  },
+  fileImage: {
+    id: `${scope}.fileImage`,
+    defaultMessage: 'File Image',
   },
   btnSave: {
     id: `${scope}.btnSave`,

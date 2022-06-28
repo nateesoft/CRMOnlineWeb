@@ -8,8 +8,8 @@ import * as actions from './actions';
 
 export function* initLoad({ payload }) {
   try {
-    const { page, limit } = payload;
-    const requestURL = `${appConstants.publicPath}/api/member/findAll/${page || 1}/${limit || 20}`;
+    const { page = 1, limit = 20 } = payload;
+    const requestURL = `${appConstants.publicPath}/api/member/findAll/${page}/${limit}`;
     const database = getCookie('database');
     const response = yield call(request, requestURL, {
       database,
@@ -104,6 +104,7 @@ export default function* membersSaga() {
   yield takeEvery(constants.CREATE_ITEM, saveData);
   yield takeEvery(constants.UPDATE_ITEM, updateMemberData);
   yield takeEvery(constants.DELETE_ITEM, deleteData);
+  yield takeEvery(constants.DELETE_ITEM, initLoad);
   yield takeEvery(constants.SEARCH, searchItem);
   yield takeEvery(constants.LOAD_ROLES, onLoadRolesList);
 }

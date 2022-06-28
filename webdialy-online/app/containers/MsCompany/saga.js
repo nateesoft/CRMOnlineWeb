@@ -94,5 +94,6 @@ export default function* msCompanySaga() {
   yield takeEvery(constants.CREATE_ITEM, saveData);
   yield takeEvery(constants.UPDATE_ITEM, updateData);
   yield takeEvery(constants.DELETE_ITEM, deleteData);
+  yield takeEvery(constants.DELETE_ITEM, initLoad);
   yield takeEvery(constants.UPLOAD_IMG, uploadFile);
 }

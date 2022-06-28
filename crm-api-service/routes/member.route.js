@@ -31,9 +31,6 @@ module.exports = (io) => {
 
   router.get("/findAll/:page/:limit", async (req, res, next) => {
     try {
-      console.log("page=", req.params.page)
-      console.log("limit=", req.params.limit)
-
       const page = req.params.page || 1
       const limit = req.params.limit || 20
 

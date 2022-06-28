@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Grid, Select, FormControl, InputLabel } from '@material-ui/core';
+import { Button, Grid, Select, FormControl, InputLabel, TextField } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -271,18 +271,30 @@ const NewItem = props => {
               required
             />
           </Grid>
-          <Grid item xs={6} md={2}>
+          <Grid item xs={6} md={4} style={{ marginTop: 16 }}>
             <Field
+              id="qty_over_stock"
               name="qty_over_stock"
-              component={RenderField}
-              type="text"
-              margin="normal"
+              component={renderSelectField}
               label={<FormattedMessage {...messages.qtyNoLimit} />}
               required
-            />
+            >
+              <option value="" />
+              <option value="Y">ไม่จำกัดจำนวน</option>
+              <option value="N">จำกัดจำนวน</option>
+            </Field>
           </Grid>
-          <Grid item xs={12} md={6}>
-            <input type="file" name="file" onChange={onChangeHandler} />
+          <Grid item xs={12} style={{ marginTop: 16 }}>
+            <TextField
+              id="file"
+              name="file"
+              type="file"
+              margin="normal"
+              label={<FormattedMessage {...messages.fileImage} />}
+              onChange={onChangeHandler}
+              InputLabelProps={{ shrink: true }}
+              required
+            />
           </Grid>
           <Grid item xs={12} md={6}>
             {file && file.name && (
@@ -375,6 +387,9 @@ const validate = formValues => {
   }
   if (!formValues.qty_over_stock) {
     errors.qty_over_stock = <FormattedMessage {...messages.checkQtyOrNotShouldNotEmpty} />;
+  }
+  if (!formValues.file) {
+    errors.file = <FormattedMessage {...messages.checkImageFileNotShouldNotEmpty} />;
   }
   return errors;
 };

@@ -92,7 +92,7 @@ const EditItem = props => {
   };
 
   const clearData = () => {
-    props.onInitLoad();
+    props.onInitLoad({ page: 1, limit: 20 });
     props.onChangePage('LIST');
   };
 

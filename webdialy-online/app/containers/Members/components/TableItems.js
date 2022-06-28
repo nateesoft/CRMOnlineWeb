@@ -59,7 +59,6 @@ export default function TableItems(props) {
     }).then(result => {
       if (result.value) {
         props.onDeleteItem(id);
-        props.onInitLoad(0, 20);
         Swal.fire('Deleted!', 'Your data has been deleted.', 'success');
       }
     });
@@ -100,6 +99,10 @@ export default function TableItems(props) {
     onInitLoad: PropTypes.func,
   };
 
+  const handleRefresh = () => {
+    props.onInitLoad({ page: 1, limit: 20 });
+  };
+
   return (
     <>
       <TableContainer className={classes.container}>
@@ -111,7 +114,7 @@ export default function TableItems(props) {
             variant="outlined"
             color="primary"
             className={classes.buttonRefresh}
-            onClick={() => props.onInitLoad()}
+            onClick={() => handleRefresh()}
           >
             REFRESH
           </Button>

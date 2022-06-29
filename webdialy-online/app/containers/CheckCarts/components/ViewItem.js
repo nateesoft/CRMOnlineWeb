@@ -89,7 +89,7 @@ const ViewItem = props => {
         <FormattedMessage {...messages.headerViewItem} />
       </Typography>
       <div align="center" className={classes.showQrCode}>
-        <QRCode value={`/order_confirm/${cartNo}/${database}`} />
+        <QRCode value={`/order_confirm/${cartNo}/${JSON.parse(database)}`} />
       </div>
       <Grid container spacing={1} className={classes.divContent}>
         <Grid item xs={4}>

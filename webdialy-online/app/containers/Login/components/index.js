@@ -64,7 +64,7 @@ const LoginForm = props => {
   }
 
   if (token && database) {
-    history.push(`${appConstants.publicPath}/home/dashboard`);
+    window.location.href = `${appConstants.publicPath}/home/dashboard`;
   }
 
   return (

@@ -4,7 +4,6 @@
  *
  */
 import produce from 'immer';
-import { setCookie } from 'react-use-cookie';
 import * as constants from './constants';
 
 export const initialState = {

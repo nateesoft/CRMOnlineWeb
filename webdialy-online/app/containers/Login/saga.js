@@ -1,6 +1,5 @@
 import { put, select, takeEvery, call } from 'redux-saga/effects';
 import { getCookie, setCookie } from 'react-use-cookie';
-import { push } from 'react-router-redux';
 
 import request from 'utils/request';
 import * as appConstants from 'containers/App/constants';
@@ -23,7 +22,7 @@ export function* onValidLogin() {
     if (response.status === 'Success') {
       setCookie('token', JSON.stringify(username));
       yield put(actions.checkLoginSuccess(username));
-      yield put(push(`${appConstants.publicPath}/home/dashboard`));
+      window.location.href = `${appConstants.publicPath}/home/dashboard`;
     } else if (response.status === 'Missing Role') {
       yield put(actions.checkLoginError(response.msg));
     } else {

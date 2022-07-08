@@ -45,7 +45,7 @@ export function* onUpdateShoppingStep() {
     const requestURL = `${appConstants.publicPath}/api/carts/shopping_approve`;
     const database = getCookie('database');
     const { code } = yield select(mainSelectors.makeSelectProfile());
-    const response = yield call(request, requestURL, {
+    yield call(request, requestURL, {
       database,
       method: 'PATCH',
       body: JSON.stringify({

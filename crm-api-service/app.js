@@ -110,7 +110,7 @@ const redeemRouter = require("./routes/redeem.route")(io)
 
 // router for shopping
 const cartsDetailRouter = require("./routes/carts_detail.route")(options)
-const cartsRouter = require("./routes/carts.route")(options)
+const cartsRouter = require("./routes/carts.route")(io)
 const memberShippingRouter = require("./routes/member_shipping.route")(options)
 const slipImageRouter = require("./routes/slip_image.route")(options)
 const ordersRouter = require("./routes/orders.route")(options)

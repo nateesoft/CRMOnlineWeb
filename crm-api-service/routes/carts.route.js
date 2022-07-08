@@ -5,11 +5,12 @@ const router = express.Router()
 const { v4: uuidv4 } = require("uuid")
 const moment = require("moment")
 const Task = require("../models/Carts.model")
+const MemberTask = require("../models/Member.model")
 const TaskDetail = require("../models/CartsDetail.model")
 const TaskOrders = require("../models/Orders.model")
 const TaskOrdersDetail = require("../models/OrdersDetail.model")
 
-module.exports = (args) => {
+module.exports = (io) => {
   router.get("/", async (req, res, next) => {
     try {
       const response = await Task(req.headers.database).findAll()
@@ -179,6 +180,11 @@ module.exports = (args) => {
           cart_no,
           member_code,
         })
+
+        // emit socket io
+        const getMemberModel = await MemberTask(req.headers.database).findByMemberCode(member_code)
+        const sendPayload = { data: JSON.parse(getMemberModel.data), database: req.headers.database, action_status: 'update' }
+        io.emit("sync_member", JSON.stringify(sendPayload))
 
         return res.status(200).json({
           status: "Success",

@@ -91,6 +91,21 @@ module.exports = (db) => {
     })
   }
 
+  module.findByMemberCode = (memberCode) => {
+    logger.debug(`findByMemberCode: ${memberCode}`)
+    return new Promise(async (resolve, reject) => {
+      try {
+        const sql = `select * from ${table_name} where code=?;`
+        logger.debug(sql)
+        const result = await pool.query(sql, [memberCode])
+        resolve({ status: "Success", data: JSON.stringify(result) })
+      } catch (err) {
+        logger.error(err)
+        reject({ status: "Error", msg: err.message })
+      }
+    })
+  }
+
   module.findByMobileAndEmail = (email, mobile) => {
     logger.debug(`findByMobileAndEmail: ${email} ${mobile}`)
     return new Promise(async (resolve, reject) => {

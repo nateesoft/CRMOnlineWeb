@@ -82,7 +82,7 @@ export default function TabLayout(props) {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0}>
-          <ContentPage approve={false} title="รายการอนุมัติ" {...props} />
+          <ContentPage approve={false} title="รายการรอนุมัติ" {...props} />
         </TabPanel>
         <TabPanel value={value} index={1}>
           <ContentPage approve title="รายการอนุมัติแล้ว" {...props} />

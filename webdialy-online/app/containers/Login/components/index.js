@@ -17,16 +17,12 @@ import { useStyles } from './styles';
 
 const Header = styled.div`
   padding: 20px;
-  margin: 20px;
-  position: absolute;
   top: 0;
   width: 100%;
   text-align: center;
 `;
 const Footer = styled.div`
   padding: 20px;
-  margin: 20px;
-  position: absolute;
   bottom: 0;
   width: 100%;
   text-align: center;
@@ -68,7 +64,7 @@ const LoginForm = props => {
   }
 
   return (
-    <>
+    <div className={classes.root}>
       {company && (
         <Header>
           {company.img_path && (
@@ -83,13 +79,7 @@ const LoginForm = props => {
           <div style={{ fontWeight: 'bold', fontSize: '20px' }}>{company.name}</div>
         </Header>
       )}
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        minHeight="100vh"
-        className={classes.root}
-      >
+      <Box display="flex" justifyContent="center" alignItems="center">
         <SweetAlert
           show={errorLogin}
           title="Login Error"
@@ -167,7 +157,7 @@ const LoginForm = props => {
           <u>Privacy Policy</u>
         </div>
       </Footer>
-    </>
+    </div>
   );
 };
 

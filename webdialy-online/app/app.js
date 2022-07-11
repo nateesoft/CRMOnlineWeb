@@ -16,7 +16,6 @@ import { Router } from 'react-router-dom';
 import { CssBaseline } from '@material-ui/core';
 
 import history from 'utils/history';
-import 'sanitize.css/sanitize.css';
 
 // Import root app
 import App from 'containers/App';

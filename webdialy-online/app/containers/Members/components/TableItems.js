@@ -59,6 +59,7 @@ export default function TableItems(props) {
     }).then(result => {
       if (result.value) {
         props.onDeleteItem(id);
+        props.onInitLoad({ page: 1, limit: 20 });
         Swal.fire('Deleted!', 'Your data has been deleted.', 'success');
       }
     });

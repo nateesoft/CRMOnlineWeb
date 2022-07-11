@@ -104,7 +104,6 @@ export default function* membersSaga() {
   yield takeEvery(constants.CREATE_ITEM, saveData);
   yield takeEvery(constants.UPDATE_ITEM, updateMemberData);
   yield takeEvery(constants.DELETE_ITEM, deleteData);
-  yield takeEvery(constants.DELETE_ITEM, initLoad);
   yield takeEvery(constants.SEARCH, searchItem);
   yield takeEvery(constants.LOAD_ROLES, onLoadRolesList);
 }

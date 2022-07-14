@@ -13,7 +13,7 @@ export function* onAddRegisterMember() {
     const requestURL = `${appConstants.publicPath}/api/member`;
     const data = yield select(selectors.makeSelectMember());
     const database = getCookie('database');
-    const response = yield call(request, requestURL, {
+    yield call(request, requestURL, {
       database,
       method: 'POST',
       body: JSON.stringify({
@@ -42,7 +42,7 @@ export function* onAddRegisterMember() {
       }),
     });
     yield put(actions.addRegisterMemberSuccess());
-    yield put(push(`${appConstants.publicPath}/login`));
+    window.location.href = `${appConstants.publicPath}/login`;
   } catch (err) {
     yield put(actions.addRegisterMemberError(err));
   }

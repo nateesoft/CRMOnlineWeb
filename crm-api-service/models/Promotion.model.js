@@ -24,6 +24,22 @@ module.exports = (db) => {
     })
   }
 
+  module.validPromotion = (code) => {
+    logger.debug(`validPromotion: ${code}`)
+    return new Promise(async (resolve, reject) => {
+      try {
+        const sql = `select product_code from ${table_name} 
+        where product_code=? and qty_in_stock>0;`;
+        logger.debug(sql);
+        const result = await pool.query(sql, [code])
+        resolve({ status: "Success", data: JSON.stringify(result) })
+      } catch (err) {
+        logger.error(err);
+        reject({ status: "Error", msg: err.message })
+      }
+    })
+  }
+
   module.findById = (id) => {
     logger.debug(`findById: ${id}`)
     return new Promise(async (resolve, reject) => {
@@ -94,6 +110,22 @@ module.exports = (db) => {
     })
   }
 
+  module.updatePromotionUse = (data) => {
+    logger.debug(`updatePromotionUse: ${data}`)
+    return new Promise(async (resolve, reject) => {
+      try {
+        const sql = `UPDATE ${table_name} 
+        SET qty_in_stock=qty_in_stock-1 
+        WHERE product_code=?;`;
+        const result = await pool.query(sql, [ data.product_code ])
+        resolve({ status: "Success", data: JSON.stringify(result) })
+      } catch (err) {
+        logger.error(err);
+        reject({ status: "Error", msg: err.message })
+      }
+    })
+  }
+
   module.update = (data) => {
     logger.debug(`update: ${data}`)
     return new Promise(async (resolve, reject) => {
@@ -104,7 +136,6 @@ module.exports = (db) => {
         point_to_redeem=?,
         start_time=?,
         finish_time=?,
-        qty_in_stock=?,
         img_path=?,
         redeem_or_free=?,
         discount_amt=?,
@@ -116,7 +147,6 @@ module.exports = (db) => {
           data.point_to_redeem,
           data.start_time,
           data.finish_time,
-          data.qty_in_stock,
           data.img_path,
           data.redeem_or_free,
           data.discount_amt,

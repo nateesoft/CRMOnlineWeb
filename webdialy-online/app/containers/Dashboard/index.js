@@ -37,6 +37,7 @@ const mapStateToProps = createStructuredSelector({
   login: loginSelectors.makeSelectLogin(),
   listRedeem: selectors.makeSelectRedeem(),
   redeemPoint: selectors.makeSelectRedeemPoint(),
+  promotionValid: selectors.makeSelectPromotionValid(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -46,6 +47,9 @@ function mapDispatchToProps(dispatch) {
     },
     onCreateRedeem: code => {
       dispatch(actions.createRedeem(code));
+    },
+    onUpdatePromotionUse: productCode => {
+      dispatch(actions.updatePromotionUse(productCode));
     },
   };
 }

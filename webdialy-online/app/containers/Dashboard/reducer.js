@@ -17,6 +17,7 @@ export const initialState = {
   },
   email: '',
   error: '',
+  promotionValid: false,
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -47,6 +48,25 @@ const dashboardReducer = (state = initialState, action) =>
         break;
       case constants.CREATE_REDEEM_ERROR:
         draft.error = action.payload;
+        break;
+      case constants.UPDATE_PROMOTION_USE:
+        draft.redeemPoint.product_code = action.payload;
+        break;
+      case constants.UPDATE_PROMOTION_USE_SUCCESS:
+        break;
+      case constants.UPDATE_PROMOTION_USE_ERROR:
+        draft.error = action.payload;
+        break;
+      case constants.CHECK_PROMOTION_VALID:
+        draft.promotionValid = false;
+        draft.redeemPoint.product_code = action.payload;
+        break;
+      case constants.CHECK_PROMOTION_VALID_SUCCESS:
+        draft.promotionValid = true;
+        break;
+      case constants.CHECK_PROMOTION_VALID_ERROR:
+        draft.error = action.payload;
+        draft.promotionValid = false;
         break;
     }
   });

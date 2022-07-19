@@ -49,3 +49,41 @@ export function createRedeemError(payload) {
     payload,
   };
 }
+
+export function updatePromotionUse(payload) {
+  return {
+    type: constants.UPDATE_PROMOTION_USE,
+    payload,
+  };
+}
+export function updatePromotionUseSuccess(payload) {
+  return {
+    type: constants.UPDATE_PROMOTION_USE_SUCCESS,
+    payload,
+  };
+}
+export function updatePromotionUseError(payload) {
+  return {
+    type: constants.UPDATE_PROMOTION_USE_ERROR,
+    payload,
+  };
+}
+
+export function checkPromotionValid(payload) {
+  return {
+    type: constants.CHECK_PROMOTION_VALID,
+    payload,
+  };
+}
+export function checkPromotionValidSuccess(payload) {
+  return {
+    type: constants.CHECK_PROMOTION_VALID_SUCCESS,
+    payload,
+  };
+}
+export function checkPromotionValidError(payload) {
+  return {
+    type: constants.CHECK_PROMOTION_VALID_ERROR,
+    payload,
+  };
+}

@@ -30,3 +30,8 @@ export const makeSelectRedeemPoint = () =>
     selectDashboardDomain,
     substate => substate.redeemPoint,
   );
+export const makeSelectPromotionValid = () =>
+  createSelector(
+    selectDashboardDomain,
+    substate => substate.promotionValid,
+  );

@@ -63,6 +63,7 @@ module.exports = (db) => {
         use_in_branch=?,
         emp_code_redeem=?,
         redeem_date=curdate(),
+        data_sync='Y',
         active=? 
         where redeem_code=?;`;
         logger.debug(sql);

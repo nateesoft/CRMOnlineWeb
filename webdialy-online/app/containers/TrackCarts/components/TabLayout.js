@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import SwipeableViews from 'react-swipeable-views';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -80,27 +79,21 @@ export default function TabLayout(props) {
           <Tab label="จัดส่งสำเร็จ" {...a11yProps(4)} />
         </Tabs>
       </AppBar>
-      <SwipeableViews
-        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        index={value}
-        onChangeIndex={handleChangeIndex}
-      >
-        <TabPanel value={value} index={0}>
-          <TableItems tabFilter="order" title="รายการสินค้าในตะกร้า" {...props} />
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <TableItems tabFilter="wait_confirm" title="รายการรออนุมัติ" {...props} />
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          <TableItems tabFilter="not_approve" title="รายการที่ไม่ผ่านการอนุมัติ" {...props} />
-        </TabPanel>
-        <TabPanel value={value} index={3}>
-          <TableItems tabFilter="approve" title="รายการที่อยู่ระหว่างจัดส่ง" {...props} />
-        </TabPanel>
-        <TabPanel value={value} index={4}>
-          <TableItems tabFilter="finish" title="รายการที่จัดส่งเรียบร้อยแล้ว" {...props} />
-        </TabPanel>
-      </SwipeableViews>
+      <TabPanel value={value} index={0}>
+        <TableItems tabFilter="order" title="รายการสินค้าในตะกร้า" {...props} />
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <TableItems tabFilter="wait_confirm" title="รายการรออนุมัติ" {...props} />
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        <TableItems tabFilter="not_approve" title="รายการที่ไม่ผ่านการอนุมัติ" {...props} />
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        <TableItems tabFilter="approve" title="รายการที่อยู่ระหว่างจัดส่ง" {...props} />
+      </TabPanel>
+      <TabPanel value={value} index={4}>
+        <TableItems tabFilter="finish" title="รายการที่จัดส่งเรียบร้อยแล้ว" {...props} />
+      </TabPanel>
     </>
   );
 }

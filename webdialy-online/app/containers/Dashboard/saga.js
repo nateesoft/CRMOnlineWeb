@@ -21,6 +21,39 @@ export function* loadRedeem() {
   }
 }
 
+export function* updatePromotionUse() {
+  try {
+    const requestURL = `${appConstants.publicPath}/api/promotion`;
+    const { product_code } = yield select(selectors.makeSelectRedeemPoint());
+    const database = getCookie('database');
+    const response = yield call(request, requestURL, {
+      database,
+      method: 'PATCH',
+      body: JSON.stringify({
+        product_code,
+      }),
+    });
+    yield put(actions.updatePromotionUseSuccess(response.data));
+  } catch (err) {
+    yield put(actions.updatePromotionUseError(err));
+  }
+}
+
+export function* checkPromotionValid() {
+  try {
+    const { product_code } = yield select(selectors.makeSelectRedeemPoint());
+    const requestURL = `${appConstants.publicPath}/api/promotion/product/${product_code}`;
+    const database = getCookie('database');
+    const response = yield call(request, requestURL, {
+      database,
+      method: 'GET',
+    });
+    yield put(actions.checkPromotionValidSuccess(response.data));
+  } catch (err) {
+    yield put(actions.checkPromotionValidError(err));
+  }
+}
+
 export function* createRedeemCode() {
   try {
     const { code } = yield select(mainSelectors.makeSelectProfile());
@@ -48,4 +81,6 @@ export function* createRedeemCode() {
 export default function* dashboardSaga() {
   yield takeEvery(constants.LOAD_REDEEM, loadRedeem);
   yield takeEvery(constants.CREATE_REDEEM, createRedeemCode);
+  yield takeEvery(constants.UPDATE_PROMOTION_USE, updatePromotionUse);
+  yield takeEvery(constants.CHECK_PROMOTION_VALID, checkPromotionValid);
 }

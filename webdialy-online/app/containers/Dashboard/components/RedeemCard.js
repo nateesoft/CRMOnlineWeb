@@ -65,7 +65,12 @@ export default function RedeemCard(props) {
   const apiServiceHost = appConstants.serviceApiPath;
 
   const showRedeemCode = () => {
-    setShowDialog(true);
+    if (props.promotionValid) {
+      setShowDialog(true);
+      props.onUpdatePromotionUse(props.options.code);
+    } else {
+      props.onLoadRedeem();
+    }
   };
 
   return (
@@ -95,6 +100,7 @@ export default function RedeemCard(props) {
             <u className={classes.options}>
               <li>{options.name}</li>
               <li>{options.pointUse}</li>
+              <li>คงเหลือ: {options.inStock}</li>
               {props.free ? (
                 <li className={classes.freeTemplate}>{options.status}</li>
               ) : (
@@ -134,4 +140,7 @@ RedeemCard.propTypes = {
   img: PropTypes.string,
   free: PropTypes.bool,
   disabled: PropTypes.bool,
+  onUpdatePromotionUse: PropTypes.func,
+  onLoadRedeem: PropTypes.func,
+  promotionValid: PropTypes.bool,
 };

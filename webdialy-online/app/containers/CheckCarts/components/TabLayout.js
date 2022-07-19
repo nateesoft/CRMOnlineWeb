@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import SwipeableViews from 'react-swipeable-views';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -76,18 +75,12 @@ export default function TabLayout(props) {
           <Tab label="รายการอนุมัติแล้ว" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
-      <SwipeableViews
-        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        index={value}
-        onChangeIndex={handleChangeIndex}
-      >
-        <TabPanel value={value} index={0}>
-          <ContentPage approve={false} title="รายการรอนุมัติ" {...props} />
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <ContentPage approve title="รายการอนุมัติแล้ว" {...props} />
-        </TabPanel>
-      </SwipeableViews>
+      <TabPanel value={value} index={0}>
+        <ContentPage approve={false} title="รายการรอนุมัติ" {...props} />
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <ContentPage approve title="รายการอนุมัติแล้ว" {...props} />
+      </TabPanel>
     </>
   );
 }

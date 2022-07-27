@@ -235,6 +235,11 @@ export function loadBranchLocationError(payload) {
   };
 }
 
+export function loadBranchList() {
+  return {
+    type: constants.LOAD_BRANCH_LIST,
+  };
+}
 export function loadBranchListSuccess(payload) {
   return {
     type: constants.LOAD_BRANCH_LIST_SUCCESS,

@@ -76,6 +76,24 @@ const ViewItem = props => {
 
   const apiServiceHost = appConstants.serviceApiPath;
 
+  const updateStatus = () => {
+    if (approve === 'not_approve' && reason === '') {
+      return;
+    }
+    if (approve === '') {
+      return;
+    }
+    if (approve !== '') {
+      props.onUpdateShoppingStep({
+        cart_no: cartNo,
+        cart_create_date: cartCreateDate,
+        approve,
+        reason,
+        member_code: memberCode,
+      });
+    }
+  };
+
   return (
     <Container maxWidth="lg">
       <SweetAlert
@@ -195,20 +213,7 @@ const ViewItem = props => {
         </Grid>
         {shoppingStep && shoppingStep !== 'approve' && (
           <Grid item xs={5}>
-            <Button
-              color="primary"
-              fullWidth
-              variant="contained"
-              onClick={() =>
-                props.onUpdateShoppingStep({
-                  cart_no: cartNo,
-                  cart_create_date: cartCreateDate,
-                  approve,
-                  reason,
-                  member_code: memberCode,
-                })
-              }
-            >
+            <Button color="primary" fullWidth variant="contained" onClick={() => updateStatus()}>
               <FormattedMessage {...messages.btnApprove} />
             </Button>
           </Grid>

@@ -41,6 +41,7 @@ const ShippingForm = props => {
 
   useEffect(() => {
     props.initLoadMemberShipping();
+    props.initLoadBranchList();
   }, []);
 
   const onValidated = formValues => {
@@ -203,6 +204,7 @@ ShippingForm.propTypes = {
   onUpdateAddressForm: PropTypes.func,
   branchList: PropTypes.array,
   currentCartNo: PropTypes.string,
+  initLoadBranchList: PropTypes.func,
 };
 
 const validate = formValues => {

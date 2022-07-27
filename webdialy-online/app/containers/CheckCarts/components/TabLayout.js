@@ -48,15 +48,10 @@ function a11yProps(index) {
 }
 
 export default function TabLayout(props) {
-  const theme = useTheme();
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-  };
-
-  const handleChangeIndex = index => {
-    setValue(index);
   };
 
   return (
@@ -71,15 +66,19 @@ export default function TabLayout(props) {
           scrollButtons="auto"
           aria-label="scrollable auto tabs example"
         >
-          <Tab label="รายการรออนุมัติ" {...a11yProps(0)} />
-          <Tab label="รายการอนุมัติแล้ว" {...a11yProps(1)} />
+          <Tab label="รอการอนุมัติ" {...a11yProps(0)} />
+          <Tab label="อนุมัติแล้ว" {...a11yProps(1)} />
+          <Tab label="ไม่ผ่านการอนุมัติ" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <ContentPage approve={false} title="รายการรอนุมัติ" {...props} />
+        <ContentPage approve="0" title="รอการอนุมัติ" {...props} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <ContentPage approve title="รายการอนุมัติแล้ว" {...props} />
+        <ContentPage approve="1" title="อนุมัติแล้ว" {...props} />
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        <ContentPage approve="" title="ไม่ผ่านการอนุมัติ" {...props} />
       </TabPanel>
     </>
   );

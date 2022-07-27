@@ -14,6 +14,8 @@ import { FormattedMessage } from 'react-intl';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Swal from 'sweetalert2';
+import moment from 'moment';
+
 import ButtonLink from 'components/ButtonLink';
 import * as appConstants from 'containers/App/constants';
 import SearchBar from 'components/SearchBar';
@@ -217,7 +219,11 @@ export default function TableItems(props) {
                         )}
                         {item.shopping_step !== 'order' && <span>{item.cart_no}</span>}
                       </TableCell>
-                      <TableCell align="center">{item.cart_create_date}</TableCell>
+                      <TableCell align="center">
+                        {moment(item.cart_create_date)
+                          .add(-7, 'hour')
+                          .format('DD/MM/YYYY HH:mm:ss')}
+                      </TableCell>
                       <TableCell align="center">{item.member_code}</TableCell>
                       {tabFilter !== 'not_approve' && (
                         <>

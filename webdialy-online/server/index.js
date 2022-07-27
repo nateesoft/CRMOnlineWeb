@@ -1,4 +1,5 @@
 const express = require('express');
+const compression = require('compression');
 const { resolve } = require('path');
 require('dotenv').config();
 
@@ -8,6 +9,7 @@ const port = require('./port');
 const setup = require('./middlewares/frontendMiddleware');
 
 const app = express();
+app.use(compression());
 
 const httpRequest = require('./infra/httpRequest')();
 

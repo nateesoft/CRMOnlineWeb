@@ -1,3 +1,4 @@
+const moment = require('moment')
 const logger = require("../logger")
 const pool = require("../mysql-connect")
 const { zeroPad, getDB } = require("./FuncUtil")()
@@ -275,7 +276,7 @@ module.exports = (db) => {
         mobile = ?, 
         line_id = ?, 
         line_user_id = ?, 
-        system_updated = now() 
+        system_updated = '${moment(new Date()).format('YYYY-MM-DD HH:mm:ss')}' 
         WHERE code=?;`
         logger.debug(sql)
         const result = await pool.query(sql, [
@@ -304,7 +305,7 @@ module.exports = (db) => {
         member_role = ?,
         first_name=?,
         last_name=?,
-        system_updated = now(),
+        system_updated = '${moment(new Date()).format('YYYY-MM-DD HH:mm:ss')}',
         total_score=?,
         total_purchase=? 
         WHERE uuid_index=?;`

@@ -11,6 +11,8 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import moment from 'moment';
+
 import SearchBar from 'components/SearchBar';
 
 const useStyles = makeStyles({
@@ -39,10 +41,14 @@ export default function TableItems(props) {
   const { member_role: memberRole } = profile;
 
   let showList = getList;
-  if (approve) {
+  if (approve === '0') {
+    showList = getList.filter(item => item.shopping_step === 'wait_confirm');
+  } else if (approve === '1') {
     showList = getList.filter(item => item.shopping_step === 'approve');
   } else {
-    showList = getList.filter(item => item.shopping_step === 'wait_confirm');
+    showList = getList.filter(
+      item => item.shopping_step === 'not_approve' || item.shopping_step === '',
+    );
   }
   const classes = useStyles();
   const [page, setPage] = useState(0);
@@ -75,7 +81,7 @@ export default function TableItems(props) {
     onChangePage: PropTypes.func,
     onInitLoad: PropTypes.func,
     profile: PropTypes.object,
-    approve: PropTypes.bool,
+    approve: PropTypes.string,
     title: PropTypes.string,
   };
 
@@ -98,8 +104,10 @@ export default function TableItems(props) {
             <TableRow className={classes.colRow}>
               <TableCell align="center">No</TableCell>
               <TableCell align="center">Cart No</TableCell>
-              <TableCell align="center">Create Date</TableCell>
+              <TableCell align="center">วันที่ซื้อสินค้า</TableCell>
+              <TableCell align="center">วันที่อัพเดตสถานะ</TableCell>
               <TableCell align="center">Member</TableCell>
+              <TableCell align="center">เหตุผล</TableCell>
               <TableCell align="center">Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -117,8 +125,20 @@ export default function TableItems(props) {
                   >
                     <TableCell align="center">{index + 1}</TableCell>
                     <TableCell align="center">{item.cart_no}</TableCell>
-                    <TableCell align="center">{item.cart_create_date}</TableCell>
+                    <TableCell align="center">
+                      {moment(item.cart_create_date)
+                        .add(-7, 'hour')
+                        .format('DD/MM/YYYY HH:mm:ss')}
+                    </TableCell>
+                    <TableCell align="center">
+                      {item.emp_update_date
+                        ? moment(item.emp_update_date)
+                          .add(-7, 'hour')
+                          .format('DD/MM/YYYY HH:mm:ss')
+                        : ''}
+                    </TableCell>
                     <TableCell align="center">{item.member_code}</TableCell>
+                    <TableCell align="center">{item.emp_reason}</TableCell>
                     <TableCell align="center">
                       <Grid container spacing={1} justifyContent="center">
                         <Grid item>

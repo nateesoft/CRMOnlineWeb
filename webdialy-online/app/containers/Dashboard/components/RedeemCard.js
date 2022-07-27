@@ -66,12 +66,22 @@ export default function RedeemCard(props) {
 
   const showRedeemCode = () => {
     if (props.promotionValid) {
-      setShowDialog(true);
       props.onUpdatePromotionUse(props.options.code);
+      props.onCheckPromotion(props.options.code);
+      setShowDialog(true);
     } else {
       props.onLoadRedeem();
     }
   };
+
+  const closeUpdateQty = () => {
+    setShowDialog(false);
+    props.onLoadRedeem();
+  };
+
+  useEffect(() => {
+    props.onCheckPromotion(props.options.code);
+  }, []);
 
   return (
     <Card className={classes.root}>
@@ -128,8 +138,8 @@ export default function RedeemCard(props) {
           )}
         </Grid>
       </CardActions>
-      {showDialog && (
-        <DialogRedeemCode {...props} code={options.code} handleClose={() => setShowDialog(false)} />
+      {showDialog && props.promotionValid && (
+        <DialogRedeemCode {...props} code={options.code} handleClose={() => closeUpdateQty()} />
       )}
     </Card>
   );

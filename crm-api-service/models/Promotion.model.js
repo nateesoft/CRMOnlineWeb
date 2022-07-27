@@ -28,8 +28,7 @@ module.exports = (db) => {
     logger.debug(`validPromotion: ${code}`)
     return new Promise(async (resolve, reject) => {
       try {
-        const sql = `select product_code from ${table_name} 
-        where product_code=? and qty_in_stock>0;`;
+        const sql = `select product_code, qty_in_stock from ${table_name} where product_code=?`;
         logger.debug(sql);
         const result = await pool.query(sql, [code])
         resolve({ status: "Success", data: JSON.stringify(result) })

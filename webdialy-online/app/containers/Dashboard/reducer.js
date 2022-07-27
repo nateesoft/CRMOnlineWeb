@@ -62,7 +62,11 @@ const dashboardReducer = (state = initialState, action) =>
         draft.redeemPoint.product_code = action.payload;
         break;
       case constants.CHECK_PROMOTION_VALID_SUCCESS:
-        draft.promotionValid = true;
+        if (action.payload.qty_in_stock <= 0) {
+          draft.promotionValid = false;
+        } else {
+          draft.promotionValid = true;
+        }
         break;
       case constants.CHECK_PROMOTION_VALID_ERROR:
         draft.error = action.payload;

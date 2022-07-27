@@ -29,7 +29,7 @@ module.exports = args => {
     try {
       const response = await Task(req.headers.database).findAll();
       const data = JSON.parse(response.data)
-      return res.status(200).json({ status: response.status, msg: "Success", data })
+      return res.status(200).json({ status: 200, msg: "Success", data })
     } catch (error) {
       return res
         .status(500)
@@ -114,7 +114,7 @@ module.exports = args => {
     try {
       const { code } = req.params;
       const result = await Task(req.headers.database).findByCode(code)
-      return res.status(result.status).json({
+      return res.status(200).json({
         status: result.status, 
         msg: result.message, 
         error: result.error,

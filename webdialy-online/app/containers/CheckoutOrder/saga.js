@@ -48,7 +48,7 @@ export function* loadMemberShipping() {
   }
 }
 
-export function* loadBranchShipping() {
+export function* loadBranchList() {
   try {
     const database = getCookie('database');
     const requestURL = `${appConstants.publicPath}/api/branch`;
@@ -56,9 +56,7 @@ export function* loadBranchShipping() {
       database,
       method: 'GET',
     });
-    if (response.status === 200) {
-      yield put(actions.loadBranchListSuccess(response.data));
-    }
+    yield put(actions.loadBranchListSuccess(response.data));
   } catch (err) {
     yield put(actions.loadBranchListError(err));
   }
@@ -260,7 +258,7 @@ export function* loadBranchLocation() {
 export default function* checkoutSaga() {
   yield takeEvery(constants.LOAD_CART, loadCartList);
   yield takeEvery(constants.LOAD_MEMBER_SHIPPING, loadMemberShipping);
-  yield takeEvery(constants.LOAD_MEMBER_SHIPPING, loadBranchShipping);
+  yield takeEvery(constants.LOAD_BRANCH_LIST, loadBranchList);
   yield takeEvery(constants.UPLOAD_IMG, uploadImage);
   yield takeEvery(constants.UPLOAD_IMG, validateSlipUpload);
   yield takeEvery(constants.UPLOAD_IMG, onUpdateSlipPath);

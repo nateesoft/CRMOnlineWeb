@@ -83,6 +83,7 @@ function mapDispatchToProps(dispatch) {
     dispatch,
     initLoadCart: cartNo => dispatch(actions.loadCart(cartNo)),
     initLoadMemberShipping: () => dispatch(actions.loadMemberShipping()),
+    initLoadBranchList: () => dispatch(actions.loadBranchList()),
     onUploadImage: file => dispatch(actions.uploadImage(file)),
     onUpdateSlipPath: filePath => dispatch(actions.updateSlipPath(filePath)),
     setPaymentData: data => dispatch(actions.setPaymentData(data)),

@@ -129,7 +129,7 @@ module.exports = (db) => {
         SET member_code_update=?, 
         member_remark=?, 
         order_status=?,
-        order_update_date=now(),
+        order_update_date='${moment(new Date()).format('YYYY-MM-DD HH:mm:ss')}',
         signature=?, 
         member_mobile=? 
         WHERE order_no=?;`

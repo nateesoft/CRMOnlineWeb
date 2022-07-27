@@ -195,16 +195,6 @@ const EditItem = props => {
               required
             />
           </Grid>
-          <Grid item xs={4} md={2}>
-            <Field
-              name="qty_in_stock"
-              component={RenderField}
-              type="number"
-              margin="normal"
-              label={<FormattedMessage {...messages.col6} />}
-              required
-            />
-          </Grid>
           <Grid item xs={12} md={4}>
             <Field
               name="img_path"

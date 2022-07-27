@@ -51,6 +51,9 @@ function mapDispatchToProps(dispatch) {
     onUpdatePromotionUse: productCode => {
       dispatch(actions.updatePromotionUse(productCode));
     },
+    onCheckPromotion: productCode => {
+      dispatch(actions.checkPromotionValid(productCode));
+    },
   };
 }
 

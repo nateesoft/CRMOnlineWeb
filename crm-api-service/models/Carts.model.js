@@ -1,5 +1,5 @@
 /* Carts.model code generator by automatic script */
-
+const moment = require('moment')
 const logger = require("../logger")
 const pool = require("../mysql-connect")
 const {
@@ -356,7 +356,7 @@ module.exports = (db) => {
         SET shopping_step=?,
         emp_code_update=?,
         emp_reason=?,
-        emp_update_date=now() 
+        emp_update_date='${moment(new Date()).format('YYYY-MM-DD HH:mm:ss')}' 
         WHERE cart_no=?;`
         logger.debug(sql)
         const result = await pool.query(sql, [

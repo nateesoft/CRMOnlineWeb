@@ -8,6 +8,10 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
+// import DatePicker from 'react-multi-date-picker';
+
+// import thai from './thai';
+// import thaiTH from './thai_th';
 
 const useStyles = makeStyles(() => ({
   errorLabel: {
@@ -17,7 +21,7 @@ const useStyles = makeStyles(() => ({
 
 function DateInput({ input, label, required, meta: { touched, error } }) {
   const classes = useStyles();
-
+  // return <DatePicker calendar={thai} locale={thaiTH} format="DD/MM/YYYY" />;
   return (
     <>
       <TextField

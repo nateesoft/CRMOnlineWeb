@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { red } from '@material-ui/core/colors';
@@ -142,5 +142,6 @@ RedeemCard.propTypes = {
   disabled: PropTypes.bool,
   onUpdatePromotionUse: PropTypes.func,
   onLoadRedeem: PropTypes.func,
+  onCheckPromotion: PropTypes.func,
   promotionValid: PropTypes.bool,
 };

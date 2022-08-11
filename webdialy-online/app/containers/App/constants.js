@@ -9,6 +9,7 @@
  */
 const publicPath = process.env.REACT_APP_PUBLIC_PATH || '';
 const serviceApiPath = process.env.REACT_APP_SERVICE_API_HOST || '';
+const apiUploadServiceHost = process.env.REACT_APP_API_UPLOAD_SERVICE_HOST || '';
 
 const PATH_LOGIN = `${publicPath}/login`;
 const PATH_LOGOUT = `${publicPath}/logout`;
@@ -52,6 +53,7 @@ const CLEAR_MENU = 'app/App/CLEAR_MENU';
 module.exports = {
   publicPath,
   serviceApiPath,
+  apiUploadServiceHost,
   PATH_LOGIN,
   PATH_LOGOUT,
   PATH_REGISTER,

@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import { Grid, Paper, Typography } from '@material-ui/core';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, change } from 'redux-form';
 import { connect } from 'react-redux';
 import SweetAlert from 'sweetalert2-react';
 import { makeStyles } from '@material-ui/core/styles';
@@ -41,12 +41,12 @@ const useStyles = makeStyles(theme => ({
 
 const EditItem = props => {
   const classes = useStyles();
-  const { handleSubmit, pristine, reset, submitting, response } = props;
+  const { handleSubmit, pristine, reset, submitting, response, dispatch } = props;
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const { img_path: imgPath } = props.initialValues;
 
-  const apiServiceHost = appConstants.serviceApiPath;
+  const apiServiceHost = appConstants.apiUploadServiceHost;
 
   const onValidated = formValues => {
     updateData(formValues);
@@ -63,10 +63,9 @@ const EditItem = props => {
 
   const onChangeHandler = event => {
     setFile(event.target.files[0]);
+    dispatch(change('editItem', 'img_path', `/images/${event.target.files[0].name}`));
     setPreview(URL.createObjectURL(event.target.files[0]));
-  };
 
-  const onUploadImageFile = () => {
     props.onUploadImage(file);
   };
 
@@ -238,13 +237,6 @@ const EditItem = props => {
           <Grid item xs={12}>
             {preview && <img src={preview} width={200} height={200} alt="" />}
           </Grid>
-          <Grid item xs={6}>
-            {file && file.name && (
-              <Button variant="contained" color="primary" onClick={() => onUploadImageFile()}>
-                Please press upload button
-              </Button>
-            )}
-          </Grid>
           {imgPath && (
             <Grid item xs={12}>
               <Paper elevation={3} className={classes.paddingImg}>
@@ -292,6 +284,7 @@ EditItem.propTypes = {
   onInitLoad: PropTypes.func,
   onChangePage: PropTypes.func,
   onUploadImage: PropTypes.func,
+  dispatch: PropTypes.any,
 };
 
 const validate = formValues => {

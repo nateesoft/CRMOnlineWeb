@@ -76,6 +76,7 @@ const mapStateToProps = createStructuredSelector({
   profile: mainSelectors.makeSelectProfile(),
   branch: selectors.makeSelectBranch(),
   branchList: selectors.makeSelectBranchList(),
+  showImage: selectors.makeShowImage(),
 });
 
 function mapDispatchToProps(dispatch) {

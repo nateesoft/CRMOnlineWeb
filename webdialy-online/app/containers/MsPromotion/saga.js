@@ -8,7 +8,7 @@ import * as constants from './constants';
 import * as actions from './actions';
 
 const fetch = require('node-fetch');
-const apiServiceHost = appConstants.serviceApiPath;
+const apiServiceHost = appConstants.apiUploadServiceHost;
 
 export function* initLoad() {
   try {

@@ -1,4 +1,3 @@
-const createError = require("http-errors")
 const express = require("express")
 const path = require("path")
 const cookieParser = require("cookie-parser")
@@ -112,7 +111,6 @@ const redeemRouter = require("./routes/redeem.route")(io)
 const cartsDetailRouter = require("./routes/carts_detail.route")(options)
 const cartsRouter = require("./routes/carts.route")(io)
 const memberShippingRouter = require("./routes/member_shipping.route")(options)
-const slipImageRouter = require("./routes/slip_image.route")(options)
 const ordersRouter = require("./routes/orders.route")(options)
 
 // router for database config
@@ -179,7 +177,6 @@ app.use("/api/roles_mapping", WithAuth(), roleMappingRouter)
 app.use("/api/carts", WithAuth(), cartsRouter)
 app.use("/api/carts_detail", WithAuth(), cartsDetailRouter)
 app.use("/api/shipping", WithAuth(), memberShippingRouter)
-app.use("/api/validate_slip", WithAuth(), slipImageRouter)
 app.use("/api/orders", WithAuth(), ordersRouter)
 
 // database config

@@ -62,7 +62,7 @@ export default function RedeemCard(props) {
   const { options } = props;
   const [showDialog, setShowDialog] = useState(false);
 
-  const apiServiceHost = appConstants.serviceApiPath;
+  const apiServiceHost = appConstants.apiUploadServiceHost;
 
   const showRedeemCode = () => {
     if (props.promotionValid) {

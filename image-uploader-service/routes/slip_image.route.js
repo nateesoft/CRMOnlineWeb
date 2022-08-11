@@ -1,23 +1,14 @@
 const express = require("express")
 const router = express.Router()
+
 const Task = require("../models/ValidateSlip")
 
-var url = require('url');
-
-function getUrl(req) {
-  return url.format({
-    protocol: req.protocol,
-    host: req.get('host'),
-  });
-}
-
-module.exports = args => {
-  
+module.exports = (options) => {
   router.post("/", async (req, res, next) => {
+    const { imagePath } = options
     const { img_file } = req.body
-    const url = getUrl(req).replace(req.get('host').split(':')[1], process.env.API_PORT || "5000");
     try {
-      const response = await Task.validateImage(url + "/images/" + img_file)
+      const response = await Task.checkImage(`${imagePath}/${img_file}`)
       if (response) {
         res
           .status(200)
@@ -34,5 +25,5 @@ module.exports = args => {
     }
   })
 
-  return router
+  return router;
 }

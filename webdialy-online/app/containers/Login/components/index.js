@@ -49,7 +49,7 @@ const LoginForm = props => {
     token,
   } = props;
 
-  const apiServiceHost = appConstants.serviceApiPath;
+  const apiServiceHost = appConstants.apiUploadServiceHost;
 
   const onValidate = formValues => {
     onValidateLogin(formValues);

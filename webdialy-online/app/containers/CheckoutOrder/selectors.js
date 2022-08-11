@@ -91,3 +91,9 @@ export const makeSelectBranchList = () =>
     selectCheckoutDomain,
     substate => substate.branchList,
   );
+
+export const makeShowImage = () =>
+  createSelector(
+    selectCheckoutDomain,
+    substate => substate.response.status,
+  );

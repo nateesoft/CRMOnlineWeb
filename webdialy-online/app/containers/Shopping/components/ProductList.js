@@ -52,7 +52,7 @@ const useStyles = makeStyles(() => ({
 
 export default function ProductList(props) {
   const { data, topic, handleClickOpen } = props;
-  const apiServiceHost = appConstants.serviceApiPath;
+  const apiServiceHost = appConstants.apiUploadServiceHost;
   const classes = useStyles();
 
   ProductList.propTypes = {

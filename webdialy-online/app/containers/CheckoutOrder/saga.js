@@ -1,14 +1,15 @@
 import { call, put, takeEvery, select } from 'redux-saga/effects';
 import { getCookie } from 'react-use-cookie';
+
 import request from 'utils/request';
 import * as appConstants from 'containers/App/constants';
 import * as mainSelectors from 'containers/MainLayoutApp/selectors';
 import * as selectors from './selectors';
 import * as constants from './constants';
 import * as actions from './actions';
-
 const fetch = require('node-fetch');
-const apiServiceHost = appConstants.serviceApiPath;
+
+const { apiUploadServiceHost } = appConstants;
 
 export function* loadCartList() {
   try {
@@ -72,7 +73,11 @@ export function* uploadImage() {
       body: formdata,
       redirect: 'follow',
     };
-    const response = yield fetch(`${apiServiceHost}/api/upload`, options).then(resp => resp.json());
+    const response = yield fetch(`${apiUploadServiceHost}/api/upload`, options).then(resp =>
+      resp.json(),
+    );
+    yield validateSlipUpload();
+    yield onUpdateSlipPath();
     yield put(actions.uploadImageSuccess(response));
   } catch (err) {
     yield put(actions.uploadImageError(err));
@@ -82,7 +87,7 @@ export function* uploadImage() {
 export function* validateSlipUpload() {
   try {
     const imgFile = yield select(selectors.makeSelectSlipFile());
-    const requestURL = `${appConstants.publicPath}/api/validate_slip`;
+    const requestURL = `${apiUploadServiceHost}/api/validate_slip`;
     const response = yield call(request, requestURL, {
       method: 'POST',
       body: JSON.stringify({ img_file: imgFile }),
@@ -260,8 +265,6 @@ export default function* checkoutSaga() {
   yield takeEvery(constants.LOAD_MEMBER_SHIPPING, loadMemberShipping);
   yield takeEvery(constants.LOAD_BRANCH_LIST, loadBranchList);
   yield takeEvery(constants.UPLOAD_IMG, uploadImage);
-  yield takeEvery(constants.UPLOAD_IMG, validateSlipUpload);
-  yield takeEvery(constants.UPLOAD_IMG, onUpdateSlipPath);
   yield takeEvery(constants.DELETE_ITEM_CART, onDeleteItemCart);
   yield takeEvery(constants.DELETE_ITEM_CART, loadCartList);
   yield takeEvery(constants.UPDATE_ITEM_CART, onUpdateItemCart);

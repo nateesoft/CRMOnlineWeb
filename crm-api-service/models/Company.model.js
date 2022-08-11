@@ -77,7 +77,8 @@ module.exports = (db) => {
         SET code=?, 
         name=?, 
         line_official_id=?,
-        member_register_point=? 
+        member_register_point=?,
+        img_path=? 
         WHERE uuid_index=?;`;
         logger.debug(sql);
         const result = await pool.query(sql, [
@@ -85,6 +86,7 @@ module.exports = (db) => {
           data.name,
           data.line_official_id,
           data.member_register_point,
+          data.img_path,
           data.uuid_index,
         ])
         resolve({ status: "Success", data: JSON.stringify(result) })

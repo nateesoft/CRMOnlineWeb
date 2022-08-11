@@ -83,6 +83,7 @@ export function* uploadFile() {
       redirect: 'follow',
     };
     const response = yield fetch(`${apiServiceHost}/api/upload`, options).then(resp => resp.json());
+    yield updateData();
     yield put(actions.uploadImageSuccess(response));
   } catch (err) {
     yield put(actions.uploadImageError(err));

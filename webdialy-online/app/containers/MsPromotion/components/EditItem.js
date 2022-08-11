@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { Typography } from '@material-ui/core';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, change } from 'redux-form';
 import { connect } from 'react-redux';
 import SweetAlert from 'sweetalert2-react';
 import { makeStyles } from '@material-ui/core/styles';
@@ -94,9 +94,8 @@ const renderSelectField = ({ id, input, label, meta: { touched, error }, childre
 
 const EditItem = props => {
   const classes = useStyles();
-  const { handleSubmit, pristine, reset, submitting, response } = props;
+  const { handleSubmit, pristine, reset, submitting, response, dispatch } = props;
   const [file, setFile] = useState(null);
-  const [fileName, setFileName] = useState('');
   const [preview, setPreview] = useState(null);
   const { img_path: imgPath } = props.initialValues;
 
@@ -117,11 +116,8 @@ const EditItem = props => {
 
   const onChangeHandler = event => {
     setFile(event.target.files[0]);
+    dispatch(change('editItem', 'img_path', `/images/${event.target.files[0].name}`));
     setPreview(URL.createObjectURL(event.target.files[0]));
-    setFileName(event.target.files[0].name);
-  };
-
-  const onUploadImageFile = () => {
     props.onUploadImage(file);
   };
 
@@ -245,15 +241,9 @@ const EditItem = props => {
           </Grid>
           <Grid item xs={12} md={6}>
             <input type="file" name="file" onChange={onChangeHandler} />
-            <input type="text" value={fileName} />
           </Grid>
           <Grid item xs={12}>
             {preview && <img src={preview} width={200} height={200} alt="preview" />}
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Button variant="contained" color="primary" onClick={() => onUploadImageFile()}>
-              อัพโหลดรูปภาพ
-            </Button>
           </Grid>
           {imgPath && (
             <Grid item xs={12}>
@@ -302,6 +292,7 @@ EditItem.propTypes = {
   onInitLoad: PropTypes.func,
   onChangePage: PropTypes.func,
   onUploadImage: PropTypes.func,
+  dispatch: PropTypes.any,
 };
 
 const validate = formValues => {

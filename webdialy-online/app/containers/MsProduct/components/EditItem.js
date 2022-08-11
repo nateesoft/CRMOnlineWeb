@@ -4,7 +4,7 @@ import { Button, Grid, Select, FormControl, InputLabel, Typography } from '@mate
 import Container from '@material-ui/core/Container';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, change } from 'redux-form';
 import { connect } from 'react-redux';
 import SweetAlert from 'sweetalert2-react';
 import { makeStyles } from '@material-ui/core/styles';
@@ -81,11 +81,22 @@ const renderSelectField = ({ id, input, label, meta: { touched, error }, childre
 
 const EditItem = props => {
   const classes = useStyles();
-  const { handleSubmit, pristine, reset, submitting, response, groupList, stockList } = props;
+  const {
+    handleSubmit,
+    pristine,
+    reset,
+    submitting,
+    response,
+    groupList,
+    stockList,
+    dispatch,
+  } = props;
   const [file, setFile] = useState(null);
+  const [preview, setPreview] = useState(null);
+
   const { img_path: imgPath } = props.initialValues;
 
-  const apiServiceEndpoint = appConstants.serviceApiPath;
+  const apiServiceEndpoint = appConstants.apiUploadServiceHost;
 
   const onValidated = formValues => {
     updateData(formValues);
@@ -102,9 +113,9 @@ const EditItem = props => {
 
   const onChangeHandler = event => {
     setFile(event.target.files[0]);
-  };
+    dispatch(change('editItem', 'img_path', `/images/${event.target.files[0].name}`));
+    setPreview(URL.createObjectURL(event.target.files[0]));
 
-  const onUploadImageFile = () => {
     props.onUploadImage(file);
   };
 
@@ -255,7 +266,7 @@ const EditItem = props => {
               required
             />
           </Grid>
-          <Grid item xs={6} md={2}>
+          <Grid item xs={6} md={4}>
             <Field
               name="qty_over_stock"
               component={RenderField}
@@ -279,9 +290,7 @@ const EditItem = props => {
             <input type="file" name="file" onChange={onChangeHandler} />
           </Grid>
           <Grid item xs={12}>
-            <Button variant="outlined" color="primary" onClick={() => onUploadImageFile()}>
-              อัพโหลดรูปภาพ
-            </Button>
+            {preview && <img src={preview} width={200} height={200} alt="" />}
           </Grid>
           {imgPath && (
             <Grid item xs={12}>
@@ -332,51 +341,52 @@ EditItem.propTypes = {
   onUploadImage: PropTypes.func,
   groupList: PropTypes.array,
   stockList: PropTypes.array,
+  dispatch: PropTypes.any,
 };
 
 const validate = formValues => {
   const errors = {};
   if (!formValues.code) {
-    errors.code = <FormattedMessage {...messages.col1ShouldNotEmpty} />;
+    errors.code = <FormattedMessage {...messages.codeShouldNotEmpty} />;
   }
   if (!formValues.name) {
-    errors.name = <FormattedMessage {...messages.col2ShouldNotEmpty} />;
+    errors.name = <FormattedMessage {...messages.nameShouldNotEmpty} />;
   }
   if (!formValues.unit_code_sale) {
-    errors.unit_code_sale = <FormattedMessage {...messages.col3ShouldNotEmpty} />;
+    errors.unit_code_sale = <FormattedMessage {...messages.unitSaleShouldNotEmpty} />;
   }
   if (!formValues.product_group_code) {
-    errors.product_group_code = <FormattedMessage {...messages.col4ShouldNotEmpty} />;
+    errors.product_group_code = <FormattedMessage {...messages.groupCodeShouldNotEmpty} />;
   }
   if (!formValues.point || formValues.point < 0) {
-    errors.point = <FormattedMessage {...messages.col5ShouldNotEmpty} />;
+    errors.point = <FormattedMessage {...messages.pointShouldNotEmpty} />;
   }
   if (!formValues.stock_code) {
-    errors.stock_code = <FormattedMessage {...messages.col6ShouldNotEmpty} />;
+    errors.stock_code = <FormattedMessage {...messages.stkCodeShouldNotEmpty} />;
   }
   if (!formValues.price_e || formValues.price_e < 0) {
-    errors.price_e = <FormattedMessage {...messages.col7ShouldNotEmpty} />;
+    errors.price_e = <FormattedMessage {...messages.eatInShouldNotEmpty} />;
   }
   if (!formValues.price_t || formValues.price_t < 0) {
-    errors.price_t = <FormattedMessage {...messages.col8ShouldNotEmpty} />;
+    errors.price_t = <FormattedMessage {...messages.takeAwayShouldNotEmpty} />;
   }
   if (!formValues.price_d || formValues.price_d < 0) {
-    errors.price_d = <FormattedMessage {...messages.col9ShouldNotEmpty} />;
+    errors.price_d = <FormattedMessage {...messages.deliveryShouldNotEmpty} />;
   }
   if (!formValues.max_stock || formValues.max_stock < 0) {
-    errors.max_stock = <FormattedMessage {...messages.col10ShouldNotEmpty} />;
+    errors.max_stock = <FormattedMessage {...messages.maxStockShouldNotEmpty} />;
   }
   if (!formValues.min_stock || formValues.min_stock < 0) {
-    errors.min_stock = <FormattedMessage {...messages.col11ShouldNotEmpty} />;
+    errors.min_stock = <FormattedMessage {...messages.minStockShouldNotEmpty} />;
   }
   if (!formValues.unit_code_stock) {
-    errors.unit_code_stock = <FormattedMessage {...messages.col12ShouldNotEmpty} />;
+    errors.unit_code_stock = <FormattedMessage {...messages.unitStockShouldNotEmpty} />;
   }
   if (!formValues.img_path) {
-    errors.img_path = <FormattedMessage {...messages.col13ShouldNotEmpty} />;
+    errors.img_path = <FormattedMessage {...messages.imagePathShouldNotEmpty} />;
   }
   if (!formValues.qty_over_stock) {
-    errors.qty_over_stock = <FormattedMessage {...messages.col13ShouldNotEmpty} />;
+    errors.qty_over_stock = <FormattedMessage {...messages.checkQtyOrNotShouldNotEmpty} />;
   }
   return errors;
 };

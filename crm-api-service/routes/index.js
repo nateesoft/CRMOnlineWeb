@@ -1,9 +1,8 @@
 const express = require("express")
 const QRCode = require("qrcode")
 const router = express.Router()
-const multer = require("multer")
 const fs = require("fs")
-const upload = multer({ dest: "./upload/" })
+
 const utils = require('../utils/fileUtil');
 
 module.exports = (args) => {
@@ -34,25 +33,6 @@ module.exports = (args) => {
       }
     } catch (err) {
       res.json(err)
-    }
-  })
-
-  router.post("/upload", upload.single("file"), (req, res) => {
-    try {
-      const filename = req.file.filename
-      const old_file = `./upload/${filename}`
-      const new_file = `./public/images/${req.file.originalname}`
-
-      fs.rename(old_file, new_file, function (err) {
-        if (err) throw err
-        console.log("File Renamed.")
-      })
-
-      res.status(200).send({ status: "Success", msg: "Upload Success" })
-    } catch (error) {
-      return res
-        .status(500)
-        .json({ status: "Internal Server Error", msg: error.sqlMessage })
     }
   })
 

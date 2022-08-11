@@ -3,7 +3,11 @@ const compression = require('compression');
 const { resolve } = require('path');
 require('dotenv').config();
 
-const { publicPath, serviceApiPath } = require('../app/containers/App/constants');
+const {
+  publicPath,
+  serviceApiPath,
+  apiUploadServiceHost,
+} = require('../app/containers/App/constants');
 const logger = require('./logger');
 const port = require('./port');
 const setup = require('./middlewares/frontendMiddleware');
@@ -31,11 +35,11 @@ const options = {
   passport,
   jwtUseCases,
   loggerApp,
+  apiUploadServiceHost,
 };
 
 const basePathForAPI = publicPath.replace(/\/*$/, '');
 app.use(`${basePathForAPI}/api/member/login`, require('./routes/login')(options));
-app.use(`${basePathForAPI}/api/upload`, require('./routes/upload')(options));
 app.use(`${basePathForAPI}/api`, require('./routes/api')(options));
 
 setup(app, {

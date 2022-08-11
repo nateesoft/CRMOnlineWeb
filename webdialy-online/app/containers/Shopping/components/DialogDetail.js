@@ -76,7 +76,7 @@ export default function DialogDetail(props) {
   const [specialText, setSpecialText] = useState('');
   const classes = useStyles();
 
-  const apiServiceHost = appConstants.serviceApiPath;
+  const apiServiceHost = appConstants.apiUploadServiceHost;
 
   const handleCloseDialog = () => {
     handleClose();

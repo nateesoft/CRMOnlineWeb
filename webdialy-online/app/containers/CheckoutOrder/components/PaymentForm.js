@@ -39,21 +39,16 @@ const PaymentForm = props => {
   const onChangeHandler = event =>
     new Promise((resolve, reject) => {
       const sourceFile = event.target.files[0];
-      // const fileName = event.target.files[0].name;
 
       props.setShowImg(false);
       props.setFile(sourceFile);
 
       props.onUploadImage(sourceFile);
-      props.setShowImg(true);
-
-      // props.checkSlipImage(fileName);
-      // props.onUpdateSlipPath(fileName);
 
       resolve(true);
     });
 
-  const apiServiceHost = appConstants.serviceApiPath;
+  const apiServiceHost = appConstants.apiUploadServiceHost;
 
   const origin = {
     position: {
@@ -109,7 +104,7 @@ const PaymentForm = props => {
           อัพโหลดไฟล์ Slip / Validate <input type="file" name="file" onChange={onChangeHandler} />
         </Grid>
         <Grid item xs={12}>
-          {props.showImg && (
+          {props.showImage === 'Upload_Success' && (
             <div align="center">
               <img src={`${apiServiceHost}/images/${file.name}`} width={150} alt="" />
               <br />
@@ -141,7 +136,6 @@ PaymentForm.propTypes = {
   setShowImg: PropTypes.func,
   setFile: PropTypes.func,
   onUploadImage: PropTypes.func,
-  showImg: PropTypes.bool,
   imgValid: PropTypes.string,
   branch: PropTypes.string,
   shipping: PropTypes.string,
@@ -150,6 +144,7 @@ PaymentForm.propTypes = {
   onUpdateTransportAmount: PropTypes.func,
   distance: PropTypes.number,
   duration: PropTypes.number,
+  showImage: PropTypes.string,
 };
 
 const validate = formValues => {

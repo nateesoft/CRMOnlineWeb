@@ -100,7 +100,7 @@ const EditItem = props => {
   const [preview, setPreview] = useState(null);
   const { img_path: imgPath } = props.initialValues;
 
-  const apiServiceHost = appConstants.serviceApiPath;
+  const apiServiceHost = appConstants.apiUploadServiceHost;
 
   const onValidated = formValues => {
     updateData(formValues);

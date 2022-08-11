@@ -74,7 +74,7 @@ const ViewItem = props => {
     total_transport_amt: totalTransportAmt,
   } = props.initialValues;
 
-  const apiServiceHost = appConstants.serviceApiPath;
+  const apiServiceHost = appConstants.apiUploadServiceHost;
 
   const updateStatus = () => {
     if (approve === 'not_approve' && reason === '') {

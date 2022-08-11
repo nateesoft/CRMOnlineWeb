@@ -44,7 +44,7 @@ const HomePage = props => {
   const [database, setDatabase] = useCookie('database', '');
   const classes = useStyles();
 
-  const apiServiceHost = appConstants.serviceApiPath;
+  const apiServiceHost = appConstants.apiUploadServiceHost;
 
   useEffect(() => {
     const data = new URLSearchParams(props.location.search).get('data') || '';

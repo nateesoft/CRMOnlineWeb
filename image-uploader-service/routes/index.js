@@ -7,6 +7,9 @@ const fs = require("fs")
 const upload = multer({ dest: "./upload/" })
 
 module.exports = (options) => {
+  router.get("/version", (req, res) => {
+    res.status(200).send({ type: "SUCCESS", message: "1.0.0" })
+  })
   router.post("/upload", upload.single("file"), (req, res) => {
     try {
       const filename = req.file.filename

@@ -66,7 +66,6 @@ export default function RedeemCard(props) {
 
   const showRedeemCode = () => {
     if (props.promotionValid) {
-      props.onUpdatePromotionUse(props.options.code);
       props.onCheckPromotion(props.options.code);
       setShowDialog(true);
     } else {
@@ -150,7 +149,6 @@ RedeemCard.propTypes = {
   img: PropTypes.string,
   free: PropTypes.bool,
   disabled: PropTypes.bool,
-  onUpdatePromotionUse: PropTypes.func,
   onLoadRedeem: PropTypes.func,
   onCheckPromotion: PropTypes.func,
   promotionValid: PropTypes.bool,

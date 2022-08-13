@@ -70,14 +70,14 @@ module.exports = args => {
     try {
       const id = req.params.id;
       const result = await Task(req.headers.database).findById(id)
-      return res.status(result.status).json({
+      return res.status(200).json({
         status: result.status, 
         msg: result.message, 
         error: result.error,
         data: result.data
       })
     } catch (error) {
-      return res.status(error.status).json({
+      return res.status(500).json({
         status: error.status, 
         msg: error.message, 
         error: error.error,
@@ -121,7 +121,7 @@ module.exports = args => {
         data: result.data
       })
     } catch (error) {
-      return res.status(error.status).json({
+      return res.status(500).json({
         status: error.status, 
         msg: error.message, 
         error: error.error,
@@ -189,14 +189,14 @@ module.exports = args => {
   
     try {
       const result = await Task(req.headers.database).create(req.body)
-      return res.status(result.status).json({
+      return res.status(200).json({
         status: result.status, 
         msg: result.message, 
         error: result.error,
         data: result.data
       })
     } catch (error) {
-      return res.status(error.status).json({
+      return res.status(500).json({
         status: error.status, 
         msg: error.message, 
         error: error.error,
@@ -251,14 +251,14 @@ module.exports = args => {
     try {
       const payload = {...req.body, uuid_index: req.params.id}
       const result = await Task(req.headers.database).update(payload)
-      return res.status(result.status).json({
+      return res.status(200).json({
         status: result.status, 
-        msg: result.message, 
-        error: result.error,
+        msg: result.message || '', 
+        error: result.error || '',
         data: result.data
       })
     } catch (error) {
-      return res.status(error.status).json({
+      return res.status(500).json({
         status: error.status, 
         msg: error.message, 
         error: error.error,
@@ -309,14 +309,14 @@ module.exports = args => {
     try {
       const payload = {...req.body, uuid_index: req.params.id}
       const result = await Task(req.headers.database).updatePatch(payload)
-      return res.status(result.status).json({
+      return res.status(200).json({
         status: result.status, 
         msg: result.message, 
         error: result.error,
         data: result.data
       })
     } catch (error) {
-      return res.status(error.status).json({
+      return res.status(500).json({
         status: error.status, 
         msg: error.message, 
         error: error.error,
@@ -356,14 +356,14 @@ module.exports = args => {
     }
     try {
       const result = await Task(req.headers.database).delete(req.params.id)
-      return res.status(result.status).json({
+      return res.status(200).json({
         status: result.status, 
         msg: result.message, 
         error: result.error,
         data: result.data
       })
     } catch (error) {
-      return res.status(error.status).json({
+      return res.status(500).json({
         status: error.status, 
         msg: error.message, 
         error: error.error,

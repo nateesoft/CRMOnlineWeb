@@ -43,7 +43,7 @@ module.exports = (db) => {
     logger.debug("getDataForClient")
     return new Promise(async (resolve, reject) => {
       try {
-        const sql = `select * from ${table_name} where in_time > curdate();`;
+        const sql = `select * from ${table_name} where in_time > curdate() and data_sync ='N' `;
         logger.debug(sql);
         const result = await pool.query(sql)
         resolve({ status: "Success", data: JSON.stringify(result) })
@@ -59,13 +59,9 @@ module.exports = (db) => {
     return new Promise(async (resolve, reject) => {
       try {
         let sql = `update ${table_name} 
-        set bill_no=?,
-        use_in_branch=?,
-        emp_code_redeem=?,
-        redeem_date=curdate(),
-        data_sync='Y',
-        active=? 
-        where redeem_code=?;`;
+        set bill_no=?, use_in_branch=?, emp_code_redeem=?,
+        redeem_date=curdate(), data_sync='Y', active=?, status_use='done' 
+        where redeem_code=? and (bill_no='' or bill_no is null);`;
         logger.debug(sql);
         let countToUpdate = 0;
         for (let i = 0; i < redeem.length; i++) {
@@ -77,9 +73,11 @@ module.exports = (db) => {
             redeemData.active,
             redeemData.redeem_code
           ])
-          sql = `update ${promotion} set qty_in_stock = qty_in_stock-1 where product_code=?;`;
-          logger.debug(sql);
-          await pool.query(sql, [redeemData.product_code]);
+          if (result.affectedRows > 0) {
+            sql = `update ${promotion} set qty_in_stock = qty_in_stock-1 where product_code=?;`;
+            logger.debug(sql);
+            await pool.query(sql, [redeemData.product_code]);
+          }
 
           countToUpdate = countToUpdate + result.affectedRows;
         }

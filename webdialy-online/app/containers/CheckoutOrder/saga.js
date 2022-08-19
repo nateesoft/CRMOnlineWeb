@@ -35,14 +35,10 @@ export function* loadMemberShipping() {
       database,
       method: 'GET',
     });
-    if (response.status === 'Success') {
-      if (response.data.length > 0) {
-        yield put(actions.loadMemberShippingSuccess(response.data[0]));
-      } else {
-        yield put(actions.loadMemberShippingSuccess({}));
-      }
+    if (response.data.length > 0) {
+      yield put(actions.loadMemberShippingSuccess(response.data[0]));
     } else {
-      yield put(actions.loadMemberShippingError('Not found member shipping'));
+      yield put(actions.loadMemberShippingSuccess({}));
     }
   } catch (err) {
     yield put(actions.loadMemberShippingError(err));
@@ -158,7 +154,7 @@ export function* onUpdateCartsBranchShipping() {
     const response = yield call(request, requestURL, {
       database,
       method: 'PATCH',
-      body: JSON.stringify({ cart_no: cartNo, branch_shipping: branchShipping }),
+      body: JSON.stringify({ cart_no: cartNo, branch_shipping: branchShipping || '' }),
     });
     yield put(actions.updateAddressFormSuccess(response));
   } catch (err) {

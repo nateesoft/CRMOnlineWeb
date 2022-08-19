@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
@@ -90,7 +90,7 @@ export default function LeftMenu(props) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <List component="div" className={classes.listSubItem}>
               {leftMenuMaster.map(({ id, to_path: to }) => (
-                <ButtonLink to={appConstants.publicPath + to} key={`menu${id}`}>
+                <ButtonLink to={`${appConstants.publicPath} ${to}`} key={`menu${id}`}>
                   <ListItem
                     key={id}
                     button
@@ -115,5 +115,5 @@ LeftMenu.propTypes = {
   leftMenu: PropTypes.array,
   appConstants: PropTypes.object,
   scope: PropTypes.string,
-  title: PropTypes.string,
+  location: PropTypes.object,
 };

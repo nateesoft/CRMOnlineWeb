@@ -13,7 +13,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import DoubleArrow from '@material-ui/icons/DoubleArrow';
 import ExitToApp from '@material-ui/icons/ExitToApp';
-import { Button } from '@material-ui/core';
+import { Button, ButtonBase } from '@material-ui/core';
 import { Switch } from 'react-router-dom';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
@@ -137,9 +137,9 @@ const MainLayout = props => {
             {props.title}
           </Typography>
           <LocaleToggle />
-          <ButtonLink id="btnLogout" onClick={() => logout()}>
+          <ButtonBase id="btnLogout" onClick={() => logout()}>
             <ExitToApp />
-          </ButtonLink>
+          </ButtonBase>
         </Toolbar>
       </AppBar>
       {notMemberRole && (
@@ -244,6 +244,7 @@ MainLayout.propTypes = {
   children: PropTypes.object,
   onLoadRedeem: PropTypes.func,
   onLoadMenu: PropTypes.func,
+  history: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({

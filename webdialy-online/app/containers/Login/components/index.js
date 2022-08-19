@@ -172,7 +172,7 @@ LoginForm.propTypes = {
   company: PropTypes.object,
   database: PropTypes.string,
   token: PropTypes.string,
-  history: PropTypes.string,
+  history: PropTypes.object,
 };
 
 const validate = formValues => {

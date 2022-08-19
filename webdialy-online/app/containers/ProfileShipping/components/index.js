@@ -327,7 +327,7 @@ const EditForm = props => {
             </Button>
           </Grid>
           <Grid item>
-            <ButtonLink to={backPage}>
+            <ButtonLink to={`${backPage}`}>
               <Button variant="outlined" onClick={reset}>
                 <FormattedMessage {...messages.btnBack} />
               </Button>

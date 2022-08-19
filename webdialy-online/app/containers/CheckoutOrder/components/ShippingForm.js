@@ -53,12 +53,14 @@ const ShippingForm = props => {
   };
 
   const updateBranchShipping = e => {
-    props.onUpdateAddressForm({
-      ...initialValues,
-      branch_shipping: e.target.value,
-      address_type: 'Shipping',
-      member_prefix: '',
-    });
+    if (e.target.value) {
+      props.onUpdateAddressForm({
+        ...initialValues,
+        branch_shipping: e.target.value,
+        address_type: 'Shipping',
+        member_prefix: '',
+      });
+    }
   };
 
   return (
@@ -73,9 +75,7 @@ const ShippingForm = props => {
               name="branch_shipping"
               component={InputSelectOptions}
               onChange={updateBranchShipping}
-              type="text"
               margin="normal"
-              label=""
               required
             >
               <option value="">กรุณาเลือกข้อมูล</option>

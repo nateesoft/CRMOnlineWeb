@@ -59,7 +59,7 @@ const SubMenu = props => {
   }
 
   // const getLayoutCss = title === 'Shopping' ? classes.layoutRelative : classes.layoutFixed;
-  const getLayoutCss = title === classes.layoutFixed;
+  // const getLayoutCss = title === classes.layoutFixed;
 
   return (
     <BottomNavigation
@@ -68,7 +68,6 @@ const SubMenu = props => {
         setValue(newValue);
       }}
       showLabels
-      className={getLayoutCss}
     >
       {props.leftMenu &&
         props.leftMenu.map(item => {
@@ -100,6 +99,7 @@ SubMenu.propTypes = {
   profile: PropTypes.object,
   title: PropTypes.string,
   leftMenu: PropTypes.array,
+  history: PropTypes.object,
 };
 
 export default SubMenu;

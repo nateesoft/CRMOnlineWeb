@@ -48,7 +48,10 @@ module.exports = () => {
   ) => {
     const map = mappingBillAmt.split("-")
     const map1 = parseInt(map[0])
-    const map2 = map[1].toLowerCase() === "max" ? 999999999 : parseInt(map[1])
+    const map2 = 999999999
+    if (map.length == 2) {
+      map2 = map[1].toLowerCase() === "max" ? 999999999 : parseInt(map[1])
+    }
     if (netTotalAmt >= map1 && netTotalAmt <= map2) {
       if (mappingType === "A") {
         return { type: 'free' }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -30,10 +30,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const PaymentForm = props => {
+  console.log('PaymentForm:', props);
   const classes = useStyles();
   const { carts } = props.cartList;
   const { file } = props;
-  const { map_latitude: branchLatitude, map_longitude: branchLongitude } = props.branch;
+  const {
+    map_latitude: branchLatitude,
+    map_longitude: branchLongitude,
+  } = props.checkout.branchList[0];
   const { map_latitude: customerLatitude, map_longitude: customerLongitude } = props.shipping;
 
   const onChangeHandler = event =>
@@ -130,6 +134,11 @@ const PaymentForm = props => {
   );
 };
 
+const CheckoutProps = {};
+CheckoutProps.propTypes = {
+  branchList: PropTypes.array,
+};
+
 PaymentForm.propTypes = {
   cartList: PropTypes.object,
   file: PropTypes.any,
@@ -137,7 +146,7 @@ PaymentForm.propTypes = {
   setFile: PropTypes.func,
   onUploadImage: PropTypes.func,
   imgValid: PropTypes.string,
-  branch: PropTypes.string,
+  checkout: CheckoutProps,
   shipping: PropTypes.string,
   setDistance: PropTypes.func,
   setDuration: PropTypes.func,

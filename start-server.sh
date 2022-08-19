@@ -1,5 +1,5 @@
 #!/bin/bash
-pm2 delete -s crm-api-service webdaily-online
+pm2 delete all
 cd ./webdialy-online/
 pm2 start ecosystem.config.js
 cd ../crm-api-service/

@@ -90,7 +90,7 @@ export default function LeftMenu(props) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <List component="div" className={classes.listSubItem}>
               {leftMenuMaster.map(({ id, to_path: to }) => (
-                <ButtonLink to={`${appConstants.publicPath} ${to}`} key={`menu${id}`}>
+                <ButtonLink to={`${appConstants.publicPath}${to}`} key={`menu${id}`}>
                   <ListItem
                     key={id}
                     button

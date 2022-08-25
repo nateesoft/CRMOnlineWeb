@@ -59,6 +59,6 @@ export default defineMessages({
   },
   selectCompany: {
     id: `${scope}.selectCompany`,
-    defaultMessage: `Back`,
+    defaultMessage: `Change Company`,
   },
 });

@@ -138,11 +138,7 @@ const LoginForm = props => {
                       </Button>
                     </Grid>
                     <Grid item>
-                      <Button
-                        variant="outlined"
-                        disabled={pristine || submitting}
-                        onClick={resetDatabase}
-                      >
+                      <Button variant="contained" onClick={resetDatabase}>
                         {<FormattedMessage {...messages.selectCompany} />}
                       </Button>
                     </Grid>

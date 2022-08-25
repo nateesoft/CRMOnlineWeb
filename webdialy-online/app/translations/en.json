@@ -35,7 +35,7 @@
   "app.containers.Login.username": "Username",
   "app.containers.Logout.header": "You have successfully logged out.",
   "app.containers.Login.clear": "ล้างข้อมูล",
-  "app.containers.Login.selectCompany": "ฺSelect Company",
+  "app.containers.Login.selectCompany": "Change Company",
   "app.containers.Login.register": "สมัครสมาชิกใหม่? ลงทะเบียน",
   "app.containers.Login.password": "รหัสผ่าน",
   "app.containers.NotFoundPage.header": "404 - Page Not Found !",

@@ -35,7 +35,7 @@
   "app.containers.Login.username": "ชื่อผู้ใช้งาน",
   "app.containers.Logout.header": "ออกจากระบบเรียบร้อยแล้ว",
   "app.containers.Login.clear": "ล้างข้อมูล",
-  "app.containers.Login.selectCompany": "ย้อนกลับ",
+  "app.containers.Login.selectCompany": "เลือกบริษัทใหม่",
   "app.containers.Login.register": "สมัครสมาชิกใหม่? ลงทะเบียน",
   "app.containers.Login.password": "รหัสผ่าน",
   "app.containers.NotFoundPage.header": "ไม่พบข้อมูลหน้านี้",

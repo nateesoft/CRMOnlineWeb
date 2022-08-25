@@ -14,11 +14,17 @@ module.exports = args => {
       const responseCheckTable = await Task().filterByCRMDatabaseConfig(data[i].Database)
       if(responseCheckTable > 0){
         const encryptDb = Buffer.from(data[i].Database).toString('base64');
-        database.push({
-          database: data[i].Database,
-          encrypt: encryptDb,
-          query: `/?data=${encryptDb}`
-        });
+        const company = await Task().getCompanyNameFromDatabase(data[i].Database);
+        const companyData = JSON.parse(company.data)
+        
+        if(companyData.length>0){
+          database.push({
+            database: data[i].Database,
+            encrypt: encryptDb,
+            query: `/?data=${encryptDb}`,
+            name: companyData[0].name,
+          });
+        }
       }
     }
     res.status(200).json({

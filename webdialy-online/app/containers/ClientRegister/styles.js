@@ -6,6 +6,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-image: conic-gradient(red, yellow, green, pink, blue);
 `;
 
 export const Panel = styled.div`

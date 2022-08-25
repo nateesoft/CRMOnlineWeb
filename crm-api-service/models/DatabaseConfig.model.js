@@ -36,5 +36,20 @@ module.exports = db => {
     })
   }
 
+  module.getCompanyNameFromDatabase = async (database) => {
+    logger.debug("getCompanyNameFromDatabase")
+    return new Promise(async (resolve, reject) => {
+      try {
+        const sql = `select name from ${database}.company where 1=1;`;
+        logger.debug(sql);
+        const result = await pool.query(sql)
+        resolve({ status: "Success", data: JSON.stringify(result) })
+      } catch (err) {
+        logger.error(err);
+        reject(0)
+      }
+    })
+  }
+
   return module
 }

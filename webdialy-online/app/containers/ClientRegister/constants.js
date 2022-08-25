@@ -4,4 +4,6 @@
  *
  */
 
-export const DEFAULT_ACTION = 'app/ClientRegister/DEFAULT_ACTION';
+export const INIT_LOAD = 'app/ClientRegister/INIT_LOAD';
+export const INIT_LOAD_SUCCESS = 'app/ClientRegister/INIT_LOAD_SUCCESS';
+export const INIT_LOAD_ERROR = 'app/ClientRegister/INIT_LOAD_ERROR';

@@ -57,4 +57,8 @@ export default defineMessages({
     id: `${scope}.register`,
     defaultMessage: `Don't have an account? Sign Up`,
   },
+  selectCompany: {
+    id: `${scope}.selectCompany`,
+    defaultMessage: `Back`,
+  },
 });

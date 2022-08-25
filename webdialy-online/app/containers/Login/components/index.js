@@ -8,6 +8,7 @@ import { FormattedMessage } from 'react-intl';
 import RenderField from 'components/RenderField';
 import SweetAlert from 'sweetalert2-react';
 import { Box, Paper } from '@material-ui/core';
+import { setCookie } from 'react-use-cookie';
 
 import * as appConstants from 'containers/App/constants';
 import LoginLogo from 'images/loginIcon.png';
@@ -53,6 +54,11 @@ const LoginForm = props => {
 
   const onValidate = formValues => {
     onValidateLogin(formValues);
+  };
+
+  const resetDatabase = () => {
+    setCookie('database', '');
+    window.location.href = `${appConstants.publicPath}/login`;
   };
 
   if (!database) {
@@ -129,6 +135,15 @@ const LoginForm = props => {
                     <Grid item>
                       <Button variant="outlined" disabled={pristine || submitting} onClick={reset}>
                         {<FormattedMessage {...messages.clear} />}
+                      </Button>
+                    </Grid>
+                    <Grid item>
+                      <Button
+                        variant="outlined"
+                        disabled={pristine || submitting}
+                        onClick={resetDatabase}
+                      >
+                        {<FormattedMessage {...messages.selectCompany} />}
                       </Button>
                     </Grid>
                   </Grid>
